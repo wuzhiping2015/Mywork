@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Topology</title>
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+	</head>
+	<style>
+		.viswCard span {
+			color: #fff;
+			margin-right: 0px;
+			}
+			.box-header .el-button--mini, .el-button--mini.is-round {
+				padding: 1px 3px;
+				color: #fff;
+			   vertical-align: middle;
+			}
+			.el-input{
+				vertical-align: middle;
+			}
+			.label-text-vm {
+				text-align: left;
+			}
+			.col-sm-4 {
+				margin: 10px 0;
+			}
+			
+			.row .label {
+				display: inline-block;
+				width: 18px;
+				height: 18px;
+				margin-top: 5px;
+			}
+			.description-block{
+				margin: 10px 0px;
+			}
+			.list-group{
+				margin-bottom: 0px;
+			}
+			.box-header.with-border {
+				padding-bottom: 14px;
+			}
+			.clear{
+				 overflow: auto;
+				  zoom: 1;
+				  background: #fff;
+			}
+			.el-form-item{
+				margin-bottom: 6px !important;
+			}
+			.height{
+				height: 220px;
+			}
+</style>
+	<body>
+		<!-- hold-transition skin-blue-light sidebar-mini sidebar-collapse -->
+		<div class="wrapper" id="content" style="background:#fff; ">
+			<div class="col-md-12" style="padding-left: 0px;">
+				<canvas id="canvas" width="900" height="800">
+
+				</canvas>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/jtopo-0.4.8-min.js?v=12222"></script>
+		<script type="text/javascript" src="assets/js/toolbar.js?v=12222"></script>
+
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+
+
+
+		<style scoped>
+
+		</style>
+		<script type="text/javascript">
+			var canvas, stage, scene;
+			var CanvasWin_width, CanvasWin_height;
+			window.onresize = function() {
+
+				CanvasWin_width = $("#content").width();
+				CanvasWin_height = $("#content").height() - 50;
+
+				canvas = document.getElementById("canvas");
+				canvas.width = CanvasWin_width;
+				canvas.height = CanvasWin_height;
+			}
+
+			function Canvas_Init() {
+				//初始化画布的值
+				var canvas = document.getElementById("canvas");
+				var stage = new JTopo.Stage(canvas);
+
+
+				var scene = new JTopo.Scene(stage);
+				scene.background = 'assets/images/bg1.png';
+				scene.mode = "select";
+
+
+
+				// 流式布局（水平、垂直间隔)
+				var flowLayout = JTopo.layout.FlowLayout(100, 40);
+
+				var demoData = [
+
+					{
+						x: 400,
+						y: 120,
+						id: 3,
+						type: 2,
+						img: "radien",
+						title: '光口1'
+					},
+					{
+						x: 400,
+						y: 280,
+						id: 2,
+						type: 1,
+						img: "adient",
+						title: '光口2'
+					}, {
+						x: 400,
+						y: 490,
+						id: 1,
+						type: 0,
+						img: "gradien",
+						title: '光口3'
+					},
+
+
+				];
+
+				var demoData1 = [{
+						x: 500,
+						y: 60,
+						id: 1,
+						type: 0,
+						img: "gradien",
+						title: 'RU1'
+					},
+					{
+						x: 600,
+						y: 230,
+						id: 2,
+						type: 1,
+						img: "adient",
+						title: 'RU2'
+					},
+					{
+						x: 600,
+						y: 120,
+						id: 3,
+						type: 2,
+						img: "radien",
+						title: 'RU3'
+					},
+				]
+
+				var cloudnode = new JTopo.Node("MU1");
+				cloudnode.setSize(26, 26);
+				cloudnode.setLocation(160, 290);
+
+				cloudnode.fillColor = "0,0,0";
+
+				scene.add(cloudnode);
+
+				for (var i = 0; i < demoData.length; i++) {
+					var node = new JTopo.CircleNode(demoData[i].title);
+					node.radius = 15;
+					node.setLocation(demoData[i].x, demoData[i].y);
+
+					node.layout = {
+						type: 'tree',
+						radius: 60,
+						direction: 'right'
+					};
+
+					node.title = demoData[i]; //设置取得数据
+					node.alarm = demoData[i].title; //设置名称
+
+					var c = node.alarm;
+
+					if (node.title.type == 0) {
+						node.alarmColor = "255,204,51"; //设置颜色
+						node.fillColor = '255,204,51'; //填充颜色
+						setInterval(function() {
+							if (node.alarm == c) {
+								node.alarm = null;
+							} else {
+								node.alarm = c;
+							}
+						}, 600);
+
+					} else if (node.title.type == 1) {
+						node.alarmColor = "111,111,0"; //设置颜色
+					} else {
+						node.alarmColor = "111,222,0"; //设置颜色
+					}
+
+					scene.add(node);
+					var link = new JTopo.Link(cloudnode, node);
+
+					link.strokeColor = '255,111,0'; //设置线条
+
+					scene.add(link);
+					//二次循环
+					for (var j = 0; j < demoData1.length; j++) {
+						var top = new JTopo.CircleNode(demoData1[i].title);
+
+						top.radius = 10;
+						top.setLocation(10, 30);
+						top.setSize(20, 20);
+						top.layout = { //环形
+							type: 'circle',
+							/* direction: 'left', */
+							width: 10,
+							height: 10
+						};
+						scene.add(top);
+						scene.add(new JTopo.Link(node, top));
+					}
+
+					JTopo.layout.layoutNode(scene, cloudnode, true);
+
+					//二次循环end
+
+
+					//点击
+					node.click(function(event) {
+						var thisNode = event.target.text;
+						//window.location.href=event.target.text+".html";
+						var title = event.target.title;
+						console.log(title);
+						console.log(title.title);
+						//	window.location.href=demoData[i].title+".html";
+					});
+
+					
+
+				}
+
+
+				//主心联动
+				scene.addEventListener("mouseup", function(e) {
+					if (e.target && e.target.layout) {
+						JTopo.layout.layoutNode(scene, e.target, true);
+					}
+				})
+			}
+
+
+
+
+			var app;
+			let data = {
+				form: {
+					name: '数据...',
+				},
+				aushow: sessionStorage.getItem("equipment") == "au",
+				rushow: sessionStorage.getItem("equipment") == "ru",
+
+			};
+			app = new Vue({
+				el: "#content",
+				data: data,
+
+				created: function() {
+
+				},
+				mounted() {
+					Canvas_Init();
+					$("body").resize();
+
+				},
+				updated() {
+					// console.log("==更新成功==");
+					//console.log(this.$data);
+				},
+				methods: {
+					onSubmit() {
+						util.success("数据请求成功");
+					}
+				},
+
+			})
+		</script>
+	</body>
+</html>

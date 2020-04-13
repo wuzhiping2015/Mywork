@@ -1,0 +1,158 @@
+.skin-black .main-header {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 1px -3rem 2.1875rem rgba(8, 10, 37, .03), 0 0.9375rem 1.40625rem rgba(8, 10, 37, .03), 0px -2rem 0.53125rem rgba(8, 10, 37, .05), -1px -3rem 0.1875rem rgba(8, 10, 37, .03);
+}
+
+.skin-black .main-header .navbar-toggle {
+    color: #333
+}
+
+.skin-black .main-header .navbar-brand {
+    color: #333;
+    border-right: 1px solid #eee
+}
+
+.skin-black .main-header .navbar {
+    position: relative;
+    background: #28a7d7 !important;
+}
+
+.viswCard {
+    position: absolute;
+    right: 5px;
+    top: 9px;
+}
+
+.viswCard span {
+    display: inline-block;
+    padding: 5px;
+    margin-right: 15px;
+    border-radius: 50%;
+    color: #7279a0;
+    font-size: 14px;
+}
+
+.viswCard span.active {
+    background: #7279a0;
+    color: #fff;
+}
+
+.skin-black .main-header .navbar .navbar-custom-menu .navbar-nav>li>a,
+.skin-black .main-header .navbar .navbar-right>li>a {
+    /* border-left: 1px solid #eee; */
+    border-right-width: 0;
+}
+
+.skin-black .main-header>.logo {
+
+    background: #28a7d7 !important;
+}
+
+
+.skin-black .main-header li.user-header {
+    background-color: #222
+}
+
+.skin-black .content-header {
+    background: transparent;
+    box-shadow: none
+}
+
+.skin-black .wrapper,
+
+.skin-black .left-side {
+    background-color: #f5f5f5;
+}
+
+.skin-black .user-panel>.info,
+.skin-black .user-panel>.info>a {
+    color: #fff
+}
+
+
+
+.skin-black .sidebar-menu>li>a {
+    border-left: 3px solid transparent
+}
+
+.skin-black .sidebar-menu>li:hover>a,
+.skin-black .sidebar-menu>li.active>a,
+.skin-black .sidebar-menu>li.menu-open>a {
+    color: #fff;
+    background: #35404d
+}
+
+.skin-black .sidebar-menu>li.active>a {
+    border-left-color: #fff
+}
+
+.skin-black .sidebar-menu>li>.treeview-menu {
+    background: #35404d;
+    padding-left: 20px;
+    padding-top: 5px;
+}
+
+
+.skin-black .sidebar a:hover {
+    text-decoration: none
+}
+
+.skin-black .sidebar-menu .treeview-menu>li>a {
+    color: #8aa4af
+}
+
+.skin-black .sidebar-menu .treeview-menu>li.active>a,
+.skin-black .sidebar-menu .treeview-menu>li>a:hover {
+
+    color: #55b9ce;
+
+}
+
+.skin-black .sidebar-form {
+    border-radius: 3px;
+    border: 1px solid #374850;
+    margin: 10px 10px
+}
+
+.skin-black .sidebar-form input[type="text"],
+.skin-black .sidebar-form .btn {
+    box-shadow: none;
+    background-color: #374850;
+    border: 1px solid transparent;
+    height: 35px
+}
+
+.skin-black .sidebar-form input[type="text"] {
+    color: #666;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 2px
+}
+
+.skin-black .sidebar-form input[type="text"]:focus,
+.skin-black .sidebar-form input[type="text"]:focus+.input-group-btn .btn {
+    background-color: #fff;
+    color: #666
+}
+
+.skin-black .sidebar-form input[type="text"]:focus+.input-group-btn .btn {
+    border-left-color: #fff
+}
+
+.skin-black .sidebar-form .btn {
+    color: #999;
+    border-top-left-radius: 0;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 0
+}
+
+.skin-black .pace .pace-progress {
+    background: #222
+}
+
+.skin-black .pace .pace-activity {
+    border-top-color: #222;
+    border-left-color: #222
+}

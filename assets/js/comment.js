@@ -302,7 +302,7 @@ Vue.component('el-main-header', {
 				sessionStorage.setItem("url", url);
 				window.location.href = url + ".html"
 			}
-			
+
 			this.action = sessionStorage.getItem("url");
 
 		}
@@ -557,6 +557,9 @@ Vue.component("device", {
 				{
 					"tab": "Deviceinfo"
 				},
+				{
+					"tab": "Topology"
+				}
 			]
 		}
 	},
@@ -575,7 +578,7 @@ Vue.component("device", {
 					document.getElementById("iframe1").setAttribute("src", "status_pageru.html");
 				}
 
-			} else if (event == "Deviceinfo") {
+			} else if (event == "Deviceinfo" || event == "Topology") {
 				sessionStorage.setItem("url", event);
 				document.getElementById("iframe1").setAttribute("src", event + ".html");
 			} else {
