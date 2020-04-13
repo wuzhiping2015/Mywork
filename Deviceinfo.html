@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Deviceinfo</title>
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+	</head>
+	<style>
+		.viswCard span {
+	color: #fff;
+	margin-right: 0px;
+	}
+	.box-header .el-button--mini, .el-button--mini.is-round {
+		padding: 1px 3px;
+		color: #fff;
+	   vertical-align: middle;
+	}
+	.el-input{
+		vertical-align: middle;
+	}
+	.label-text-vm {
+	    text-align: left;
+	}
+	.col-sm-4 {
+	    margin: 10px 0;
+	}
+	
+	.row .label {
+	    display: inline-block;
+	    width: 18px;
+	    height: 18px;
+	    margin-top: 5px;
+	}
+	.description-block{
+		margin: 10px 0px;
+	}
+	.list-group{
+		margin-bottom: 0px;
+	}
+	.box-header.with-border {
+	    padding-bottom: 14px;
+	}
+	.clear{
+		 overflow: auto;
+		  zoom: 1;
+		  background: #fff;
+	}
+	.el-form-item{
+		margin-bottom: 6px !important;
+	}
+	.height{
+		height: 220px;
+	}
+</style>
+	<body>
+		<!-- hold-transition skin-blue-light sidebar-mini sidebar-collapse -->
+		<div class="wrapper" id="content" style="background:#f1f4f6; margin-top: 10px;">
+
+			<div class="col-md-12" style="padding-left: 0px;">
+				<div class="row">
+					<!--  DL I/P  start-->
+					<div class="col-md-12">
+
+						<div class="box">
+							<div class="box-header with-border">
+								<h3 class="box-title">DeviceInfo</h3>
+								<div class="box-tools pull-right" style="top: 9px;">
+									<el-button type="primary" @click="onSubmit" size="small">数据同步</el-button>
+								</div>
+							</div>
+
+							<div class="clear" style="padding-top:10px;">
+								<el-form ref="form" :model="form" label-width="180px" size="medium">
+									<div style="width: 600px;">
+										<el-form-item label="设备厂商代码">
+											{{form.name}}
+										</el-form-item>
+										<el-form-item label="设备类别">
+											{{form.name}}
+										</el-form-item>
+										<el-form-item label="设备型号">
+											{{form.name}}
+										</el-form-item>
+										<el-form-item label="设备序列号">
+											{{form.name}}
+										</el-form-item>
+										<el-form-item label="软件版本">
+											{{form.name}}
+										</el-form-item>
+
+										<el-form-item label="FPGA版本">
+											{{form.name}}
+										</el-form-item>
+
+										<el-form-item label="站点编码">
+											{{form.name}}
+										</el-form-item>
+
+										<el-form-item label="站点编号">
+											{{form.name}}
+										</el-form-item>
+
+									</div>
+								</el-form>
+							</div>
+						</div>
+
+					</div>
+
+					<!--  DL I/P  end-->
+
+				</div>
+
+				<!-- /.nav-tabs-custom -->
+			</div>
+
+		</div>
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+
+		<style scoped>
+
+		</style>
+		<script type="text/javascript">
+			var app;
+			let data = {
+				form: {
+					name: '数据...',
+
+				},
+				aushow: sessionStorage.getItem("equipment") == "au",
+				rushow: sessionStorage.getItem("equipment") == "ru",
+
+			};
+			app = new Vue({
+				el: "#content",
+				data: data,
+
+				created: function() {
+
+				},
+				mounted() {
+					$("body").resize();
+
+				},
+				updated() {
+					// console.log("==更新成功==");
+					//console.log(this.$data);
+				},
+				methods: {
+					onSubmit() {
+						util.success("数据请求成功");
+					}
+				},
+
+			})
+		</script>
+	</body>
+</html>

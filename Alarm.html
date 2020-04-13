@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Alarm </title>
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+	</head>
+	<style>
+		.clear{
+	 	 overflow: auto;
+	 	  zoom: 1;
+	 	  background: #fff;
+	 }
+	 .box-header.with-border {
+	     padding-bottom: 14px;
+	 }
+	 .el-form-item__content{
+		 margin-bottom: 8px;
+	 }
+</style>
+	<body class="skin-black sidebar-open sidebar-mini">
+		<div class="wrapper">
+			<!-- 页头 -->
+			<div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+				<el-main-header></el-main-header>
+			</div>
+			<!-- 页头end -->
+
+
+			<!-- 内容区域 -->
+			<div id="content-wrapper">
+
+				<!-- 主要内容显示 -->
+				<section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+					<section class="">
+						<ol class="breadcrumb">
+							<li>
+								<a  href="Alarm.html">Hardware</a>
+							</li>
+							<li class="active">{{url}}</li>
+						</ol>
+					</section>
+					<div class="wrapper" id="content" style="background:#f1f4f6; margin-top: 20px;">
+
+						<div class="col-md-12" style="padding-left: 0px;">
+							<div class="row">
+								<!-- Port1 START -->
+								<div class="col-md-6">
+									<div class="box">
+										<div class="box-header with-border">
+											<h3 class="box-title">&nbsp;</h3>
+											<div class="box-tools pull-right" style="top: 9px;">
+												<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
+												<el-button size="small">Read</el-button>
+											</div>
+										</div>
+										<div class="clear">
+											<table class="table table-hover">
+												<tbody>
+													<tr>
+														<th>Alarm type</th>
+														<th>Alarm Enabled</th>
+														<th width="180">Alarm Grade</th>
+													</tr>
+													<tr>
+														<td>Door Open </td>
+														<td>
+															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
+															</el-switch>
+														</td>
+														<td>
+															<el-select v-model="value" placeholder="请选择">
+																<el-option v-for="item in Grade" :key="item.value" :label="item.label" :value="item.value">
+																</el-option>
+															</el-select>
+														</td>
+													</tr>
+
+													<tr>
+														<td>AC Power Off </td>
+														<td>
+															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
+															</el-switch>
+														</td>
+														<td>
+															<el-select v-model="value" placeholder="请选择">
+																<el-option v-for="item in Grade" :key="item.value" :label="item.label" :value="item.value">
+																</el-option>
+															</el-select>
+														</td>
+													</tr>
+
+													<tr>
+														<td>DC Power Off </td>
+														<td>
+															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
+															</el-switch>
+														</td>
+														<td>
+															<el-select v-model="value" placeholder="请选择">
+																<el-option v-for="item in Grade" :key="item.value" :label="item.label" :value="item.value">
+																</el-option>
+															</el-select>
+														</td>
+													</tr>
+													<tr>
+														<td>GPS Offline </td>
+														<td>
+															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
+															</el-switch>
+														</td>
+														<td>
+															<el-select v-model="value" placeholder="请选择">
+																<el-option v-for="item in Grade" :key="item.value" :label="item.label" :value="item.value">
+																</el-option>
+															</el-select>
+														</td>
+													</tr>
+
+
+													<tr>
+														<td>Fan Alarm1</td>
+														<td>
+															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
+															</el-switch>
+														</td>
+														<td>
+															<el-select v-model="value" placeholder="请选择">
+																<el-option v-for="item in Grade" :key="item.value" :label="item.label" :value="item.value">
+																</el-option>
+															</el-select>
+														</td>
+													</tr>
+
+													<tr>
+														<td>Fan Alarm2</td>
+														<td>
+															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
+															</el-switch>
+														</td>
+														<td>
+															<el-select v-model="value" placeholder="请选择">
+																<el-option v-for="item in Grade" :key="item.value" :label="item.label" :value="item.value">
+																</el-option>
+															</el-select>
+														</td>
+													</tr>
+
+													<tr>
+														<td>Fan Alarm3</td>
+														<td>
+															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
+															</el-switch>
+														</td>
+														<td>
+															<el-select v-model="value" placeholder="请选择">
+																<el-option v-for="item in Grade" :key="item.value" :label="item.label" :value="item.value">
+																</el-option>
+															</el-select>
+														</td>
+													</tr>
+
+													<tr>
+														<td>Fan Alarm4</td>
+														<td>
+															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
+															</el-switch>
+														</td>
+														<td>
+															<el-select v-model="value" placeholder="请选择">
+																<el-option v-for="item in Grade" :key="item.value" :label="item.label" :value="item.value">
+																</el-option>
+															</el-select>
+														</td>
+													</tr>
+
+												</tbody>
+											</table>
+
+
+										</div>
+									</div>
+								</div>
+								<!-- Port1 END -->
+								
+								
+								
+								<!-- External START -->
+								<div class="col-md-6">
+									<div class="box">
+										<div class="box-header with-border">
+											<h3 class="box-title">&nbsp;</h3>
+											<div class="box-tools pull-right" style="top: 9px;">
+												<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
+												<el-button size="small">Read</el-button>
+											</div>
+										</div>
+										<div class="clear">
+											<table class="table table-hover">
+												<tbody>
+													<tr>
+														<th>Alarm type</th>
+														<th>Alarm Enabled</th>
+														<th width="180">Alarm Grade</th>
+													</tr>
+													<tr v-for="(v,i ) in 8">
+														<td>External Alarm {{i+1}}</td>
+														<td>
+															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
+															</el-switch>
+														</td>
+														<td>
+															<el-select v-model="value" placeholder="请选择">
+																<el-option v-for="item in Grade" :key="item.value" :label="item.label" :value="item.value">
+																</el-option>
+															</el-select>
+														</td>
+													</tr>
+													
+								
+													
+								
+												</tbody>
+											</table>
+								
+								
+										</div>
+									</div>
+								</div>
+								<!-- External END -->
+								
+								
+								
+
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- 内容区域 -->
+			</div>
+		</div>
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+		<script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+
+		<script>
+			let data = {
+				equipment: sessionStorage.getItem("equipment"),
+				url: sessionStorage.getItem("url"),
+				form: {
+					name: true,
+					tag: 111,
+				},
+				value: '1',
+				Grade: [{
+					value: '1',
+					label: 'Warn'
+				}, {
+					value: '2',
+					label: 'Minor'
+				}, {
+					value: '3',
+					label: 'Major'
+				}, {
+					value: '4',
+					label: 'Critcal'
+				}],
+			};
+			var Helios = new Vue({
+				el: "#MainContext",
+				data: data,
+				beforeCreate() {
+					/*console.log("创建前：");
+					console.log(this.$data); */
+				},
+				created() {
+					//  console.log("创建完成：");
+					// console.log(this.$data);
+					/* this.$data.hsulength = this.$data.HSU.length; */
+
+				},
+				beforeMount() {
+					/* console.log("挂载前：");
+					console.log(this.$data); */
+
+				},
+				mounted() {
+					/* console.log("时时监控数据变化,并随之更新");*/
+					$("body").resize();
+
+
+				},
+
+				updated() {
+
+
+				},
+				//事件
+				methods: {
+					onSubmit() {
+						util.success("数据请求成功");
+					}
+				},
+				filters: {
+
+				},
+
+
+
+			});
+		</script>
+
+
+	</body>
+
+
+</html>

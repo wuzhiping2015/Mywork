@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Helios </title>
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+	</head>
+	<style>
+		.viswCard span {
+	color: #fff;
+	margin-right: 0px;
+	}
+	.box-header .el-button--mini, .el-button--mini.is-round {
+		padding: 1px 3px;
+		color: #fff;
+	   vertical-align: middle;
+	}
+	.el-input{
+		vertical-align: middle;
+	}
+	.label-text-vm {
+	    text-align: left;
+	}
+</style>
+
+	<body class="skin-black  sidebar-open sidebar-mini">
+		<!-- hold-transition skin-blue-light sidebar-mini sidebar-collapse -->
+		<div class="wrapper">
+			<!-- 页头 -->
+			<div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+				<el-main-header :loguser="logUserName"></el-main-header>
+			</div>
+			<!-- 页头end -->
+
+			<!-- 侧边栏导航 -->
+			<div id="comp-sidebar">
+				<el-main-sidebar></el-main-sidebar>
+			</div>
+			<!-- 侧边栏导航 end -->
+
+			<!-- 内容区域 -->
+			<div class="content-wrapper" id="content-wrapper">
+				<section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+
+					<div class="col-md-12">
+						<div class="nav-tabs-custom">
+							<device></device>
+							<iframe name="iframe1" id="iframe1" scrolling="no" :src="Tagurl" frameborder="0" border="none" width="100%"
+							 style="height: 100vh;"></iframe>
+
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+		<script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+		<script type="text/javascript">
+			var app;
+			let data = {
+				url: sessionStorage.getItem("url"),
+				equipment: sessionStorage.getItem("equipment"),
+				Tagurl: ''
+			};
+			app = new Vue({
+				el: "#content-wrapper",
+				data: data,
+				created: function() {
+
+				},
+				mounted() {
+					//console.log(this.url);
+					$("body").resize();
+					/* const oIframe = document.getElementById('iframe1');
+					const deviceWidth = document.documentElement.clientWidth;
+					const deviceHeight = document.documentElement.clientHeight;
+					/* oIframe.style.width = (Number(deviceWidth) - 220) + 'px';  
+					oIframe.style.height = (Number(deviceHeight) - 160) + 'px'; //数字是页面布局高度差 */
+				},
+				beforeMount() {
+
+					const children = ["Status", "ParaSet", "RocSet", "Deviceinfo"];
+					if (this.url == children[0]) {
+						if (this.equipment == "au") {
+							this.Tagurl = "status_page.html";
+						} else if (this.equipment == "eu") {
+							this.Tagurl = "status_pageeu.html";
+						} else {
+							this.Tagurl = "status_pageru.html";
+						}
+					} else {
+						this.Tagurl = this.url + ".html";
+					}
+
+					console.log(this.url);
+
+				},
+				updated() {
+					// console.log("==更新成功==");
+					//console.log(this.$data);
+
+				},
+				methods: {},
+
+			})
+		</script>
+	</body>
+</html>

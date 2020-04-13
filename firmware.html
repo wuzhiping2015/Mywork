@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Helios </title>
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+	</head>
+	<style>
+		.viswCard span {
+	color: #fff;
+	margin-right: 0px;
+	}
+	.box-header .el-button--mini, .el-button--mini.is-round {
+		padding: 1px 3px;
+		color: #fff;
+	   vertical-align: middle;
+	}
+	.el-input{
+		vertical-align: middle;
+	}
+	.label-text-vm {
+	    text-align: left;
+	}
+</style>
+
+	<body class="skin-black sidebar-collapse sidebar-mini">
+		<!-- hold-transition skin-blue-light sidebar-mini sidebar-collapse -->
+		<div class="wrapper">
+			<!-- 页头 -->
+			<div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+				<el-main-header :loguser="logUserName"></el-main-header>
+			</div>
+			<!-- 页头end -->
+
+			<!-- 侧边栏导航 -->
+			<div id="comp-sidebar">
+				<el-main-sidebar></el-main-sidebar>
+			</div>
+			<!-- 侧边栏导航 end -->
+
+			<!-- 内容区域 -->
+			<div class="content-wrapper" id="content-wrapper">
+
+				<!-- 内容头部面包屑 -->
+				<section class="" style="display: none">
+					<ol class="breadcrumb">
+						<li>
+							<a id="head1" href="#"></a>
+						</li>
+						<li id="head2" class="active"></li>
+					</ol>
+				</section>
+				<!-- 主要内容显示 -->
+				<section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+
+
+
+					<div class="row">
+						<!-- LEFT START -->
+						<div class="col-xs-12">
+							<div class="box">
+								<div class="box-header">
+									<h3 class="box-title">固件管理</h3>
+									<div class="viswCard">
+										<!-- <el-input v-model="tableDataName" size="mini" placeholder="请输入设备名称" style="width:240px"></el-input>
+					<el-button type="primary" size="mini" @click="doFilter">搜索</el-button> -->
+										<el-button type="success" size="mini" @click="openData">数据同步</el-button>
+									</div>
+								</div>
+								<div class="box-body table-responsive no-padding">
+
+									<el-table :data="tableDataEnd" border tooltip-effect="dark" ref="multipleTable" style="width: 100%">
+										<el-table-column prop="data1" label="编号" width="60">
+										</el-table-column>
+										<el-table-column prop="data2" label="设备类型" :formatter="substr_name">
+										</el-table-column>
+										<el-table-column prop="data3" label="固件名称">
+										</el-table-column>
+										<el-table-column prop="data4" label="固件型号">
+										</el-table-column>
+
+										<el-table-column prop="data5" label="添加时间">
+										</el-table-column>
+
+										<el-table-column prop="data6" label="固件版本">
+										</el-table-column>
+
+										<el-table-column prop="data7" label="存储地址">
+										</el-table-column>
+
+
+										<el-table-column label="操作" width="280">
+											<template slot-scope="{row}">
+												<el-button size="mini" icon="el-icon-edit" type="primary" @click.native.prevent="lookmax(row.id,tableDataEnd)">编辑</el-button>
+												<el-button size="mini" icon="el-icon-setting" type="primary" @click.native.prevent="setmax(row.id,tableDataEnd)">下发</el-button>
+												<el-button size="mini" icon="el-icon-delete" type="danger" @click.native.prevent="delerow(row.id,tableDataEnd)">删除</el-button>
+
+											</template>
+										</el-table-column>
+									</el-table>
+
+
+
+									<div style="text-align: center;">
+										<el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage"
+										 :page-sizes="[5, 24, 30]" :page-size="pageSize" layout="total, sizes, prev, pager, next" :total="totalItems">
+										</el-pagination>
+									</div>
+
+
+								</div>
+
+							</div>
+							<!-- events log  end-->
+						</div>
+
+
+						<!-- 编辑固件 -->
+						<el-dialog title="编辑固件-1234" :visible.sync="update" width="40%">
+
+							<div>
+								<el-form ref="updateform" :model="updateform" label-width="80px">
+									<el-form-item label="固件名称">
+										<el-input></el-input>
+									</el-form-item>
+									<el-form-item label="固件类型">
+										<el-input></el-input>
+									</el-form-item>
+									<el-form-item label="文件上传">
+										<el-button size="small" type="primary">选取格式文件</el-button>
+									</el-form-item>
+								</el-form>
+							</div>
+							<div class="dialog-footer tl" style=" margin-left: 81px;">
+								<el-button type="primary" @click="update = false" size="medium">设 置</el-button>
+								<el-button type="success" @click="update = false" size="medium">取 消</el-button>
+							</div>
+							<div class="mt10">
+								<el-table :data="tableDataEnd" border height="250" style="width: 100%">
+									<el-table-column prop="data1" label="编号" width="60">
+									</el-table-column>
+									<el-table-column prop="data2" label="文件名称">
+									</el-table-column>
+									<el-table-column prop="data3" label="文件类型">
+									</el-table-column>
+									<el-table-column prop="data4" label="文件路径">
+									</el-table-column>
+									<el-table-column prop="data5" label="文件大小">
+									</el-table-column>
+								</el-table>
+							</div>
+						</el-dialog>
+						<!-- 编辑固件 -->
+
+
+
+						<!-- 下发 -->
+						<el-dialog title="下发固件-1234" :visible.sync="updown" width="80%">
+							<div class="box-header" style="height: 50px;">
+								<div class="viswCard">
+									<el-button type="primary" size="mini" @click="updown = false">设置</el-button>
+									<el-button type="success" size="mini" @click="updown = false">数据同步</el-button>
+								</div>
+							</div>
+							<el-table :data="tableDataEnd" border height="250" style="width: 100%" @selection-change="handleSelectionChange">
+								<el-table-column type="selection" prop="data1" label="编号" width="60">
+								</el-table-column>
+								<el-table-column prop="data2" label="设备MAC">
+								</el-table-column>
+								<el-table-column prop="data3" label="设备名称">
+								</el-table-column>
+								<el-table-column prop="data4" label="部署地点">
+								</el-table-column>
+								<el-table-column prop="data5" label="固件版本">
+								</el-table-column>
+								<el-table-column prop="data6" label="更新状态">
+								</el-table-column>
+								<el-table-column prop="data5" label="更新时间">
+								</el-table-column>
+							</el-table>
+						</el-dialog>
+						<!-- 下发 -->
+
+
+
+					</div>
+
+				</section>
+			</div>
+
+		</div>
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+		<script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+		<script type="text/javascript">
+			var app;
+			let data = {
+				tableDataBegin: [],
+				tableDataName: "",
+				tableDataEnd: [],
+				currentPage: 1,
+				pageSize: 5,
+				totalItems: 2,
+				filterTableDataEnd: [],
+				flag: false,
+				Switch: false,
+				Switch1: true,
+				delVisible: false,
+
+
+				//下发 编辑 表单 数据
+				update: false,
+				updown: false,
+				multipleSelection: [],
+				updateform: {},
+
+
+
+			};
+			app = new Vue({
+				el: "#content-wrapper",
+				data: data,
+				created: function() {
+
+				},
+
+				mounted() {
+					/* console.log("时时监控数据变化,并随之更新");*/
+					$("body").resize();
+					this.getdata();
+
+				},
+
+				updated() {
+					// console.log("==更新成功==");
+					//console.log(this.$data);
+				},
+
+				methods: {
+					/* 初始进入系统请求数据 */
+					getdata() {
+						/* 	let url = "http://jsonplaceholder.typicode.com/users";
+							util.getattrajax(url, function(data) { */
+
+						var dataajax = [{
+								data1: "1",
+								data2: "数据...",
+								data3: "数据...",
+								data4: "数据...",
+								data5: "数据...",
+								data6: "数据...",
+								data7: "数据...",
+							},
+							{
+								data1: "2",
+								data2: "数据...",
+								data3: "数据...",
+								data4: "数据...",
+								data5: "数据...",
+								data6: "数据...",
+								data7: "数据...",
+							},
+							{
+								data1: "3",
+								data2: "数据...",
+								data3: "数据...",
+								data4: "数据...",
+								data5: "数据...",
+								data6: "数据...",
+								data7: "数据...",
+							},
+
+						];
+
+						if (this.totalItems > this.pageSize) {
+							this.totalItems = dataajax.length;
+							for (let index = 0; index < this.pageSize; index++) {
+								this.tableDataEnd.push({
+									data1: dataajax[index].data1,
+									data2: dataajax[index].data2,
+									data3: dataajax[index].data3,
+									data4: dataajax[index].data4,
+									data5: dataajax[index].data5,
+									data6: dataajax[index].data6,
+									data7: dataajax[index].data7,
+								});
+							}
+						} else {
+							this.tableDataEnd = dataajax;
+
+						}
+						dataajax.forEach((value, index) => {
+							this.tableDataBegin.push({
+								data1: dataajax[index].data1,
+								data2: dataajax[index].data2,
+								data3: dataajax[index].data3,
+								data4: dataajax[index].data4,
+								data5: dataajax[index].data5,
+								data6: dataajax[index].data6,
+								data7: dataajax[index].data7,
+							});
+						})
+						toast.$message({
+							message: '数据同步成功',
+							type: 'success',
+							offset: 80
+						});
+						/* }); */
+					},
+					/* 初始进入系统请求数据  end*/
+
+					//组件自带监控当前页码  start**************
+					//前端搜索功能需要区分是否检索,因为对应的字段的索引不同
+					//用两个变量接收currentChangePage函数的参数
+					handleSizeChange(val) {
+						console.log(`每页 ${val} 条`);
+						this.pageSize = val;
+						this.handleCurrentChange(1);
+					},
+					handleCurrentChange(val) {
+						//console.log(`当前页: ${val}`);
+						this.currentPage = val;
+						//需要判断是否检索
+						if (!this.flag) {
+							this.currentChangePage(this.tableDataBegin);
+							console.log(this.tableDataEnd);
+						} else {
+							this.currentChangePage(this.filterTableDataEnd);
+							console.log(this.tableDataEnd);
+						}
+					},
+					//全局数据联动查询 方法**********************
+					currentChangePage(list) {
+						let from = (this.currentPage - 1) * this.pageSize;
+						let to = this.currentPage * this.pageSize;
+						this.tableDataEnd = [];
+						for (; from < to; from++) {
+							if (list[from]) {
+								this.tableDataEnd.push(list[from]);
+							}
+						}
+					},
+
+					//组件自带监控当前页码   end**************
+
+					//  全选
+					handleSelectionChange(val) {
+						this.multipleSelection = val;
+					},
+
+
+					//删除**********************
+					delerow: function(index, rows) {
+						toast.$confirm("此操作将永久删除该数据，是否继续", "提示", {
+							confirmButtonText: "确定",
+							cancelButtonText: '取消',
+							type: "warning"
+						}).then(() => {
+							rows.splice(index, 1);
+							/* toast.$notify({
+								title: '成功',
+								message: '删除成功',
+								type: 'success',
+								duration: 1000
+							}); */
+							this.$message.success("删除成功");
+						});
+					},
+
+					//编辑
+					lookmax(index, value) {
+						//	const html=this.$createElement;
+						this.update = true;
+
+					},
+					//下发
+					setmax(index) {
+						this.updown = true;
+						sessionStorage.setItem("setmax", index);
+					},
+
+
+					//数据同步**********************
+					openData() {
+						this.tableDataName = "";
+						//this.tableDataEnd = this.tableDataBegin;
+						//每次手动将数据置空,因为会出现多次点击搜索情况
+						this.$message.success("数据同步成功");
+						this.filterTableDataEnd = []
+						this.tableDataBegin.forEach((value, index) => {
+							this.filterTableDataEnd.push(value);
+						});
+						this.currentPage = 1;
+						this.totalItems = this.filterTableDataEnd.length;
+						this.currentChangePage(this.filterTableDataEnd);
+						this.flag = true;
+					},
+
+					//设备状态***********
+					selcome_swit(row, column, cellValue, index) {
+						if (cellValue === 1) {
+							return "正常";
+						} else {
+							return "失效";
+						}
+					},
+					substr_name(row, column, cellValue, index) {
+						let val = "";
+						val = cellValue.substring(0, 6) + "...";
+						return val;
+						//console.log(cellValue)
+					}
+
+				},
+
+			})
+		</script>
+	</body>
+</html>

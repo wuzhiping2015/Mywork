@@ -1,0 +1,205 @@
+{
+  "id": "1369841",
+  "name": "图传",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "15493",
+      "name": "加载中",
+      "font_class": "jiazaizhong",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    },
+    {
+      "icon_id": "167191",
+      "name": "信号塔",
+      "font_class": "xinhaota3",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "551962",
+      "name": "箭头",
+      "font_class": "arrow-right",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "1549399",
+      "name": "退出",
+      "font_class": "tuichu",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    },
+    {
+      "icon_id": "2069840",
+      "name": "用户类型",
+      "font_class": "yonghuleixing",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "2270138",
+      "name": "信号接收器",
+      "font_class": "xinhaojieshouqi",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "2729513",
+      "name": "消息",
+      "font_class": "xiaoxi",
+      "unicode": "e6cb",
+      "unicode_decimal": 59083
+    },
+    {
+      "icon_id": "3409207",
+      "name": "无线配置",
+      "font_class": "wifi",
+      "unicode": "e6de",
+      "unicode_decimal": 59102
+    },
+    {
+      "icon_id": "3595936",
+      "name": "告警",
+      "font_class": "gaojing",
+      "unicode": "e6f1",
+      "unicode_decimal": 59121
+    },
+    {
+      "icon_id": "3912263",
+      "name": "通讯基站",
+      "font_class": "ziyuan",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "5159044",
+      "name": "基站服务",
+      "font_class": "jizhanfuwu",
+      "unicode": "e687",
+      "unicode_decimal": 59015
+    },
+    {
+      "icon_id": "5327589",
+      "name": "加载",
+      "font_class": "jiazai",
+      "unicode": "e721",
+      "unicode_decimal": 59169
+    },
+    {
+      "icon_id": "5803719",
+      "name": "基站",
+      "font_class": "jizhan",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "6504121",
+      "name": "菜单",
+      "font_class": "menu-two",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "6864807",
+      "name": "winfo-icon-DSC基站",
+      "font_class": "winfo-icon-DSCjizhan",
+      "unicode": "e697",
+      "unicode_decimal": 59031
+    },
+    {
+      "icon_id": "7103362",
+      "name": "姓名 用户名 昵称",
+      "font_class": "xingmingyonghumingnicheng",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "7489006",
+      "name": "清空",
+      "font_class": "qingkong",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    },
+    {
+      "icon_id": "8090799",
+      "name": "LTE基站验收00",
+      "font_class": "LTEjizhanyanshou",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    },
+    {
+      "icon_id": "8101671",
+      "name": "密码 (1)",
+      "font_class": "mima",
+      "unicode": "e6c8",
+      "unicode_decimal": 59080
+    },
+    {
+      "icon_id": "8342269",
+      "name": "基站",
+      "font_class": "jizhan-nomal",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "8413962",
+      "name": "卡片",
+      "font_class": "qiapian1",
+      "unicode": "e6a3",
+      "unicode_decimal": 59043
+    },
+    {
+      "icon_id": "8455317",
+      "name": "列表",
+      "font_class": "liebiao",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "8712477",
+      "name": "列表",
+      "font_class": "liebiao1",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "8744040",
+      "name": "基站",
+      "font_class": "jizhan1",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "9083481",
+      "name": "确认",
+      "font_class": "queren",
+      "unicode": "e806",
+      "unicode_decimal": 59398
+    },
+    {
+      "icon_id": "9170008",
+      "name": "基站",
+      "font_class": "jizhan4",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "10380641",
+      "name": "个人中心 选中",
+      "font_class": "gerenzhongxinxuanzhong",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "10498425",
+      "name": "基站类型",
+      "font_class": "jizhanleixing",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    }
+  ]
+}
