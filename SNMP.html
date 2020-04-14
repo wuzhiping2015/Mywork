@@ -43,19 +43,19 @@
 				<section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
 					<section class="">
 						<ol class="breadcrumb">
-						<li>
-							<a href="Ethernet.html"  >Ethernet</a>
-						</li>
-						<li>
-							<a href="Modem.html">Modem</a>
-						</li>
-						<li>
-							<a href="SNMP.html"  style="font-weight: bold;">SNMP</a>
-						</li>
-						<li>
-							<a href="VPN.html">VPN</a>
-						</li>
-												
+							<li>
+								<a href="Ethernet.html">Ethernet</a>
+							</li>
+							<li>
+								<a href="Modem.html">Modem</a>
+							</li>
+							<li>
+								<a href="SNMP.html" style="font-weight: bold;">SNMP</a>
+							</li>
+							<li>
+								<a href="VPN.html">VPN</a>
+							</li>
+
 						</ol>
 					</section>
 					<div class="wrapper" id="content" style="background:#f1f4f6; margin-top: 20px;">
@@ -79,8 +79,12 @@
 											<el-form ref="form" :model="form" label-width="180px" size="medium">
 												<div class="col-md-10">
 													<el-form-item label="SNMP Enable">
-														<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-														</el-switch>
+														<el-checkbox-group v-model="form.name" size="small">
+															<el-checkbox label="Agent Switch" border></el-checkbox>
+														</el-checkbox-group>
+														<el-checkbox-group v-model="form.name1" size="small">
+															<el-checkbox label="Enable" border></el-checkbox>
+														</el-checkbox-group>
 													</el-form-item>
 													<el-form-item label="IP Address">
 														<el-input v-model="form.tag" size=""></el-input>
@@ -117,8 +121,12 @@
 											<el-form ref="form" :model="form" label-width="180px" size="medium">
 												<div class="col-md-10">
 													<el-form-item label="SNMP Enable">
-														<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-														</el-switch>
+														<el-checkbox-group v-model="form.name" size="small">
+															<el-checkbox label="Agent Switch" border></el-checkbox>
+														</el-checkbox-group>
+														<el-checkbox-group v-model="form.name1" size="small">
+															<el-checkbox label="Enable" border></el-checkbox>
+														</el-checkbox-group>
 													</el-form-item>
 													<el-form-item label="IP Address">
 														<el-input v-model="form.tag" size=""></el-input>
@@ -152,7 +160,7 @@
 															</el-option>
 														</el-select>
 													</el-form-item>
-													
+
 													<el-form-item label="PrivPass">
 														<el-input v-model="form.tag" size=""></el-input>
 													</el-form-item>
@@ -185,6 +193,7 @@
 				url: sessionStorage.getItem("url"),
 				form: {
 					name: true,
+					name1: false,
 					tag: 111,
 				},
 

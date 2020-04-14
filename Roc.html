@@ -135,8 +135,8 @@
 										</el-form-item>
 									</div>
 									<div class="col-md-12">
-										<el-form-item label="Digital board feedback power" label-width="200px">
-											<el-input v-model="form.tag"></el-input>
+										<el-form-item label="Digital board feedback power" label-width="220px">
+											<el-input v-model="form.tag" style="width:120px"></el-input>
 										</el-form-item>
 									</div>
 
@@ -175,16 +175,30 @@
 											<el-input v-model="form.tag"></el-input>
 										</el-form-item>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-10">
 										<el-form-item label="DL Digital I/P Over Pwr">
-											<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-											</el-switch>
+										<el-checkbox-group v-model="form.name" size="small">
+											<el-checkbox label="Agent Switch" border></el-checkbox>
+										</el-checkbox-group>
+										
+										<el-checkbox-group v-model="form.name1" size="small">
+											<el-checkbox label="Enable" border></el-checkbox>
+										</el-checkbox-group>
+											
+											
+											
+											
 										</el-form-item>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-10">
 										<el-form-item label="DL Digital I/P Under Pwr">
-											<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-											</el-switch>
+											<el-checkbox-group v-model="form.name" size="small">
+												<el-checkbox label="Agent Switch" border></el-checkbox>
+											</el-checkbox-group>
+											
+											<el-checkbox-group v-model="form.name1" size="small">
+												<el-checkbox label="Enable" border></el-checkbox>
+											</el-checkbox-group>
 										</el-form-item>
 									</div>
 								</el-form>
@@ -246,14 +260,9 @@
 			var app;
 			let data = {
 				form: {
-					name: '1111111',
-					region: '',
-					date1: '',
-					date2: '',
-					delivery: false,
-					type: [],
-					resource: '',
-					desc: ''
+					name:true,
+					name1:false,
+					tag:"测试数据..."
 				},
 				options: [{
 					value: '1',

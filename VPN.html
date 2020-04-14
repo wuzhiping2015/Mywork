@@ -80,8 +80,12 @@
 												<div class="col-md-10">
 
 													<el-form-item label="VPN Enable">
-														<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-														</el-switch>
+														<el-checkbox-group v-model="form.name" size="small">
+															<el-checkbox label="Agent Switch" border></el-checkbox>
+														</el-checkbox-group>
+														<el-checkbox-group v-model="form.name1" size="small">
+															<el-checkbox label="Enable" border></el-checkbox>
+														</el-checkbox-group>
 													</el-form-item>
 													<el-form-item label="PPP EncryPtion">
 														MPPE
@@ -158,6 +162,7 @@
 				url: sessionStorage.getItem("url"),
 				form: {
 					name: true,
+					name1: false,
 					tag: 111,
 				}
 			};

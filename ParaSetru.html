@@ -69,36 +69,33 @@
 								</div>
 							</div>
 							<div class="clear" style="padding-top: 10px;">
-								<el-form ref="form" :model="form" label-width="180px" size="medium">
-									<div class="col-md-6">
-										<el-form-item label="Agent Switch">
-											<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-											</el-switch>
-										</el-form-item>
-									</div>
-									<div class="col-md-6">
-										<el-form-item label=" Enable">
-											<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-											</el-switch>
-										</el-form-item>
-									</div>
-
-									<div class="col-md-6">
+								<el-form ref="form" :model="form" label-width="190px" size="medium">
+									<div class="col-md-12">
 										<el-form-item label="Light 1 Fault Alarm Enbale">
-											<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-											</el-switch>
+
+											<el-checkbox-group v-model="form.name" size="small">
+												<el-checkbox label="Agent Switch" border></el-checkbox>
+											</el-checkbox-group>
+											<el-checkbox-group v-model="form.name1" size="small">
+												<el-checkbox label="Enable" border></el-checkbox>
+											</el-checkbox-group>
 										</el-form-item>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<el-form-item label="Light 2 Fault Alarm Enbale">
-											<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-											</el-switch>
+
+											<el-checkbox-group v-model="form.name" size="small">
+												<el-checkbox label="Agent Switch" border></el-checkbox>
+											</el-checkbox-group>
+											<el-checkbox-group v-model="form.name1" size="small">
+												<el-checkbox label="Enable" border></el-checkbox>
+											</el-checkbox-group>
 										</el-form-item>
 									</div>
 
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<el-form-item label="下行链路时延">
-											<el-input v-model="form.tag"></el-input>
+											<el-input v-model="form.tag" style="width: 110px;"></el-input>
 										</el-form-item>
 									</div>
 
@@ -123,39 +120,67 @@
 								</div>
 							</div>
 							<div class="clear" style="padding-top: 10px;">
-								<el-form ref="form" :model="form" label-width="120px" size="medium">
-									<div class="col-md-6">
+								<el-form ref="form" :model="form" label-width="130px" size="medium">
+									<div class="col-md-12">
 										<el-form-item label="Door Open">
-											<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-											</el-switch>
+											<el-checkbox-group v-model="form.name" size="small">
+												<el-checkbox label="Agent Switch" border></el-checkbox>
+											</el-checkbox-group>
+											<el-checkbox-group v-model="form.name1" size="small">
+												<el-checkbox label="Enable" border></el-checkbox>
+											</el-checkbox-group>
 										</el-form-item>
 									</div>
 
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<el-form-item label="AC1 Power Off">
-											<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-											</el-switch>
-										</el-form-item>
+											
+												<el-checkbox-group v-model="form.name" size="small">
+													<el-checkbox label="Agent Switch" border></el-checkbox>
+												</el-checkbox-group>
+												<el-checkbox-group v-model="form.name1" size="small">
+													<el-checkbox label="Enable" border></el-checkbox>
+												</el-checkbox-group>
+											</el-form-item>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<el-form-item label="DC1 Power Off">
-											<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-											</el-switch>
-										</el-form-item>
+										
+										
+										<el-checkbox-group v-model="form.name" size="small">
+											<el-checkbox label="Agent Switch" border></el-checkbox>
+										</el-checkbox-group>
+										<el-checkbox-group v-model="form.name1" size="small">
+											<el-checkbox label="Enable" border></el-checkbox>
+										</el-checkbox-group>
+										
+										
+										
+										
+											</el-form-item>
 									</div>
 
 
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<el-form-item label="AC2 Power Off">
-											<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-											</el-switch>
+										
+										<el-checkbox-group v-model="form.name" size="small">
+											<el-checkbox label="Agent Switch" border></el-checkbox>
+										</el-checkbox-group>
+										<el-checkbox-group v-model="form.name1" size="small">
+											<el-checkbox label="Enable" border></el-checkbox>
+										</el-checkbox-group>
 										</el-form-item>
 									</div>
 
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<el-form-item label="DC2 Power Off">
-											<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-											</el-switch>
+											<el-checkbox-group v-model="form.name" size="small">
+												<el-checkbox label="Agent Switch" border></el-checkbox>
+											</el-checkbox-group>
+											<el-checkbox-group v-model="form.name1" size="small">
+												<el-checkbox label="Enable" border></el-checkbox>
+											</el-checkbox-group>
 										</el-form-item>
 									</div>
 
@@ -170,11 +195,6 @@
 
 			</div>
 
-
-
-
-
-
 		</div>
 		<script type="text/javascript" src="assets/js/jquery.js"></script>
 		<script type="text/javascript" src="assets/js/vue.js"></script>
@@ -187,6 +207,7 @@
 				equipment: sessionStorage.getItem("equipment"),
 				form: {
 					name: true,
+					name1: false,
 					tag: 111,
 				}
 			};

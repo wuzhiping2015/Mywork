@@ -44,7 +44,7 @@
 					<section class="">
 						<ol class="breadcrumb">
 							<li>
-								<a  href="Alarm.html">Hardware</a>
+								<a href="Alarm.html">Hardware</a>
 							</li>
 							<li class="active">{{url}}</li>
 						</ol>
@@ -67,15 +67,19 @@
 											<table class="table table-hover">
 												<tbody>
 													<tr>
-														<th>Alarm type</th>
-														<th>Alarm Enabled</th>
-														<th width="180">Alarm Grade</th>
+														<th width="190">Alarm type</th>
+														<th width="250">Alarm Enabled</th>
+														<th>Alarm Grade</th>
 													</tr>
 													<tr>
 														<td>Door Open </td>
 														<td>
-															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-															</el-switch>
+															<el-checkbox-group v-model="form.name" size="small">
+																<el-checkbox label="Agent Switch" border></el-checkbox>
+															</el-checkbox-group>
+															<el-checkbox-group v-model="form.name1" size="small">
+																<el-checkbox label="Enable" border></el-checkbox>
+															</el-checkbox-group>
 														</td>
 														<td>
 															<el-select v-model="value" placeholder="请选择">
@@ -88,8 +92,12 @@
 													<tr>
 														<td>AC Power Off </td>
 														<td>
-															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-															</el-switch>
+															<el-checkbox-group v-model="form.name" size="small">
+																<el-checkbox label="Agent Switch" border></el-checkbox>
+															</el-checkbox-group>
+															<el-checkbox-group v-model="form.name1" size="small">
+																<el-checkbox label="Enable" border></el-checkbox>
+															</el-checkbox-group>
 														</td>
 														<td>
 															<el-select v-model="value" placeholder="请选择">
@@ -102,8 +110,12 @@
 													<tr>
 														<td>DC Power Off </td>
 														<td>
-															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-															</el-switch>
+															<el-checkbox-group v-model="form.name" size="small">
+																<el-checkbox label="Agent Switch" border></el-checkbox>
+															</el-checkbox-group>
+															<el-checkbox-group v-model="form.name1" size="small">
+																<el-checkbox label="Enable" border></el-checkbox>
+															</el-checkbox-group>
 														</td>
 														<td>
 															<el-select v-model="value" placeholder="请选择">
@@ -115,8 +127,12 @@
 													<tr>
 														<td>GPS Offline </td>
 														<td>
-															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-															</el-switch>
+															<el-checkbox-group v-model="form.name" size="small">
+																<el-checkbox label="Agent Switch" border></el-checkbox>
+															</el-checkbox-group>
+															<el-checkbox-group v-model="form.name1" size="small">
+																<el-checkbox label="Enable" border></el-checkbox>
+															</el-checkbox-group>
 														</td>
 														<td>
 															<el-select v-model="value" placeholder="请选择">
@@ -130,8 +146,12 @@
 													<tr>
 														<td>Fan Alarm1</td>
 														<td>
-															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-															</el-switch>
+															<el-checkbox-group v-model="form.name" size="small">
+																<el-checkbox label="Agent Switch" border></el-checkbox>
+															</el-checkbox-group>
+															<el-checkbox-group v-model="form.name1" size="small">
+																<el-checkbox label="Enable" border></el-checkbox>
+															</el-checkbox-group>
 														</td>
 														<td>
 															<el-select v-model="value" placeholder="请选择">
@@ -144,8 +164,12 @@
 													<tr>
 														<td>Fan Alarm2</td>
 														<td>
-															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-															</el-switch>
+															<el-checkbox-group v-model="form.name" size="small">
+																<el-checkbox label="Agent Switch" border></el-checkbox>
+															</el-checkbox-group>
+															<el-checkbox-group v-model="form.name1" size="small">
+																<el-checkbox label="Enable" border></el-checkbox>
+															</el-checkbox-group>
 														</td>
 														<td>
 															<el-select v-model="value" placeholder="请选择">
@@ -158,8 +182,12 @@
 													<tr>
 														<td>Fan Alarm3</td>
 														<td>
-															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-															</el-switch>
+															<el-checkbox-group v-model="form.name" size="small">
+																<el-checkbox label="Agent Switch" border></el-checkbox>
+															</el-checkbox-group>
+															<el-checkbox-group v-model="form.name1" size="small">
+																<el-checkbox label="Enable" border></el-checkbox>
+															</el-checkbox-group>
 														</td>
 														<td>
 															<el-select v-model="value" placeholder="请选择">
@@ -172,8 +200,12 @@
 													<tr>
 														<td>Fan Alarm4</td>
 														<td>
-															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-															</el-switch>
+															<el-checkbox-group v-model="form.name" size="small">
+																<el-checkbox label="Agent Switch" border></el-checkbox>
+															</el-checkbox-group>
+															<el-checkbox-group v-model="form.name1" size="small">
+																<el-checkbox label="Enable" border></el-checkbox>
+															</el-checkbox-group>
 														</td>
 														<td>
 															<el-select v-model="value" placeholder="请选择">
@@ -191,9 +223,9 @@
 									</div>
 								</div>
 								<!-- Port1 END -->
-								
-								
-								
+
+
+
 								<!-- External START -->
 								<div class="col-md-6">
 									<div class="box">
@@ -208,15 +240,19 @@
 											<table class="table table-hover">
 												<tbody>
 													<tr>
-														<th>Alarm type</th>
-														<th>Alarm Enabled</th>
+														<th width="190">Alarm type</th>
+														<th width="250">Alarm Enabled</th>
 														<th width="180">Alarm Grade</th>
 													</tr>
 													<tr v-for="(v,i ) in 8">
 														<td>External Alarm {{i+1}}</td>
 														<td>
-															<el-switch v-model="form.name" active-color="#13ce66" inactive-color="#aeaaaa ">
-															</el-switch>
+															<el-checkbox-group v-model="form.name" size="small">
+																<el-checkbox label="Agent Switch" border></el-checkbox>
+															</el-checkbox-group>
+															<el-checkbox-group v-model="form.name1" size="small">
+																<el-checkbox label="Enable" border></el-checkbox>
+															</el-checkbox-group>
 														</td>
 														<td>
 															<el-select v-model="value" placeholder="请选择">
@@ -225,21 +261,21 @@
 															</el-select>
 														</td>
 													</tr>
-													
-								
-													
-								
+
+
+
+
 												</tbody>
 											</table>
-								
-								
+
+
 										</div>
 									</div>
 								</div>
 								<!-- External END -->
-								
-								
-								
+
+
+
 
 							</div>
 						</div>
