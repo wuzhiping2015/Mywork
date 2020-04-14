@@ -268,15 +268,7 @@ Vue.component('el-main-header', {
 			} else {
 				this.tagurl = sessionStorage.getItem("url");
 			}
-
-
 			this.action = sessionStorage.getItem("url");
-			/* 	$.each(this.menuList, function(i, t) {
-					if (url.indexOf(t.url) > 0) {
-						t.isActive = true;
-						return false;
-					}
-				}); */
 		});
 	},
 	/*props: ['loguser'], */
@@ -302,9 +294,7 @@ Vue.component('el-main-header', {
 				sessionStorage.setItem("url", url);
 				window.location.href = url + ".html"
 			}
-
 			this.action = sessionStorage.getItem("url");
-
 		}
 	},
 	template: ` <header class="main-header">
@@ -580,15 +570,15 @@ Vue.component("device", {
 
 			} else if (event == "Deviceinfo" || event == "Topology") {
 				sessionStorage.setItem("url", event);
-				document.getElementById("iframe1").setAttribute("src", event + ".html");
+				document.getElementById("iframe1").setAttribute("src", event.toLowerCase() + ".html");
 			} else {
 				sessionStorage.setItem("url", event);
 				if (sessionStorage.getItem("equipment") == "au") {
-					document.getElementById("iframe1").setAttribute("src", event + ".html");
+					document.getElementById("iframe1").setAttribute("src", event.toLowerCase() + ".html");
 				} else if (sessionStorage.getItem("equipment") == "eu") {
-					document.getElementById("iframe1").setAttribute("src", event + "eu.html");
+					document.getElementById("iframe1").setAttribute("src", event.toLowerCase() + "eu.html");
 				} else {
-					document.getElementById("iframe1").setAttribute("src", event + "ru.html");
+					document.getElementById("iframe1").setAttribute("src", event.toLowerCase() + "ru.html");
 				}
 			}
 			//	$(this).addClass("active").siblings("li").removeClass("active")
@@ -602,6 +592,7 @@ Vue.component("device", {
 			} else {
 				this.tagurl = sessionStorage.getItem("url");
 			}
+
 			//au 开启 roc 网页
 			if (this.equipment != "eu") {
 				this.children.splice(2, 0, {
@@ -616,9 +607,6 @@ Vue.component("device", {
 					}
 				}); */
 
-
-			console.log(this.equipment);
-			console.log(this.tagurl);
 		});
 	},
 	beforeCreate() {
@@ -631,15 +619,12 @@ Vue.component("device", {
 
 
 	template: `  <div style="position:relative"> 
-			 
 			<div class="nav-tabs-custom">
 				<ul class="nav nav-tabs"  >
 					 <li v-for="item in children"  :class="{active: item.tab == tagurl}"  @click="moreState(item.tab)">
 						<a href="javascript:void(0);" >{{item.tab}}</a>
 					 </li>
 				</ul>
-				
-				
 			</div>
 			    </div>`
 })

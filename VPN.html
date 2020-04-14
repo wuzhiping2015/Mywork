@@ -157,6 +157,7 @@
 
 
 		<script>
+			sessionStorage.setItem("url", "vpn");
 			let data = {
 				equipment: sessionStorage.getItem("equipment"),
 				url: sessionStorage.getItem("url"),
@@ -170,6 +171,7 @@
 				el: "#MainContext",
 				data: data,
 				beforeCreate() {
+					
 					/*console.log("创建前：");
 					console.log(this.$data); */
 				},
@@ -185,6 +187,9 @@
 
 				},
 				mounted() {
+					this.$nextTick(function() {
+						sessionStorage.setItem("url", "vpn");
+					});
 					/* console.log("时时监控数据变化,并随之更新");*/
 					$("body").resize();
 
