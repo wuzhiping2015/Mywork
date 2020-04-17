@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>equipment_state</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+    <link rel="stylesheet" href="assets/css/index.css?2019827">
+</head>
+<style>
+   [class*="-12font"]>li>.label-text-vm, [class*="-12font"]>li>.label-text {
+    width: 203px;
+}
+.col-grid-s-12font>li>.div-text-demo, .col-grid-s-12font>li>.div-textarea, .col-grid-l-12font>li>.div-text-demo, .col-grid-l-12font>li>.div-textarea, .col-grid-m-12font>li>.div-text-demo, .col-grid-m-12font>li>.div-textarea {
+    padding-left: 214px; 
+
+}
+    .box .box-footer {
+        border-top: 0px;
+    }
+
+    .el-checkbox {
+        margin: 10px 30px;
+    }
+
+    .label {
+        font-size: 100%;
+    }
+
+    .el-dialog {
+        width: 30%;
+    }
+
+    td span small {
+        cursor: pointer;
+    }
+</style>
+
+	<body class="skin-black sidebar-collapse sidebar-mini">
+
+    <div class="wrapper">
+        <!-- 页头 -->
+        <div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+            <el-main-header :loguser="logUserName"></el-main-header>
+
+        </div>
+        <!-- 页头end -->
+
+        <!-- 侧边栏导航 -->
+        <div id="comp-sidebar">
+            <el-main-sidebar></el-main-sidebar>
+        </div>
+        <!-- 侧边栏导航 end -->
+
+        <!-- 内容区域 -->
+        <div class="content-wrapper" id="content-wrapper">
+            <!-- 内容头部面包屑 -->
+            <section style="display: none">
+                <ol class="breadcrumb">
+                    <li>
+                        <a id="head1" href="#"></a>
+                    </li>
+                    <li id="head2" class="active"></li>
+                </ol>
+            </section>
+            <!-- 主要内容显示 -->
+            <section class="content container-fluid" id="MainContext">
+                <!-- system -->
+                <div class="row"> 
+                       <div class="col-xs-12">
+                        <div class="nav-tabs-custom">
+                           <div class="box-header with-border"><!-- <span
+                                    class="icon iconfont icon-jizhanleixing  text-teal"></span> -->
+                                <h3 class="box-title">设备状态</h3>
+                            </div>
+                            <div class="box">
+                                <div class="box-footer">
+                                     
+                                    <div class="row">
+                                        <div class="col-xs-12"  >
+                                            <ul class="col-grid-s-12font col-search-s pr0 all-li-pb10"> 
+                                                 <li>
+                                                    <label class="label-text-vm">设备mac</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <label class="label-text-vm">rx速率（上行）</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li> 
+                                              <li>
+                                                    <label class="label-text-vm">tx速率（下行）</label>
+                                                    <div class="div-text-demo">
+                                                       <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li> 
+                                                
+                                                <li>
+                                                    <label class="label-text-vm">链接质量指示</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                
+                                                  <li>
+                                                    <label class="label-text-vm">温度</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                  <li>
+                                                    <label class="label-text-vm">设备状态</label>
+                                                    <div class="div-text-demo">
+                                                         <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                 
+                                                
+                                                 <li>
+                                                    <label class="label-text-vm">无线电信号强度（dBm）</label>
+                                                    <div class="div-text-demo">
+                                                         <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                
+                                                  <li>
+                                                    <label class="label-text-vm">上下行流量吞吐量（MB）</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                
+                                                  <li>
+                                                    <label class="label-text-vm">接收和传输速率（Mbps）</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                  <li>
+                                                    <label class="label-text-vm">是否有效</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                  <li>
+                                                    <label class="label-text-vm">性能数据时间</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <label class="label-text-vm">停止运行秒数</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                
+                                                <li>
+                                                    <label class="label-text-vm">错误数据块秒数</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                
+                                                 <li>
+                                                    <label class="label-text-vm">BBER阈值质量低下的秒数</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                 <li>
+                                                    <label class="label-text-vm">间隔错误数据块数</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                
+                                                  <li>
+                                                    <label class="label-text-vm">间隔时间内收到的数据量(Mbytes)</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                
+                                                
+                                                 <li>
+                                                    <label class="label-text-vm">间隔时间内传输数据量(Mbytes)</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                
+                                                <li>
+                                                    <label class="label-text-vm">流量阈值的秒数</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                  <li>
+                                                    <label class="label-text-vm">以太网出于活动状态秒数</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                  <li >
+                                                    <label class="label-text-vm">创建时间</label>
+                                                     <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                  <li >
+                                                    <label class="label-text-vm">创建人</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                
+                                                  <li >
+                                                    <label class="label-text-vm">更新时间</label>
+                                                    <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                
+                                                    <li >
+                                                    <label class="label-text-vm">更新人</label>
+                                                   <div class="div-text-demo">
+                                                        <span class="span-text"> 数据整理中...</span>
+                                                    </div>
+                                                </li>
+                                                
+                                                
+                                                
+                                                 <li style="width:70%">
+                                                    <label class="label-text-vm">remark</label>
+                                                    <div class="div-text-demo">
+                                                        <el-input placeholder="remark" size="mini"></el-input>
+                                                    </div>
+                                                </li>
+                                                
+                                                
+                                                
+                                            </ul>
+                                        </div>
+                                      <div class="col-xs-10">
+                                      	<ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+                                      		<li class="btneare" style="padding-top:5px;">
+                                      			<label class="label-text-vm"> </label>
+                                      			<div class="div-text-demo" style="padding-left: 220px;">
+                                      				<el-button type="primary" size="mini" @click="b1">设置
+                                      				</el-button>
+                                      				<el-button type="success" size="mini" @click="b1">数据同步
+                                      				</el-button>
+                                      			</div>
+                                      		</li>
+                                      	</ul>
+                                      </div>
+
+                                    </div>
+
+
+                                </div>
+                                
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+
+ 
+
+                
+                
+                
+
+                </div>
+                <!-- system end -->
+ 
+            </section>
+        </div>
+        <!-- 内容区域 -->
+
+    </div>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vue.js"></script>
+    <script type="text/javascript" src="assets/js/index.js"></script>
+    <script type="text/javascript" src="assets/js/comment.js"></script>
+    <script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+    <script>
+        let data = {
+            coordshow: false,
+            value1: true,
+            thar: "",
+            configure: false, //编辑弹出
+            radio: "1",
+            value3: "",
+            cur: 0,
+            ipshow_tab: "1",
+            checkList: ['5.740', '5.755']
+        };
+        var Helios = new Vue({
+            el: "#MainContext",
+            data: data,
+            beforeCreate() {
+                /*console.log("创建前：");
+                console.log(this.$data); */
+            },
+            created() {
+                //  console.log("创建完成：");
+                // console.log(this.$data);
+
+            },
+            beforeMount() {
+                /* console.log("挂载前：");
+                console.log(this.$data); */
+
+            },
+            mounted() {
+                /* console.log("时时监控数据变化,并随之更新");*/
+                console.log(this.$data);
+                $("body").resize();
+
+            },
+
+            updated() {
+                // console.log("==更新成功==");
+                console.log(this.$data);
+            },
+            //事件
+            methods: {
+                b1() {
+                    toast.$notify({
+                        title: '成功',
+                        message: '数据请求成功',
+                        type: 'success',
+                        duration: 1000
+                    });
+                },
+                Btnoperation(x) {
+                    this.$data.configure = true;
+                    this.$data.thar = x;
+                }
+
+            },
+
+
+        });
+    </script>
+
+
+</body>
+
+
+</html>
