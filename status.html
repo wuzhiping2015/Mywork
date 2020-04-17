@@ -95,8 +95,11 @@
 				},
 				beforeMount() {
 
-					const children = ["Status", "ParaSet", "RocSet", "Deviceinfo"];
-					if (this.url == children[0]) {
+					const children = ["Status", "ParaSet", "RocSet", "Deviceinfo","Topology"];
+					console.log(this.url );
+					console.log(this.equipment );
+					
+					if (this.url == "Status") {
 						if (this.equipment == "au") {
 							this.Tagurl = "status_page.html";
 						} else if (this.equipment == "eu") {

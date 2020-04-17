@@ -77,7 +77,7 @@ var util = {
 		}).html('<i class="el-icon-loading"></i> 进入系统中,请稍后...');
 		sessionStorage.setItem('$session', user);
 		setTimeout(() => {
-			window.location.href = "index.html";
+			window.location.href = "Index.html";
 		}, 1000);
 		/*   $.ajax({
 					url: "../cgi-bin/doaction.cgi",
@@ -220,8 +220,8 @@ Vue.component('el-main-header', {
 				{
 					name: 'Device',
 					children: [{
-							"url": "Status.html",
-							"tab": "Status"
+							"url": "Topology.html",
+							"tab": "Topology"
 						},
 
 					]
@@ -285,8 +285,8 @@ Vue.component('el-main-header', {
 		},
 		logout(url) {
 
-			const children = ["Status", "ParaSet", "Roc", "Deviceinfo"];
-			if (url == children[0] || url == children[1] || url == children[2] || url == children[3]) {
+			const children = ["Status", "ParaSet", "Roc", "Deviceinfo", "Topology"];
+			if (url == children[0] || url == children[1] || url == children[2] || url == children[4]) {
 				sessionStorage.setItem("url", url);
 				sessionStorage.setItem("equipment", "au");
 				window.location.href = "Status.html"
@@ -298,7 +298,7 @@ Vue.component('el-main-header', {
 		}
 	},
 	template: ` <header class="main-header">
-    <a href="index.html" class="logo" title="Helios">
+    <a href="Index.html" class="logo" title="Helios">
         <span class="logo-mini"><img src="assets/images/logo1.png" alt="whelios"  width="36"> </span>
         <span class="logo-lg"><img src="assets/images/logo.png" alt="whelios" > </span>
     </a>
@@ -344,7 +344,7 @@ if ($("#comp-header").length > 0) {
 
 
 
-//左侧菜单
+/**************** 侧导航 status****************/
 Vue.component("el-main-sidebar", {
 	props: ['msg'],
 	data: function() {
@@ -402,12 +402,15 @@ Vue.component("el-main-sidebar", {
 		handleNodeClick(data) {
 			if (data.type == 0) {
 				sessionStorage.setItem("equipment", "au");
+				sessionStorage.setItem("url", "Topology");
 			} else if (data.type == 1) {
 				sessionStorage.setItem("equipment", "eu");
+				sessionStorage.setItem("url", "Status");
 			} else if (data.type == 2) {
 				sessionStorage.setItem("equipment", "ru");
+				sessionStorage.setItem("url", "Status");
 			}
-			sessionStorage.setItem("url", "Status");
+
 			window.location.href = "Status.html"
 		}
 	},
@@ -456,7 +459,7 @@ Vue.component("el-index-slidebar", {
 	},
 	methods: {
 		link() {
-			sessionStorage.setItem("url", "Status");
+			sessionStorage.setItem("url", "Topology");
 			sessionStorage.setItem("equipment", "au");
 			window.location.href = "Status.html"
 		}
@@ -466,8 +469,8 @@ Vue.component("el-index-slidebar", {
 					<div class="box-header with-border">
 						<h3 class="box-title">
 							AU List
-							<font style="color: #fd397a !important;font-size:14px;">
-								(3)
+							<font style="font-size:16px;">
+								/ 3
 							</font>
 						</h3>
 
@@ -480,7 +483,7 @@ Vue.component("el-index-slidebar", {
 							<div class="product-info">
 								<a href="javascript:void(0)" class="product-title">Site No AU1
 								</a>
-								<p class="label label-warning">Alarm</p>&nbsp;&nbsp;
+								<p class="label alert-danger">Alarm</p>&nbsp;&nbsp;
 								<p class="label bg-olive">
 									Static
 								</p>
@@ -493,7 +496,7 @@ Vue.component("el-index-slidebar", {
 							<div class="product-info">
 								<a href="javascript:void(0)" class="product-title">Site No AU2
 								</a>
-								<p class="label label-warning">Alarm</p>&nbsp;&nbsp;
+								<p class="label alert-danger">Alarm</p>&nbsp;&nbsp;
 								<p class="label bg-olive">
 									Static
 								</p>
@@ -506,7 +509,7 @@ Vue.component("el-index-slidebar", {
 							<div class="product-info">
 								<a href="javascript:void(0)" class="product-title">Site No AU3
 								</a>
-								<p class="label label-warning">Alarm</p>&nbsp;&nbsp;
+								<p class="label alert-danger">Alarm</p>&nbsp;&nbsp;
 								<p class="label bg-olive">
 									Static
 								</p>
@@ -539,6 +542,9 @@ Vue.component("device", {
 			active: 0,
 			tagurl: "",
 			children: [{
+					"tab": "Topology"
+				},
+				{
 					"tab": "Status"
 				},
 				{
@@ -547,9 +553,7 @@ Vue.component("device", {
 				{
 					"tab": "Deviceinfo"
 				},
-				{
-					"tab": "Topology"
-				}
+
 			]
 		}
 	},

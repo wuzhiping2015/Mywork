@@ -79,9 +79,7 @@
 											<el-form ref="form" :model="form" label-width="180px" size="medium">
 												<div class="col-md-10">
 													<el-form-item label="SNMP Enable">
-														<el-checkbox-group v-model="form.name" size="small">
-															<el-checkbox label="Agent Switch" border></el-checkbox>
-														</el-checkbox-group>
+													
 														<el-checkbox-group v-model="form.name1" size="small">
 															<el-checkbox label="Enable" border></el-checkbox>
 														</el-checkbox-group>
@@ -121,9 +119,7 @@
 											<el-form ref="form" :model="form" label-width="180px" size="medium">
 												<div class="col-md-10">
 													<el-form-item label="SNMP Enable">
-														<el-checkbox-group v-model="form.name" size="small">
-															<el-checkbox label="Agent Switch" border></el-checkbox>
-														</el-checkbox-group>
+													
 														<el-checkbox-group v-model="form.name1" size="small">
 															<el-checkbox label="Enable" border></el-checkbox>
 														</el-checkbox-group>
@@ -144,7 +140,7 @@
 													</el-form-item>
 
 													<el-form-item label="Auth">
-														<el-select v-model="value" placeholder="请选择">
+														<el-select v-model="Auth_value" placeholder="请选择">
 															<el-option v-for="item in Auth" :key="item.value" :label="item.label" :value="item.value">
 															</el-option>
 														</el-select>
@@ -155,7 +151,7 @@
 													</el-form-item>
 
 													<el-form-item label="Priv">
-														<el-select v-model="value" placeholder="请选择">
+														<el-select v-model="Priv_value" placeholder="请选择">
 															<el-option v-for="item in Priv" :key="item.value" :label="item.label" :value="item.value">
 															</el-option>
 														</el-select>
@@ -194,10 +190,11 @@
 				form: {
 					name: true,
 					name1: false,
-					tag: 111,
+					tag:"数据整理中..." ,
 				},
 
-				value: '1',
+				Auth_value: '1',
+				Priv_value: '1',
 				Auth: [{
 					value: '1',
 					label: 'MD5'
