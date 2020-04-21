@@ -65,6 +65,42 @@
 		<!-- hold-transition skin-blue-light sidebar-mini sidebar-collapse -->
 		<div class="wrapper" id="content" style="background:#fff; ">
 			<div class="col-md-12" style="padding-left: 0px;">
+				<div class="col-md-12">
+					<div style="margin-top: 56px; float: left;">
+						<button type="button" class="el-button el-button--primary el-button--mini" @click="SetCoordinates">
+							<span>保存坐标</span>
+						</button>
+
+						<!-- <div id="zuobiao">111</div> -->
+
+					</div>
+					<div style="margin-top: 56px; float: left;;">
+						<el-upload ref="upload" action="../cgi-bin/update.cgi" :on-preview="handlePreview" :on-remove="handleRemove"
+						 :file-list="updateParam.fileList" :auto-upload="true" :on-success="handleSuccess" :limit="1" :on-error="uperror"
+						 name="file" :before-upload="beforeAvatarUpload" accept="image/*">
+							<i class="el-icon-plus" style="display: none;"></i>
+							<a class="el-button el-button--primary el-button--mini  bg-aqua" slot="trigger">
+								<i class="fa fa-edit"></i>上传照片
+							</a>
+						</el-upload>
+					</div>
+
+					<div style="margin-top: 56px; float: right;">
+
+
+
+						<el-select v-model="station" size="small" @change="StationChange">
+							<el-option v-for="(item,index) in StationChoose" :key="index" :label="item.label" :value="item.value"></el-option>
+						</el-select>
+
+
+					</div>
+					<div style="margin-top: 66px; float: right;">
+						<el-switch v-model="canMove">
+						</el-switch>
+					</div>
+				</div>
+
 				<canvas id="canvas" width="1100" height="1000">
 
 				</canvas>
@@ -84,13 +120,43 @@
 		<style scoped>
 
 		</style>
-		<script type="text/javascript">
+
+		<script>
+			var vm = this;
+			var addrStation;
+			var num = 0;
+
+			var Fill_end = new Array();
+			Fill_end[0] = "0000000";
+			Fill_end[1] = "000000";
+			Fill_end[2] = "00000";
+			Fill_end[3] = "0000";
+			Fill_end[4] = "000";
+			Fill_end[5] = "00";
+			Fill_end[6] = "00";
+			Fill_end[7] = "0";
 			var canvas, stage, scene;
 			var CanvasWin_width, CanvasWin_height;
+			var SiteNode = new Array(256); //存储数据中心
+			let data = {
+				siteInfo: [],
+				offset: 0,
+				updateParam: {
+					fileList: [],
+					fileList2: [],
+					upath: '',
+					result: '',
+					uping: 0
+				},
+				station: '',
+				StationChoose: [],
+				canMove: true
+			};
+
 			window.onresize = function() {
 
 				CanvasWin_width = $("#content").width();
-				CanvasWin_height = $("#content").height() + 100;
+				CanvasWin_height = $("#content").height() - 50;
 
 				canvas = document.getElementById("canvas");
 				canvas.width = CanvasWin_width;
@@ -98,212 +164,580 @@
 			}
 
 			function Canvas_Init() {
+
 				//初始化画布的值
-				var canvas = document.getElementById("canvas");
-				var stage = new JTopo.Stage(canvas);
+				canvas = document.getElementById("canvas");
 
-				var scene = new JTopo.Scene(stage);
-				scene.background = 'assets/images/bg1.png';
+				stage = new JTopo.Stage(canvas);
+				scene = new JTopo.Scene(stage);
+
 				scene.mode = "select";
+				scene.background = 'assets/images/bg1.png';
+			}
 
+			function GetStation(vue1) {
+				var temp = [];
+				var obj = {};
+				var param = [];
+				var data_site;
+				var vue = vue1;
 
-
-				// 流式布局（水平、垂直间隔)
-				var flowLayout = JTopo.layout.FlowLayout(100, 40);
-
-				var demoData = [
-
-					{
-						x: 400,
-						y: 120,
-						id: 3,
-						type: 2,
-						img: "radien",
-						title: 'EU1'
-					},
-					{
-						x: 400,
-						y: 280,
-						id: 2,
-						type: 1,
-						img: "adient",
-						title: 'EU2'
+				/* 	sessionStorage.getItem('sitelist'); */
+				addrStation = {
+					"data": [{
+						"type": 0,
+						"band": 0,
+						"link": 0,
+						"mimo": 0,
+						"id": 0,
+						"equipid": 0,
+						"offline": 0,
+						"siteno": 0,
+						"x": 440,
+						"y": 231,
+						"status": 0,
+						"ip": "-",
+						"station": "0"
 					}, {
-						x: 400,
-						y: 490,
-						id: 1,
-						type: 0,
-						img: "gradien",
-						title: 'EU3'
-					},
-
-				];
-
-
-				/* 
-							
-									"sites": [{
-										"site_no": "12345678",
-										"device": [{
-											"route": "10000000",
-											"device_id": "0100",
-											"type": "EU"
-										}, {
-											"route": "12000000",
-											"device_id": "0101",
-											"type": "RU"
-										}, {
-											"route": "13000000",
-											"device_id": "0102",
-											"type": "RU"
-										}, {
-											"route": "11000000",
-											"device_id": "0200",
-											"type": "EU"
-										}, {
-											"route": "11200000",
-											"device_id": "0201",
-											"type": "RU"
-										}, {
-											"route": "11300000",
-											"device_id": "0202",
-											"type": "RU"
-										}]
-									}]
-								*/
-
-
-				var demoData1 = {
-					"site_no": "12345678",
-					/* x: 500,
-					y: 60,
-					id: 1,
-					type: 0,
-					img: "gradien",
-					title: 'RU1' */
-					"device": [{
-						"route": "10000000",
-						"device_id": "0100",
-						"type": "EU",
-						y: 120,
+						"type": 0,
+						"band": 0,
+						"link": 0,
+						"mimo": 0,
+						"id": 0,
+						"equipid": 20,
+						"offline": 0,
+						"siteno": 40000000,
+						"x": 551,
+						"y": 397,
+						"status": 0,
+						"ip": "-",
+						"station": "0"
 					}, {
-						"route": "12000000",
-						"device_id": "0101",
-						"type": "RU"
+						"type": 0,
+						"band": 0,
+						"link": 0,
+						"mimo": 0,
+						"id": 0,
+						"equipid": 2,
+						"offline": 0,
+						"siteno": 20000000,
+						"x": 323,
+						"y": 223,
+						"status": 0,
+						"ip": "-",
+						"station": "0"
 					}, {
-						"route": "13000000",
-						"device_id": "0102",
-						"type": "RU",
-						y: 200,
-					}, {
-						"route": "11000000",
-						"device_id": "0200",
-						"type": "EU",
-						y: 250,
-					}, {
-						"route": "11200000",
-						"device_id": "0201",
-						"type": "RU",
-						y: 290,
-					}, {
-						"route": "11300000",
-						"device_id": "0202",
-						"type": "RU",
-						y: 320,
-					}]
-				};
-
-				var cloudnode = new JTopo.Node(demoData1.site_no); //第一个节点
-				cloudnode.setSize(26, 26); // 大小
-				cloudnode.setLocation(160, 290); // 位置 X, Y
-
-				cloudnode.fillColor = "0,0,0";
-
-				scene.add(cloudnode);
-
-				for (var i = 0; i < demoData1.device.length; i++) {
-					var node = new JTopo.CircleNode(demoData1.device[i].route); //新节点
-					node.radius = 15;
-					node.setLocation(400, demoData1.device[i].y); // 位置 X, Y
-
-					node.layout = {
-						type: 'tree',
-						radius: 60,
-						direction: 'right'
-					};
-
-					scene.add(node);
-					var link = new JTopo.Link(cloudnode, node);
-					link.strokeColor = '255,111,0'; //设置线条
-					scene.add(link);
-
-
-
-					//二次循环
-				/* 	for (var j = 0; j < demoData1.length; j++) {
-						var top = new JTopo.CircleNode(demoData1[i].title);
-
-						top.radius = 10;
-						top.setLocation(10, 30);
-						top.setSize(20, 20);
-						top.layout = { //环形
-							type: 'circle',
-							direction: 'left', 
-							width: 10,
-							height: 10
-						};
-						scene.add(top);
-						scene.add(new JTopo.Link(node, top));
-					}
-
-					JTopo.layout.layoutNode(scene, cloudnode, true); */
-
-					//二次循环end
-
-
-
-
-
-
+						"type": 0,
+						"band": 0,
+						"link": 0,
+						"mimo": 0,
+						"id": 0,
+						"equipid": 2,
+						"offline": 0,
+						"siteno": 41000000,
+						"x": 235,
+						"y": 661,
+						"status": 0,
+						"ip": "-",
+						"station": "0"
+					}],
+					"status": "success"
 				}
 
 
+
+
+				/* 	if (addrStation == null) {
+						util.getmoniter(param, function(data) {
+							//存储全部的站点信息
+							addrStation = data[0].value.split(",");
+							sessionStorage.setItem('sitelist', JSON.stringify(sitelist));
+							for (var i = 1; i < addrStation.length; i++) {
+								if (addrStation[i] == "0") {
+									break;
+								}
+								obj = {};
+								obj.label = addrStation[i];
+								obj.value = addrStation[i];
+								temp.push(obj);
+							}
+
+							vue.StationChoose = temp;
+
+						});
+
+					} else {
+					//	addrStation = JSON.parse(addrStation);
+						for (var i = 1; i < addrStation.length; i++) {
+							if (addrStation[i] == "0") {
+								break;
+							}
+							obj = {};
+							obj.label = addrStation[i];
+							obj.value = addrStation[i];
+							temp.push(obj);
+						}
+
+						vue.StationChoose = temp;
+
+					} */
+				///addrStation=data_site.split(",");
+
+
+
+
+				FindSiteTask(vue);
+				//设置站点
+
+
+
+
+				setInterval(function() {
+					if (vue.canMove)
+						FindSiteTask(vue);
+				}, 10000);
+
+
+				// for(var i=1;i<addrStation.length;i++)
+				// {
+				// 	if(addrStation[i]==0)
+				// 	{
+				// 		break;
+				// 	}
+				// 	Site_processing(addrStation[i],vue);
+
+				// }
+
+			}
+
+			function FindSiteTask(vue1) {
+				num = 0;
+				var vue = vue1;
+
+				var timer = setInterval(() => {
+
+					num++;
+
+					if (addrStation[num] == "0") {
+						window.clearInterval(timer);
+					}
+
+				}, 1000);
+				Site_processing(addrStation[num], vue);
+			}
+
+			function SiteNode_exist_add(SiteNode_exist, siteno) {
+				//增加已经存在的站点
+				var obj = {};
+				obj.no = SiteNode_exist.length + 1;
+				obj.band = 0;
+				obj.equipid = 0;
+				obj.ip = "";
+				obj.type = 0;
+				obj.link = 0;
+				obj.mimo = 0;
+				obj.status = 0;
+				obj.siteno = siteno;
+				SiteNode_exist.push(obj);
+
+			}
+
+			function Site_Datefit(m_sitenode, item) {
+
+				if (item.equipid == 0) {
+					m_sitenode.setImage('assets/images/mu.jpg', true);
+					m_sitenode.setSize(67, 30);
+
+				} else {
+					m_sitenode.setImage('assets/images/ru.png', true);
+					m_sitenode.setSize(26, 56);
+				}
+
+				m_sitenode.addEventListener("dbclick", function(event, i) {
+					//双击
+					console.log("双击");
+					window.location.href = "ru.html";
+
+					//console.log(m_sitenode);
+
+
+				});
+				m_sitenode.addEventListener("click", function(event, i) {
+					//单击
+
+					console.log("单击");
+
+
+					var currentSite = {};
+					currentSite.station = m_sitenode.station;
+					currentSite.siteno = m_sitenode.siteno;
+					currentSite.equipid = m_sitenode.equipid;
+					currentSite.offline = m_sitenode.offline;
+					currentSite.type = 0;
+
+					sessionStorage.setItem('currentSite', JSON.stringify(currentSite));
+
+					//console.log(m_sitenode);
+				});
+
+				if (item.offline == 0) {
+					m_sitenode.alarm = 'offline';
+					m_sitenode.alarmColor = '192,192,192';
+				} else {
+					if (item.status == 2) {
+						m_sitenode.alarm = 'danger';
+					} else
+						m_sitenode.alarm = null;
+				}
+
+
+				m_sitenode.x = parseInt(item.x / 1000 * CanvasWin_width);
+				m_sitenode.y = parseInt(item.y / 1000 * CanvasWin_height);
+
+				m_sitenode.setLocation(m_sitenode.x, m_sitenode.y);
+				m_sitenode.equipid = item.equipid;
+				m_sitenode.id = item.id;
+				m_sitenode.offline = item.offline;
+				m_sitenode.station = item.station;
+				m_sitenode.siteno = item.siteno;
+
+
+			}
+
+			function SiteDataDeal(data, vue1) {
+				//处理不同站点的数据
+
+
+				var currentData = [];
+				var station_no; //站点1；
+
+				if (vue1.station == "") {
+					var CurrentSite = JSON.parse(sessionStorage.getItem('currentSite'));
+					if (CurrentSite != undefined) {
+						station_no = CurrentSite.station;
+						vue1.station = station_no;
+
+					}
+				} else {
+					station_no = vue1.station;
+				}
+
+
+				$.each(data, function(idx, item) {
+
+					if (item.station == station_no) {
+
+						if (item.siteno == 0) {
+							currentData.unshift(item);
+						} else {
+							currentData.push(item);
+						}
+					}
+
+				});
+
+				return currentData;
+
+
+			}
+
+			function Site_processing(stationInfo, vue1) {
+
+				var link;
+				var datalist = [{
+					"type": 0,
+					"band": 0,
+					"link": 0,
+					"mimo": 0,
+					"id": 0,
+					"equipid": 0,
+					"offline": 0,
+					"siteno": 0,
+					"x": 440,
+					"y": 231,
+					"status": 0,
+					"ip": "-",
+					"station": "0"
+				}, {
+					"type": 0,
+					"band": 0,
+					"link": 0,
+					"mimo": 0,
+					"id": 0,
+					"equipid": 20,
+					"offline": 0,
+					"siteno": 40000000,
+					"x": 551,
+					"y": 397,
+					"status": 0,
+					"ip": "-",
+					"station": "0"
+				}, {
+					"type": 0,
+					"band": 0,
+					"link": 0,
+					"mimo": 0,
+					"id": 0,
+					"equipid": 2,
+					"offline": 0,
+					"siteno": 20000000,
+					"x": 323,
+					"y": 223,
+					"status": 0,
+					"ip": "-",
+					"station": "0"
+				}, {
+					"type": 0,
+					"band": 0,
+					"link": 0,
+					"mimo": 0,
+					"id": 0,
+					"equipid": 2,
+					"offline": 0,
+					"siteno": 41000000,
+					"x": 235,
+					"y": 661,
+					"status": 0,
+					"ip": "-",
+					"station": "0"
+				}];
+
+				var SiteNode_exist = []; //已经存在站点存储
+				var obj = {};
+				var temp_arr;
+				var temp = [];
+				var ar;
+				var str1;
+				var str2;
+				var len = 0;
+				vue = vue1;
+
+				//清空数组
+				SiteNode.splice(0, SiteNode.length);
+
+				//获取站点信息
+				//处理上传帧格式信息
+				//页面初始化
+				/* 	util.getmods(0, function(data) { */
+				scene.clear();
+
+				//datalist = SiteDataDeal(data, vue);
+				$.each(datalist, function(idx, item) {
+
+
+					//处理点初始化
+					if (item.siteno == 0) {
+
+						SiteNode[idx + 1] = new JTopo.Node("MU1");
+						Site_Datefit(SiteNode[idx + 1], item);
+						// SiteNode[idx + 1].setSize(26, 26);
+						// SiteNode[idx + 1].setLocation(parseInt(item.x)*(CanvasWin_width/1000) , parseInt(item.y)*(CanvasWin_height/1000));
+
+						scene.add(SiteNode[idx + 1]);
+						temp.push(item);
+
+						SiteNode_exist_add(SiteNode_exist, item.siteno);
+						currutNode = 1;
+
+					} else {
+						//处理非监控板子
+						temp.push(item);
+
+						ar = SiteNode_exist.find(function(elem) {
+							return elem.siteno == item.siteno;
+						});
+
+						if (ar == undefined) {
+							str1 = item.siteno.toString();
+							temp_arr = str1.split('');
+							console.log("currut node-->" + str1);
+
+							for (i = 0; i < 8; i++) {
+								if (temp_arr[i] != "0") {
+									console.log("currut deal-->" + temp_arr[i] + "dd-->" + i);
+									//添加site站点信息
+
+									str2 = str1.substring(0, i + 1) + Fill_end[i];
+
+									ar = SiteNode_exist.find(function(elem) {
+										return elem.siteno == str2;
+									});
+
+									if (ar == undefined) {
+										//初始化点
+										SiteNode_exist_add(SiteNode_exist, str2);
+										len = SiteNode_exist.length;
+
+										//初始化站点信息
+										SiteNode[len] = new JTopo.Node(str2);
+
+										SiteNode[len].radius = 15;
+										SiteNode[len].setLocation(100, 200);
+
+										scene.add(SiteNode[len]);
+										// link = new JTopo.Link(SiteNode[currutNode], SiteNode[len]);
+										// link.strokeColor = '0,0,0'; //设置线条
+										link = new JTopo.FoldLink(SiteNode[currutNode], SiteNode[len], "");
+										link.direction = 'vertical' || 'horizontal';
+										link.lineWidth = 3; // 线宽
+										link.bundleOffset = 60; // 折线拐角处的长度
+										link.bundleGap = 20; // 线条之间的间隔
+										link.textOffsetY = 3; // 文本偏移量（向下3个像素）
+										scene.add(link);
+
+										currutNode = len;
+
+									} else {
+										currutNode = ar.no;
+									}
+								} else {
+									//site信息填入表里
+									//修改对应站点信息
+									len = SiteNode_exist.length;
+
+									//初始化站点信息
+
+									Site_Datefit(SiteNode[len], item);
+
+									currutNode = 1;
+									break;
+								}
+							}
+
+
+						} else {
+							//site信息填入表里
+							//修改对应站点信息
+							len = ar.no;
+							Site_Datefit(SiteNode[len], item);
+							// SiteNode[len].setLocation(parseInt(item.x)*(CanvasWin_width/1000) , parseInt(item.y)*(CanvasWin_height/1000));
+							// SiteNode[len].equipid= item.equipid;
+							// SiteNode[len].id= item.id;
+						}
+
+
+					}
+					//处理线初始化
+
+				});
+				//	SiteNode[3].setLocation(500, 600);
+				vm.siteInfo = SiteNode_exist;
+				stage.paint();
+				/* }, stationInfo); */
 			}
 
 
 
 
-			var app;
-			let data = {
-				form: {
-					name: '数据...',
-				},
-
-
-			};
-			app = new Vue({
+			var Helios = new Vue({
 				el: "#content",
 				data: data,
-
-				created: function() {
-
-				},
 				mounted() {
-					Canvas_Init();
 					$("body").resize();
+					Canvas_Init();
 
+					GetStation(this);
+
+
+					// Site_processing();
 				},
-				updated() {
-					// console.log("==更新成功==");
-					//console.log(this.$data);
-				},
+				//事件
 				methods: {
-					onSubmit() {
-						util.success("数据请求成功");
-					}
+					StationChange: function() {
+						var temp = {};
+						temp.equipid = 0;
+						temp.offline = 1;
+						temp.siteno = 0;
+						temp.station = this.station;
+						temp.type = 0;
+
+						sessionStorage.setItem('currentSite', JSON.stringify(temp));
+					},
+					SetCoordinates: function() {
+						var obj = {};
+						var params = [];
+
+						// $.each(SiteNode, function (idx, item) {
+
+						// 	obj.siteno = item.text;
+						//     obj.x = item.x;
+						// 	obj.y = item.y ;
+						//     params.push(obj);
+						// });
+						var station_no = "1";
+
+						var CurrentSite = JSON.parse(sessionStorage.getItem('currentSite'));
+
+						if (CurrentSite != undefined) {
+							station_no = CurrentSite.station;
+						}
+
+						for (i = 0; i < SiteNode.length - 1; i++) {
+							obj = {};
+
+							obj.siteno = SiteNode[i + 1].text == "MU1" ? "0" : SiteNode[i + 1].text;
+							obj.x = parseInt(SiteNode[i + 1].x * 1000 / CanvasWin_width).toString();
+							obj.y = parseInt(SiteNode[i + 1].y * 1000 / CanvasWin_height).toString();
+							params.push(obj);
+						}
+
+						util.postxy(params, station_no, function() {
+							util.success("set success");
+						});
+					},
+					//预览
+					handlePreview(file) {
+						console.log(file);
+						this.dialogImageUrl = file.url;
+						this.dialogVisible = true;
+
+					},
+					handleSuccess(res, fille) {
+						/* toast.$message({
+						     message: 'Upgrade firmware upload is successful, please power on and update firmware',
+						     type: 'success',
+						     offset: 80
+						 });*/
+						/*   this.imageUrl = URL.createObjectURL(file.raw); */
+						// console.log(res);
+
+
+						// var Loca = window.location.hostname + '../images/' + setbg;
+						// var Loca1 = '../images/' + setbg;
+
+						// console.log(Loca1);
+						// console.log(Loca);
+						// scene = new JTopo.Scene(stage);
+
+						// scene.background = Loca1;
+						window.location.reload();
+
+					},
+					uperror(err, file, fileList) {
+						this.$message.error("上传失败");
+					},
+					// 图片长传-之前
+					beforeAvatarUpload(file) {
+						const isjpg = file.type === ("image/jpeg");
+						if (!isjpg) {
+							this.$message.error('上传jpeg 格式');
+						}
+						const isLt2M = file.size / 1024 / 1024 < 2;
+						if (!isLt2M) {
+							this.$message.error('上传图片大小不能超过 2MB!')
+						}
+						return isjpg && isLt2M;
+					},
+					handleRemove(file, fileList) {
+						console.log(file, fileList);
+					},
+					handlePreview(file) {
+						console.log(file);
+					},
 				},
 
-			})
+			});
 		</script>
+
 	</body>
 </html>
