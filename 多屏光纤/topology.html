@@ -14,93 +14,38 @@
 		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
 		<link rel="stylesheet" href="assets/css/index.css?2019827">
 	</head>
-	<style>
-		.viswCard span {
-			color: #fff;
-			margin-right: 0px;
-			}
-			.box-header .el-button--mini, .el-button--mini.is-round {
-				padding: 1px 3px;
-				color: #fff;
-			   vertical-align: middle;
-			}
-			.el-input{
-				vertical-align: middle;
-			}
-			.label-text-vm {
-				text-align: left;
-			}
-			.col-sm-4 {
-				margin: 10px 0;
-			}
-			
-			.row .label {
-				display: inline-block;
-				width: 18px;
-				height: 18px;
-				margin-top: 5px;
-			}
-			.description-block{
-				margin: 10px 0px;
-			}
-			.list-group{
-				margin-bottom: 0px;
-			}
-			.box-header.with-border {
-				padding-bottom: 14px;
-			}
-			.clear{
-				 overflow: auto;
-				  zoom: 1;
-				  background: #fff;
-			}
-			.el-form-item{
-				margin-bottom: 6px !important;
-			}
-			.height{
-				height: 220px;
-			}
-</style>
+
 	<body>
 		<!-- hold-transition skin-blue-light sidebar-mini sidebar-collapse -->
-		<div class="wrapper" id="content" style="background:#fff; ">
-			<div class="col-md-12" style="padding-left: 0px;">
-				<div class="col-md-12">
-					<div style="margin-top: 56px; float: left;">
+		<div class="wrapper" id="content" style="background:#fff;">
+			<div class="col-md-12 canbox">
+				<div class="col-md-12 cantips">
+					<div style="float: left;">
 						<button type="button" class="el-button el-button--primary el-button--mini" @click="SetCoordinates">
 							<span>保存坐标</span>
 						</button>
-
-						<!-- <div id="zuobiao">111</div> -->
-
 					</div>
-					<div style="margin-top: 56px; float: left;;">
+					<div style=" float: left; margin-left: 5px; cursor: pointer;">
 						<el-upload ref="upload" action="../cgi-bin/update.cgi" :on-preview="handlePreview" :on-remove="handleRemove"
 						 :file-list="updateParam.fileList" :auto-upload="true" :on-success="handleSuccess" :limit="1" :on-error="uperror"
 						 name="file" :before-upload="beforeAvatarUpload" accept="image/*">
 							<i class="el-icon-plus" style="display: none;"></i>
-							<a class="el-button el-button--primary el-button--mini  bg-aqua" slot="trigger">
+							<a class="el-button el-button--primary el-button--mini  bg-aqua" slot="trigger"  style="border-color:#409EFF;">
 								<i class="fa fa-edit"></i>上传照片
 							</a>
 						</el-upload>
 					</div>
 
-					<div style="margin-top: 56px; float: right;">
-
-
-
+				<!-- 	<div style=" float: right;">
 						<el-select v-model="station" size="small" @change="StationChange">
 							<el-option v-for="(item,index) in StationChoose" :key="index" :label="item.label" :value="item.value"></el-option>
 						</el-select>
-
-
-					</div>
-					<div style="margin-top: 66px; float: right;">
+					</div> -->
+					<div style="float: right;" title="开启定时">
 						<el-switch v-model="canMove">
 						</el-switch>
 					</div>
 				</div>
-
 				<canvas id="canvas" width="1100" height="1000">
 
 				</canvas>
@@ -116,16 +61,90 @@
 		<script type="text/javascript" src="assets/js/comment.js"></script>
 
 
-
 		<style scoped>
+			.el-upload__input {
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				opacity: 0;
+				cursor: pointer;
+			}
 
+			.el-upload {
+				position: relative;
+			}
+
+			.viswCard span {
+				color: #fff;
+				margin-right: 0px;
+			}
+
+			.box-header .el-button--mini,
+			.el-button--mini.is-round {
+				padding: 1px 3px;
+				color: #fff;
+				vertical-align: middle;
+			}
+
+			.el-input {
+				vertical-align: middle;
+			}
+
+			.label-text-vm {
+				text-align: left;
+			}
+
+			.col-sm-4 {
+				margin: 10px 0;
+			}
+
+			.row .label {
+				display: inline-block;
+				width: 18px;
+				height: 18px;
+				margin-top: 5px;
+			}
+
+			.description-block {
+				margin: 10px 0px;
+			}
+
+			.list-group {
+				margin-bottom: 0px;
+			}
+
+			.box-header.with-border {
+				padding-bottom: 14px;
+			}
+
+			.clear {
+				overflow: auto;
+				zoom: 1;
+				background: #fff;
+			}
+
+			.el-form-item {
+				margin-bottom: 6px !important;
+			}
+
+			.height {
+				height: 220px;
+			}
+
+			.canbox {
+				padding-left: 0px;
+				position: relative;
+			}
+
+			.cantips {
+				padding-top: 12px;
+				position: absolute;
+			}
 		</style>
-
 		<script>
 			var vm = this;
 			var addrStation;
 			var num = 0;
-
 			var Fill_end = new Array();
 			Fill_end[0] = "0000000";
 			Fill_end[1] = "000000";
@@ -150,7 +169,7 @@
 				},
 				station: '',
 				StationChoose: [],
-				canMove: true
+				canMove: false
 			};
 
 			window.onresize = function() {
@@ -167,12 +186,10 @@
 
 				//初始化画布的值
 				canvas = document.getElementById("canvas");
-
 				stage = new JTopo.Stage(canvas);
 				scene = new JTopo.Scene(stage);
-
 				scene.mode = "select";
-				scene.background = 'assets/images/bg1.png';
+				scene.background = 'assets/images/timg.jpg';
 			}
 
 			function GetStation(vue1) {
@@ -181,7 +198,6 @@
 				var param = [];
 				var data_site;
 				var vue = vue1;
-
 				/* 	sessionStorage.getItem('sitelist'); */
 				addrStation = {
 					"data": [{
@@ -243,10 +259,6 @@
 					}],
 					"status": "success"
 				}
-
-
-
-
 				/* 	if (addrStation == null) {
 						util.getmoniter(param, function(data) {
 							//存储全部的站点信息
@@ -261,7 +273,6 @@
 								obj.value = addrStation[i];
 								temp.push(obj);
 							}
-
 							vue.StationChoose = temp;
 
 						});
@@ -284,44 +295,29 @@
 				///addrStation=data_site.split(",");
 
 
-
-
 				FindSiteTask(vue);
-				//设置站点
-
-
-
-
+				//设置站点  
 				setInterval(function() {
 					if (vue.canMove)
 						FindSiteTask(vue);
 				}, 10000);
 
-
-				// for(var i=1;i<addrStation.length;i++)
-				// {
-				// 	if(addrStation[i]==0)
-				// 	{
-				// 		break;
-				// 	}
-				// 	Site_processing(addrStation[i],vue);
-
-				// }
-
+				for (var i = 1; i < addrStation.length; i++) {
+					if (addrStation[i] == 0) {
+						break;
+					}
+					Site_processing(addrStation[i], vue);
+				}
 			}
 
 			function FindSiteTask(vue1) {
 				num = 0;
 				var vue = vue1;
-
 				var timer = setInterval(() => {
-
 					num++;
-
 					if (addrStation[num] == "0") {
 						window.clearInterval(timer);
 					}
-
 				}, 1000);
 				Site_processing(addrStation[num], vue);
 			}
@@ -339,44 +335,55 @@
 				obj.status = 0;
 				obj.siteno = siteno;
 				SiteNode_exist.push(obj);
-
 			}
 
 			function Site_Datefit(m_sitenode, item) {
-
 				if (item.equipid == 0) {
-					m_sitenode.setImage('assets/images/mu.jpg', true);
-					m_sitenode.setSize(67, 30);
-
+					//m_sitenode.setImage('assets/images/au.jpg', true);
+					m_sitenode.setSize(30, 30);
+					m_sitenode.fillColor = '255,204,51'; //填充颜色
+					m_sitenode.radius = 100;
 				} else {
-					m_sitenode.setImage('assets/images/ru.png', true);
-					m_sitenode.setSize(26, 56);
+					//m_sitenode.setImage('assets/images/ru.jpg', true);
+					m_sitenode.setSize(30, 30);
+					m_sitenode.fillColor =  '0, 0, 255'; ; //填充颜色
+					m_sitenode.radius = 100;
+					
 				}
 
 				m_sitenode.addEventListener("dbclick", function(event, i) {
 					//双击
-					console.log("双击");
-					window.location.href = "ru.html";
+					
+					console.log(m_sitenode.siteno);
+					if (m_sitenode.siteno == 0) {
+						sessionStorage.setItem("equipment", "au");
+						sessionStorage.setItem("url", "Topology");
+					} else {
+						sessionStorage.setItem("equipment", "eu");
+						sessionStorage.setItem("url", "Status");
+					}
+					/* else if (data.type == 2) {
+						sessionStorage.setItem("equipment", "ru");
+						sessionStorage.setItem("url", "Status");
+					}*/
+					//	document.getElementById('iframe1').src="Status.html";
+					//	window.location.reload();
+					//parent.location.reload();
+					// parent.document.getElementById('iframe1').location.reload();
 
-					//console.log(m_sitenode);
-
+					parent.window.location.href = "Status.html"
 
 				});
 				m_sitenode.addEventListener("click", function(event, i) {
 					//单击
-
-					console.log("单击");
-
-
+					//	console.log("单击");
 					var currentSite = {};
 					currentSite.station = m_sitenode.station;
 					currentSite.siteno = m_sitenode.siteno;
 					currentSite.equipid = m_sitenode.equipid;
 					currentSite.offline = m_sitenode.offline;
 					currentSite.type = 0;
-
 					sessionStorage.setItem('currentSite', JSON.stringify(currentSite));
-
 					//console.log(m_sitenode);
 				});
 
@@ -407,7 +414,6 @@
 			function SiteDataDeal(data, vue1) {
 				//处理不同站点的数据
 
-
 				var currentData = [];
 				var station_no; //站点1；
 
@@ -416,28 +422,22 @@
 					if (CurrentSite != undefined) {
 						station_no = CurrentSite.station;
 						vue1.station = station_no;
-
 					}
 				} else {
 					station_no = vue1.station;
 				}
 
-
 				$.each(data, function(idx, item) {
-
 					if (item.station == station_no) {
-
 						if (item.siteno == 0) {
 							currentData.unshift(item);
 						} else {
 							currentData.push(item);
 						}
 					}
-
 				});
 
 				return currentData;
-
 
 			}
 
@@ -514,7 +514,6 @@
 
 				//清空数组
 				SiteNode.splice(0, SiteNode.length);
-
 				//获取站点信息
 				//处理上传帧格式信息
 				//页面初始化
@@ -524,18 +523,17 @@
 				//datalist = SiteDataDeal(data, vue);
 				$.each(datalist, function(idx, item) {
 
-
 					//处理点初始化
 					if (item.siteno == 0) {
 
-						SiteNode[idx + 1] = new JTopo.Node("MU1");
+						SiteNode[idx + 1] = new JTopo.Node("AU");
+
 						Site_Datefit(SiteNode[idx + 1], item);
 						// SiteNode[idx + 1].setSize(26, 26);
 						// SiteNode[idx + 1].setLocation(parseInt(item.x)*(CanvasWin_width/1000) , parseInt(item.y)*(CanvasWin_height/1000));
 
 						scene.add(SiteNode[idx + 1]);
 						temp.push(item);
-
 						SiteNode_exist_add(SiteNode_exist, item.siteno);
 						currutNode = 1;
 
@@ -577,7 +575,7 @@
 										scene.add(SiteNode[len]);
 										// link = new JTopo.Link(SiteNode[currutNode], SiteNode[len]);
 										// link.strokeColor = '0,0,0'; //设置线条
-										link = new JTopo.FoldLink(SiteNode[currutNode], SiteNode[len], "");
+										link = new JTopo.Link(SiteNode[currutNode], SiteNode[len], "");
 										link.direction = 'vertical' || 'horizontal';
 										link.lineWidth = 3; // 线宽
 										link.bundleOffset = 60; // 折线拐角处的长度
@@ -638,11 +636,11 @@
 
 					GetStation(this);
 
-
 					// Site_processing();
 				},
 				//事件
 				methods: {
+
 					StationChange: function() {
 						var temp = {};
 						temp.equipid = 0;
@@ -693,23 +691,21 @@
 
 					},
 					handleSuccess(res, fille) {
-						/* toast.$message({
-						     message: 'Upgrade firmware upload is successful, please power on and update firmware',
-						     type: 'success',
-						     offset: 80
-						 });*/
-						/*   this.imageUrl = URL.createObjectURL(file.raw); */
-						// console.log(res);
-
-
-						// var Loca = window.location.hostname + '../images/' + setbg;
-						// var Loca1 = '../images/' + setbg;
+						toast.$message({
+							message: 'Upgrade firmware upload is successful, please power on and update firmware',
+							type: 'success',
+							offset: 80
+						});
+						this.imageUrl = URL.createObjectURL(file.raw);
+						console.log(res);
+						var Loca = window.location.hostname + '../images/' + setbg;
+						var Loca1 = '../images/' + setbg;
 
 						// console.log(Loca1);
 						// console.log(Loca);
-						// scene = new JTopo.Scene(stage);
+						scene = new JTopo.Scene(stage);
 
-						// scene.background = Loca1;
+						scene.background = Loca1;
 						window.location.reload();
 
 					},

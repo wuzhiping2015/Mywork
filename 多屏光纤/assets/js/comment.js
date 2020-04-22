@@ -77,7 +77,7 @@ var util = {
 		}).html('<i class="el-icon-loading"></i> 进入系统中,请稍后...');
 		sessionStorage.setItem('$session', user);
 		setTimeout(() => {
-			window.location.href = "Index.html";
+			window.location.href = "indexes.html";
 		}, 1000);
 		/*   $.ajax({
 					url: "../cgi-bin/doaction.cgi",
@@ -410,7 +410,6 @@ Vue.component("el-main-sidebar", {
 				sessionStorage.setItem("equipment", "ru");
 				sessionStorage.setItem("url", "Status");
 			}
-
 			window.location.href = "Status.html"
 		}
 	},
