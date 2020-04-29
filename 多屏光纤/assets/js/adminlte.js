@@ -509,7 +509,8 @@ throw new Error('AdminLTE requires jQuery')
   // ===================
   $(document).on('click', Selector.data, function (event) {
     if (event) event.preventDefault();
-    Plugin.call($(this), 'toggle');
+	alert(111);
+     Plugin.call($(this), 'toggle');
   });
 
 }(jQuery);
@@ -865,6 +866,7 @@ throw new Error('AdminLTE requires jQuery')
   // ========
   $(document).on('click', Selector.button, function (e) {
     e.preventDefault();
+	//$(".main-sidebar").animate({"width":"0px"},1000)
     Plugin.call($(this), 'toggle');
   });
   $(window).on('load', function () {

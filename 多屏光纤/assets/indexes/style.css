@@ -88,7 +88,6 @@ video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
 	vertical-align: baseline;
 }
 
@@ -169,6 +168,8 @@ body {
 }
 
 .box-header.with-border {
+	font-family:'Roboto Condensed';
+	padding: 12px 10px;
 	border-bottom: 1px solid #aec1d5;
 }
 
@@ -188,12 +189,12 @@ body {
 .box-header>.glyphicon,
 .box-header>.ion,
 .box-header .box-title {
-	display: inline-block;
-	font-size: 16px;
-	margin: 0;
-	line-height: 1;
-	font-weight: 300;
-	color: rgb(101, 101, 101);
+	    display: inline-block;
+	    font-size: 18px;
+	    margin: 0;
+	    line-height: 1;
+	    font-weight: 600;
+	    color: #434A54;
 }
 
 .el-col.el-col-12 {

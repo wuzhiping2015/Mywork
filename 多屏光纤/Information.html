@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Topology</title>
+		<title>VPN </title>
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
 		<link rel="stylesheet" href="assets/css/global.css?2019827" />
 		<!-- Font Awesome -->
@@ -14,46 +14,80 @@
 		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
 		<link rel="stylesheet" href="assets/css/index.css?2019827">
 	</head>
-
-	<body>
-		<!-- hold-transition skin-blue-light sidebar-mini sidebar-collapse -->
-		<div class="wrapper" id="content" style="background:#fff;">
-			
-			<div class="col-md-12 canbox">
-				<div class="col-md-12 cantips">
-					<div style="float: left;">
-						<button type="button" class="el-button el-button--primary el-button--mini" @click="SetCoordinates">
-							<span>保存坐标</span>
-						</button>
-					</div>
-					<div style=" float: left; margin-left: 5px; cursor: pointer;">
-						<el-upload ref="upload" action="../cgi-bin/update.cgi" :on-preview="handlePreview" :on-remove="handleRemove"
-						 :file-list="updateParam.fileList" :auto-upload="true" :on-success="handleSuccess" :limit="1" :on-error="uperror"
-						 name="file" :before-upload="beforeAvatarUpload" accept="image/*">
-							<i class="el-icon-plus" style="display: none;"></i>
-							<a class="el-button el-button--primary el-button--mini  bg-aqua" slot="trigger"  style="border-color:#409EFF;">
-								<i class="fa fa-edit"></i>上传照片
-							</a>
-						</el-upload>
-					</div>
-
-				<!-- 	<div style=" float: right;">
-						<el-select v-model="station" size="small" @change="StationChange">
-							<el-option v-for="(item,index) in StationChoose" :key="index" :label="item.label" :value="item.value"></el-option>
-						</el-select>
-					</div> -->
-					<div style="float: right;" title="开启定时">
-						<el-switch v-model="canMove">
-						</el-switch>
-					</div>
-				</div>
-				<canvas id="canvas" width="1100" height="1000">
-
-				</canvas>
-
+	<style>
+		.clear{
+	 	 overflow: auto;
+	 	  zoom: 1;
+	 	  background: #fff;
+	 }
+	 .box-header.with-border {
+	     padding-bottom: 14px;
+	 }
+	 .el-form-item__content{
+		 margin-bottom: 8px;
+	 }
+</style>
+	<body class="skin-black sidebar-open sidebar-mini">
+		<div class="wrapper">
+			<!-- 页头 -->
+			<div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+				<el-main-header></el-main-header>
 			</div>
-	
+			<!-- 页头end -->
+
+			<!-- 侧边栏导航 -->
+			<div id="comp-sidebar">
+				<el-main-sidebar></el-main-sidebar>
+			</div>
+			<!-- 侧边栏导航 end -->
+
+			<!-- 内容区域 -->
+			<div class="content-wrapper" id="content">
+				<!-- 内容头部面包屑 -->
+
+				<!-- 主要内容显示 -->
+				<section class="content container-fluid" id="MainContext">
+
+					<div class="col-md-12 canbox">
+						<div class="col-md-12 cantips">
+							<div style="float: left;">
+								<button type="button" class="el-button el-button--primary el-button--mini" @click="SetCoordinates">
+									<span>保存坐标</span>
+								</button>
+							</div>
+							<div style=" float: left; margin-left: 5px; cursor: pointer;">
+								<el-upload ref="upload" action="../cgi-bin/update.cgi" :on-preview="handlePreview" :on-remove="handleRemove"
+								 :file-list="updateParam.fileList" :auto-upload="true" :on-success="handleSuccess" :limit="1" :on-error="uperror"
+								 name="file" :before-upload="beforeAvatarUpload" accept="image/*">
+									<i class="el-icon-plus" style="display: none;"></i>
+									<a class="el-button el-button--primary el-button--mini  bg-aqua" slot="trigger" style="border-color:#409EFF;">
+										<i class="fa fa-edit"></i>上传照片
+									</a>
+								</el-upload>
+							</div>
+
+							<!-- 	<div style=" float: right;">
+	      			<el-select v-model="station" size="small" @change="StationChange">
+	      				<el-option v-for="(item,index) in StationChoose" :key="index" :label="item.label" :value="item.value"></el-option>
+	      			</el-select>
+	      		</div> -->
+							<div style="float: right;" title="开启定时">
+								<el-switch v-model="canMove">
+								</el-switch>
+							</div>
+						</div>
+						<canvas id="canvas" width="1100" height="1000">
+
+						</canvas>
+
+					</div>
+
+				</section>
+			</div>
+			<!-- 内容区域 -->
+
 		</div>
+
 		<script type="text/javascript" src="assets/js/jquery.js"></script>
 		<script type="text/javascript" src="assets/js/jtopo-0.4.8-min.js?v=12222"></script>
 		<script type="text/javascript" src="assets/js/toolbar.js?v=12222"></script>
@@ -61,6 +95,7 @@
 		<script type="text/javascript" src="assets/js/vue.js"></script>
 		<script type="text/javascript" src="assets/js/index.js"></script>
 		<script type="text/javascript" src="assets/js/comment.js"></script>
+
 
 
 		<style scoped>
@@ -348,14 +383,14 @@
 				} else {
 					//m_sitenode.setImage('assets/images/ru.jpg', true);
 					m_sitenode.setSize(30, 30);
-					m_sitenode.fillColor =  '0, 0, 255'; ; //填充颜色
+					m_sitenode.fillColor = '0, 0, 255';; //填充颜色
 					m_sitenode.radius = 100;
-					
+
 				}
 
 				m_sitenode.addEventListener("dbclick", function(event, i) {
 					//双击
-					
+
 					console.log(m_sitenode.siteno);
 					if (m_sitenode.siteno == 0) {
 						sessionStorage.setItem("equipment", "au");
@@ -469,8 +504,8 @@
 					"equipid": 20,
 					"offline": 0,
 					"siteno": 40000000,
-					"x": 551,
-					"y": 397,
+					"x": 550,
+					"y": 369,
 					"status": 0,
 					"ip": "-",
 					"station": "0"
@@ -497,13 +532,12 @@
 					"equipid": 2,
 					"offline": 0,
 					"siteno": 41000000,
-					"x": 235,
-					"y": 661,
+					"x": 725,
+					"y": 208,
 					"status": 0,
 					"ip": "-",
 					"station": "0"
 				}];
-
 				var SiteNode_exist = []; //已经存在站点存储
 				var obj = {};
 				var temp_arr;
@@ -680,6 +714,8 @@
 							obj.y = parseInt(SiteNode[i + 1].y * 1000 / CanvasWin_height).toString();
 							params.push(obj);
 						}
+						
+						console.log(params);
 
 						util.postxy(params, station_no, function() {
 							util.success("set success");
@@ -737,5 +773,8 @@
 			});
 		</script>
 
+
 	</body>
+
+
 </html>

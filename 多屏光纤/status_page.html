@@ -46,7 +46,7 @@
 </style>
 
 	<body>
-		<!-- hold-transition skin-blue-light sidebar-mini sidebar-collapse -->
+		 
 		<div class="wrapper" id="content" style="background:#f1f4f6; margin-top: 10px;">
 
 			<div class="col-md-12" style="padding-left: 0px;">
@@ -55,14 +55,18 @@
 					<div class="col-md-6">
 						<div class="box box-primary">
 							<div class="box-body box-profile" style="padding-top:22px ;">
-								<img class="profile-user-img img-responsive img-circle" src="assets/images/3.png" alt="User profile picture">
+								
+								<div class="profile-user-img img-responsive img-circle" >
+									<span class="icon iconfont icon-caijishebeixinxichaxun"></span>
+								</div>
+								
 								<p>&nbsp;</p>
 								<ul class="list-group list-group-unbordered">
 									<li class="list-group-item">
-										<b>设备编号</b> <a class="pull-right">数据...</a>
+										<span class="icon iconfont icon-bianhao"></span>Equipment  number  <a class="pull-right">{{Equipment["53"]}}</a>
 									</li>
 									<li class="list-group-item">
-										<b>Device Temp</b> <a class="pull-right">数据...</a>
+										<span class="icon iconfont icon-wendu1"></span>Equipment temperature   <a class="pull-right">{{Equipment["51"]}}</a>
 									</li>
 								</ul>
 							</div>
@@ -71,8 +75,7 @@
 					</div>
 					<!-- 设备信息 -->
 
-					<!--  Light start-->
-
+					<!--  ROC start-->
 					<div class="col-md-6">
 						<div class="box">
 							<table class="table table-hover">
@@ -82,44 +85,17 @@
 										<th>UL Output Power</th>
 										<th>DL Input Power</th>
 									</tr>
-									<tr>
-										<td>ROC 1 </td>
-										<td> 数据...</td>
-										<td>数据...</td>
-									</tr>
-									<tr>
-										<td>ROC 2 </td>
-										<td> 数据...</td>
-										<td>数据...</td>
-									</tr>
-									<tr>
-										<td>ROC 3 </td>
-										<td> 数据...</td>
-										<td>数据...</td>
-									</tr>
-									<tr>
-										<td>ROC 4 </td>
-										<td> 数据...</td>
-										<td>数据...</td>
-									</tr>
-									<tr>
-										<td>ROC 5 </td>
-										<td> 数据...</td>
-										<td>数据...</td>
-									</tr>
-									<tr>
-										<td>ROC 6 </td>
-										<td> 数据...</td>
-										<td>数据...</td>
+
+									<tr v-for="(v,i) in rocData['length']">
+										<td>ROC {{i+1}} </td>
+										<td>{{rocData["6"][i]}}</td>
+										<td>{{rocData["7"][i]}}</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
-
 					</div>
-
-					<!--  Light end-->
-
+					<!--  ROC end-->
 				</div>
 				<div class="row">
 					<!--  Alarm start-->
@@ -127,10 +103,7 @@
 						<!--  v-if="equipment=='au'" -->
 						<div class="box">
 							<div class="box-header with-border">
-								<h3 class="box-title">Alarm</h3>
-								<div class="box-tools pull-right" style="top: 9px;">
-									<span class="iconfont icon-jizhan-nomal"></span>
-								</div>
+								<h3 class="box-title"><span class=" icon iconfont icon-shebeigaojing"></span>  Alarm</h3>
 							</div>
 
 							<div class="row">
@@ -231,60 +204,34 @@
 
 					</div>
 					<!--  Alarm end-->
-
 					<!--  Light start-->
 					<div class="col-md-6">
 						<div class="box">
 							<div class="box-header with-border">
-								<h3 class="box-title">Light </h3>
+								<h3 class="box-title">Optical </h3>
 								<div class="box-tools pull-right" style="top: 9px;">
 									<span class="iconfont icon-jizhan-nomal"></span>
 								</div>
 							</div>
-
 							<table class="table table-hover">
 								<tbody>
 									<tr>
-										<th>Link Type</th>
-										<th>Transmit Power</th>
-										<th>Received Power</th>
+										<th>Optical Type</th>
+										<th>Tx Power</th>
+										<th>Rx Power</th>
 									</tr>
-									<tr>
-										<td>Link 1 </td>
-										<td> 数据...</td>
-										<td>数据...</td>
+									<tr v-for="(v,i) in optical['length']">
+										<td>Optical {{i+1}} </td>
+										<td>{{optical["s"][i]}}</td>
+										<td> {{optical["f"][i]}}</td>
 									</tr>
-									<tr>
-										<td>Link 2 </td>
-										<td> 数据...</td>
-										<td>数据...</td>
-									</tr>
-									<tr>
-										<td>Link 3 </td>
-										<td> 数据...</td>
-										<td>数据...</td>
-									</tr>
-									<tr>
-										<td>Link 4 </td>
-										<td> 数据...</td>
-										<td>数据...</td>
-									</tr>
-
 								</tbody>
 							</table>
-
 						</div>
-
 					</div>
 					<!--  Light end-->
-
-
-
 				</div>
-
 				<!-- Alarm end -->
-
-
 				<!-- /.nav-tabs-custom -->
 			</div>
 
@@ -298,22 +245,96 @@
 
 		</style>
 		<script type="text/javascript">
-			var app;
+			var helios;
 			let data = {
 				equipment: sessionStorage.getItem("equipment"),
 				form: {
 					name: '1111111',
-					region: '',
-					date1: '',
-					date2: '',
 					delivery: false,
 					type: [],
 					resource: '',
 					desc: ''
 				},
-				alamr: []
+				alamr: [],
+				//接收数据
+				rocData: {}, //ROC模块
+				optical: {}, //光模块
+				Equipment: {} //设备信息
 			};
-			app = new Vue({
+			let getajax = {
+				//ROT START
+				roc() {
+					var obj1 = [6, 7];
+					var obj = {
+						"data": obj1.join(),
+						"action": "READ"
+					}
+					util.getattrajax(obj, function(data) {
+						var data = data.data;
+						console.log(data);
+						var length;
+						var getdata = new Object;
+						for (var i = 0; i < data.length; i++) {
+							if (data[i].adr == obj1[i]) {
+								getdata[obj1[i]] = data[i].value.split(",");
+								length = data[i].value.split(",").length;
+							}
+						}
+						getdata.length = length;
+						helios.rocData = getdata;
+					})
+					
+				},
+				//optical start
+				optical() {
+					var obj1 = [70, 71, 72, 73, 74, 75, 76, 77];
+					var obj = {
+						"data": obj1.join(),
+						"action": "READ"
+					}
+					util.getattrajax(obj, function(data) {
+						var data = data.data;
+
+						var getdata = new Object;
+						for (var i = 0; i < data.length; i++) {
+							if (data[i].adr == obj1[i]) {
+								getdata[obj1[i]] = data[i].value;
+							}
+						}
+						getdata["s"] = [getdata[70], getdata[71], getdata[72], getdata[73]];
+						getdata["f"] = [getdata[74], getdata[75], getdata[76], getdata[77]];
+						getdata["length"] = getdata["f"].length;
+
+						helios.optical = getdata;
+					})
+				},
+				Equipment() {
+					var obj1 = [51, 53];
+					var obj = {
+						"data": obj1.join(),
+						"action": "READ",
+					}
+					util.getattrajax(obj, function(data) {
+						
+						
+						var data = (data.data);
+						
+						var getdata = new Object;
+						for (var i = 0; i < data.length; i++) {
+							if (data[i].adr == obj1[i]) {
+								if (data[i].value == "") {
+									getdata[obj1[i]] = "Empty data"
+								} else {
+									getdata[obj1[i]] = data[i].value;
+								}
+							}
+						}
+						helios.Equipment = getdata
+					});
+				}
+
+			}
+			helios = new Vue({
 				el: "#content",
 				data: data,
 
@@ -322,7 +343,10 @@
 				},
 				mounted() {
 					$("body").resize();
-
+					getajax.roc();
+					getajax.optical();
+				    getajax.Equipment();
+					 
 				},
 
 				updated() {

@@ -44,7 +44,7 @@
 					<section class="">
 						<ol class="breadcrumb">
 							<li>
-								<a href="Ethernet.html"  style="font-weight: bold;" >Ethernet</a>
+								<a href="Ethernet.html" style="font-weight: bold;">Ethernet</a>
 							</li>
 							<li>
 								<a href="Modem.html">Modem</a>
@@ -55,10 +55,10 @@
 							<li>
 								<a href="VPN.html">VPN</a>
 							</li>
-						
+
 						</ol>
 					</section>
-					<div class="wrapper" id="content" style="background:#f1f4f6; margin-top: 20px;">
+					<div class="wrapper" id="content" style="background:#f1f4f6; margin-top: 12px;">
 
 
 						<div class="col-md-12" style="padding-left: 0px;">
@@ -161,6 +161,16 @@
 					tag: 111,
 				}
 			};
+
+			let getajax = {
+				Port1() {
+						let address=new Array();
+						address.push();
+				},
+				Port2(){
+					
+				}
+			}
 			var Helios = new Vue({
 				el: "#MainContext",
 				data: data,
@@ -182,7 +192,7 @@
 				mounted() {
 					/* console.log("时时监控数据变化,并随之更新");*/
 					$("body").resize();
-
+					getajax.Port1();
 
 				},
 

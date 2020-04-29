@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Modem </title>
+		<title>loginfo </title>
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
 		<link rel="stylesheet" href="assets/css/global.css?2019827" />
 		<!-- Font Awesome -->
@@ -21,7 +21,7 @@
 	 	  background: #fff;
 	 }
 	 .box-header.with-border {
-	     padding-bottom: 14px;
+	     padding-bottom: 20px;
 	 }
 	 .el-form-item__content{
 		 margin-bottom: 8px;
@@ -44,95 +44,64 @@
 					<section class="">
 						<ol class="breadcrumb">
 							<li>
-								<a href="Ethernet.html" >Ethernet</a>
+								<a href="Loginfo.html">Loginfo</a>
 							</li>
-							<li>
-								<a href="Modem.html" style="font-weight: bold;">Modem</a>
-							</li>
-							<li>
-								<a href="SNMP.html">SNMP</a>
-							</li>
-							<li>
-								<a href="VPN.html">VPN</a>
-							</li>
+							<li class="active">{{url}}</li>
 						</ol>
 					</section>
 					<div class="wrapper" id="content" style="background:#f1f4f6; margin-top: 12px;">
 
-
 						<div class="col-md-12" style="padding-left: 0px;">
-
 							<div class="row">
 
-								<!-- Port1 START -->
-								<div class="col-md-6">
+								<!-- External START -->
+								<div class="col-md-12">
 									<div class="box">
 										<div class="box-header with-border">
 											<h3 class="box-title">&nbsp;</h3>
 											<div class="box-tools pull-right" style="top: 9px;">
-												<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
-												<el-button size="small">Read</el-button>
+												<el-button type="primary" @click="onSubmit" size="small">synchronous</el-button>
+												 
 											</div>
 										</div>
-										<div class="clear" style="padding-top: 10px;">
-											<el-form ref="form" :model="form" label-width="180px" size="medium">
-												<div class="col-md-10">
+										<div class="clear">
+											<table class="table table-hover">
+												<tbody>
+													<tr>
+														<th width="190">Log type</th>
+														<th width="250">Name</th>
+														<th width="180">Detailed </th>
+														<th width="180">Time </th>
+													</tr>
+													<tr v-for="(v,i ) in 8">
+														<td>External Alarm {{i+1}}</td>
+														<td>
+															{{form.name}}
+															
+														</td>
+														<td>
+															{{form.tag}}
+														</td>
+														<td>
+															{{form.tag}}
+														</td>
+													</tr>
 
-													<el-form-item label="Modem Enable">
-														<el-checkbox-group v-model="form.name1" size="small">
-															<el-checkbox label="Enable" border></el-checkbox>
-														</el-checkbox-group>
-													</el-form-item>
-													<el-form-item label="APN">
-														<el-input v-model="form.tag" size=""></el-input>
-													</el-form-item>
 
-													<el-form-item label="ISP User">
-														<el-input v-model="form.tag" size=""></el-input>
-													</el-form-item>
 
-													<el-form-item label="ISP Password">
-														<el-input v-model="form.tag" size=""></el-input>
-													</el-form-item>
-												</div>
-											</el-form>
+
+												</tbody>
+											</table>
+
 
 										</div>
 									</div>
 								</div>
-								<!-- Port1 END -->
-
-								<!-- Port1 START -->
-								<div class="col-md-6">
-									<div class="box">
-										<div class="box-header with-border">
-											<h3 class="box-title">&nbsp;</h3>
-											<div class="box-tools pull-right" style="top: 9px;">
-												<el-button type="success" @click="onSubmit" size="small">数据同步</el-button>
-
-											</div>
-										</div>
-										<div class="clear" style="padding-top: 10px;">
-											<el-form ref="form" :model="form" label-width="180px" size="medium">
-												<div class="col-md-10">
-													<el-form-item label="Current IP">
-														{{form.tag}}
-													</el-form-item>
-
-													<el-form-item label="Link Status">
-														{{form.tag}}
-													</el-form-item>
+								<!-- External END -->
 
 
-												</div>
 
 
-											</el-form>
-
-										</div>
-									</div>
-								</div>
-								<!-- Port1 END -->
 							</div>
 						</div>
 					</div>
@@ -152,10 +121,23 @@
 				equipment: sessionStorage.getItem("equipment"),
 				url: sessionStorage.getItem("url"),
 				form: {
-					name: true,
-					name1: false,
+					name: "data...",
 					tag: 111,
-				}
+				},
+				value: '1',
+				Grade: [{
+					value: '1',
+					label: 'Warn'
+				}, {
+					value: '2',
+					label: 'Minor'
+				}, {
+					value: '3',
+					label: 'Major'
+				}, {
+					value: '4',
+					label: 'Critcal'
+				}],
 			};
 			var Helios = new Vue({
 				el: "#MainContext",

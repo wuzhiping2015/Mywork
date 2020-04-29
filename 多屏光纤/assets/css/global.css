@@ -21,7 +21,9 @@ html {
 	-ms-text-size-adjust: 100%;
 }
 
-
+.tagerLink .el-dropdown-link {
+	padding: 20px 0;
+}
 
 /*固定*/
 #comp-header {
@@ -41,7 +43,7 @@ html {
 }
 
 #MainContext {
-	padding-top: 70px !important;
+	padding-top: 64px !important;
 }
 
 article,
@@ -84,25 +86,10 @@ video {
 	display: inline-block;
 }
 
-body,
-button,
-input,
-select,
-textarea {
-	/* font: 12px/1.5 "microsoft yahei"; */
-}
+ 
 
-input,
-select,
-textarea {
-	font-size: 100%;
-}
-
-table {
-	/* border-collapse: collapse; */
-	/* table-layout: fixed; */
-	/* border-spacing: 0; */
-}
+ 
+ 
 
 th {
 	text-align: inherit;
@@ -216,15 +203,12 @@ textarea {
 	overflow: auto
 }
 
-button {
-	font-family: \5FAE\8F6F\96C5\9ED1, Verdana, Arial, Helvetica, sans-serif;
-}
-
+ 
 
 /*树型菜单*/
 
 .main-sidebar {
-	 border: 1px solid #a5a5a5;
+	border: 1px solid #a5a5a5;
 }
 
 .parent_li ul {
@@ -4552,3 +4536,8 @@ body {
 
 
 /*header end*/
+
+
+
+
+

@@ -15,290 +15,681 @@
 		<link rel="stylesheet" href="assets/css/index.css?2019827">
 	</head>
 	<style>
+		[class*="col-grid-s"]>li {
+			width: 410px;
+		}
+			
+		.nav-tabs-custom li {
+			width: 120%;
+		}
+			
+		.box .box-footer {
+			border-top: 0px;
+		}
+			
+		.label {
+			font-size: 120%;
+		}
+			
+		.el-dialog {
+			width: 30%;
+		}
+			
+		td span small {
+			cursor: pointer;
+		}
+			
+		.el-button--mini,
+		.el-button--mini.is-round {
+			padding: 1px 3px;
+			color: #fff
+		}
+			
 		.viswCard span {
-	color: #fff;
-	margin-right: 0px;
-	}
-	.box-header .el-button--mini, .el-button--mini.is-round {
-		padding: 1px 3px;
-		color: #fff;
-	   vertical-align: middle;
-	}
-	.el-input{
-		vertical-align: middle;
-	}
-	.label-text-vm {
-	    text-align: left;
-	}
-	.col-sm-4 {
-	    margin: 10px 0;
-	}
-	
-	.row .label {
-	    display: inline-block;
-	    width: 18px;
-	    height: 18px;
-	    margin-top: 5px;
-	}
-	.description-block{
-		margin: 10px 0px;
-	}
-	.list-group{
-		margin-bottom: 0px;
-	}
-	.box-header.with-border {
-	    padding-bottom: 14px;
-	}
-	.clear{
-		 overflow: auto;
-		  zoom: 1;
-		  background: #fff;
-	}
-	.el-form-item{
-		margin-bottom: 6px !important;
-	}
-	.height{
-		height: 250px;
-	}
+			color: #fff;
+			margin-right: 0px;
+		}
+			
+		.table-hover td {
+			text-indent: 6px;
+		}
+			
+		.table>tbody>tr.add>td,
+		.table>tbody>tr>td.res {
+			font-weight: bold;
+			color: #333;
+		}
+			
+		.viswCard {
+			position: inherit;
+			top: 4px;
+			width: 122px;
+		}
+			
+		.table.res td .label {
+			margin-left: 5px;
+			float: right;
+		}
+			
+		.el-select,
+		.el-input__inner {
+			width: 120px !important;
+		}
+			
+		tr td:nth-child(4),
+		tr.res td:nth-child(5) {
+			background-color: rgb(218, 219, 219);
+		}
+			
+		tr.res td:nth-child(4) {
+			background-color: #fff;
+		}
+			
+		.col-xs-2 {
+			padding: 0px !important;
+			width:14.27% !important;
+		}
+		.dataTable td{
+			height: 45px;
+		}
+		.el-checkbox-group{
+			margin-right: 0px;
+			margin-left: 13px;
+			float: left;
+		}
+		.el-checkbox__label{
+			padding-left: 2px !important;
+		}
+		.el-checkbox__inner{
+			vertical-align: 1px;
+		}
+		.col-xs-2.hover:hover{
+			background: #f6fbfd;
+		}
 </style>
 	<body>
 		<!-- hold-transition skin-blue-light sidebar-mini sidebar-collapse -->
-		<div class="wrapper" id="content" style="background:#f1f4f6; margin-top: 10px;">
+		<div class="wrapper" id="content" style="background:#f1f4f6; margin-top: 2px;">
+			<div class="box">
+				<div class="box-body table-responsive no-padding">
 
-			<div class="col-md-12" style="padding-left: 0px;">
-				<div class="row">
-					<!-- 设备信息 -->
-					<div class="col-md-6">
-						<div class="box box-primary">
-							<div class="box-body box-profile" style="padding-top:22px;" :class="true==aushow?'height': 'height'">
-								<div class="col-md-4" style="background: #399bff;
-							padding: 20px;">
+					<div class="col-xs-2 ">
+						<table class="table res table-bordered  dataTable first">
+							<tbody>
+								<tr>
+									<td colspan="2" style="height:45px"> </td>
+								</tr>
+								<tr>
+									<td colspan="2"> <span class="icon iconfont icon-kongzhitai"></span> <b> Type</b></td>
+								</tr>
+								<tr>
+									<td colspan="2"><strong>UL Output Power</strong></td>
+								</tr>
+								<tr>
+									<td colspan="2"><strong>DL input Power</strong></td>
+								</tr>
 
-									<el-select v-model="value" placeholder="请选择">
-										<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-										</el-option>
-									</el-select>
-								</div>
-								<div class="col-md-8">
-									<ul class="list-group list-group-unbordered">
-										<li class="list-group-item">
-											<b>UL Output Power</b> <a class="pull-right">数据...</a>
-										</li>
-										<li class="list-group-item">
-											<b>DL input Power</b> <a class="pull-right">数据...</a>
-										</li>
+								<tr>
+									<td colspan="2"><b> PA Static</b></td>
+								</tr>
+								
+								<tr>
+									<td colspan="2"><b>PA Temp</b></td>
+								</tr>
+								
+								<tr>
+									<td colspan="2"><b>PA Input Power</b></td>
+								</tr>
+								
+								<tr>
+									<td colspan="2"><b>PA Output Power</b></td>
+								</tr>
 
-										<li class="list-group-item">
-											<b>PA Static</b> <a class="pull-right">数据...</a>
-										</li>
-										<li class="list-group-item">
-											<b>PA Temp</b> <a class="pull-right">数据...</a>
-										</li>
-										<li class="list-group-item">
-											<b>PA Input Power</b> <a class="pull-right">数据...</a>
-										</li>
-										<li class="list-group-item">
-											<b>PA Output Power</b> <a class="pull-right">数据...</a>
-										</li>
-									</ul>
-									<!-- RU 切换 -->
-								</div>
+								<tr>
+									<td rowspan="5"><b>RF</b></td>
+									<td>UL Freq</td>
+								</tr>
+								<tr>
+									<td>DL Freq</td>
+								</tr>
+								<tr>
+									<td>UL ATT</td>
+								</tr>
+								<tr>
+									<td>DL ATT</td>
+								</tr>
+								<tr>
+									<td>Bandwidth</td>
+								</tr>
+								<tr>
+									<td rowspan="4"><b>DL</b></td>
+									<td>Over Pwr Thr</td>
+								</tr>
+								<tr>
+									<td>Under Pwr Thr</td>
+								</tr>
+								<tr>
+									<td>Over Pwr</td>
+								</tr>
+								<tr>
+									<td>Under Pwr</td>
+								</tr>
 
-							</div>
-							<!-- /.box-body -->
-						</div>
-					</div>
-					<!-- 设备信息 -->
-
-					<!--  DL I/P  start-->
-					<div class="col-md-6">
-						<div class="box">
-							<div class="box-header with-border">
-								<h3 class="box-title">RF</h3>
-								<div class="box-tools pull-right" style="top: 9px;">
-									<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
-									<el-button size="small">Read</el-button>
-								</div>
-							</div>
-							<div class="clear" style="padding-top:10px;">
-								<el-form ref="form" :model="form" label-width="80px" size="small">
-									<div class="col-md-6">
-										<el-form-item label="UL Freq">
-											<el-input v-model="form.tag"></el-input>
-										</el-form-item>
-									</div>
-									<div class="col-md-6">
-										<el-form-item label="DL Freq">
-											<el-input v-model="form.tag"></el-input>
-										</el-form-item>
-									</div>
-									<div class="col-md-6">
-										<el-form-item label="UL ATT">
-											<el-input v-model="form.tag"></el-input>
-										</el-form-item>
-									</div>
-									<div class="col-md-6">
-										<el-form-item label="DL ATT">
-											<el-input v-model="form.tag"></el-input>
-										</el-form-item>
-									</div>
-									<div class="col-md-6">
-										<el-form-item label="Bandwidth">
-											<el-input v-model="form.tag"></el-input>
-										</el-form-item>
-									</div>
-									<div class="col-md-12">
-										<el-form-item label="Digital board feedback power" label-width="220px">
-											<el-input v-model="form.tag" style="width:120px"></el-input>
-										</el-form-item>
-									</div>
-
-								</el-form>
-							</div>
-						</div>
-
+								<tr>
+									<td rowspan="6"><b>PA</b></td>
+									<td>PA ATT </td>
+								</tr>
+								<tr>
+									<td>VSWR Thr</td>
+								</tr>
+								<tr>
+									<td>PA Switch</td>
+								</tr>
+								<tr>
+									<td>Over Temp Alarm</td>
+								</tr>
+							
+								<tr>
+									<td>PA VSWR Alarm</td>
+								</tr>
+								
+								<tr>
+									<td>PA Fault Alarm</td>
+								</tr>
+								
+							<tbody>
+						</table>
 					</div>
 
+					<!-- 数据循环 -->
+					<div class="col-xs-2 hover">
+						<table class="table res table-bordered  dataTable">
+							<tbody>
+								<tr>
+									<td style="height:45px">
+										<div class="viswCard">
+											<el-button type="success" v-if="canSave" size="mini" @click="Resetlink">Reset
+											</el-button>
 
-
-					<!--  DL I/P  end-->
-
-				</div>
-
-				<div class="row">
-					<!--  RF start-->
-					<div class="col-md-6">
-						<div class="box">
-							<div class="box-header with-border">
-								<h3 class="box-title">DL I/P & DL Digital</h3>
-								<div class="box-tools pull-right" style="top: 9px;">
-									<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
-									<el-button size="small">Read</el-button>
-								</div>
-							</div>
-							<div class="clear" style="padding-top:10px;">
-								<el-form ref="form" :model="form" label-width="170px" size="small">
-									<div class="col-md-12">
-										<el-form-item label="DL I/P Over Pwr Thr">
-											<el-input v-model="form.tag"  style="width: 110px;"></el-input>
-										</el-form-item>
-									</div>
-									<div class="col-md-12">
-										<el-form-item label="DL I/P Under Pwr Thr">
-											<el-input v-model="form.tag"  style="width: 110px;"></el-input>
-										</el-form-item>
-									</div>
-									<div class="col-md-12">
-										<el-form-item label="DL Digital I/P Over Pwr">
-											<el-checkbox-group v-model="form.name" size="small">
-												<el-checkbox label="Agent Switch" border></el-checkbox>
-											</el-checkbox-group>
-											<el-checkbox-group v-model="form.name1" size="small">
-												<el-checkbox label="Enable" border></el-checkbox>
-											</el-checkbox-group>
-										</el-form-item>
-									</div>
-									<div class="col-md-12">
-										<el-form-item label="DL Digital I/P Under Pwr">
-											<el-checkbox-group v-model="form.name" size="small">
-												<el-checkbox label="Agent Switch" border></el-checkbox>
-											</el-checkbox-group>
-											<el-checkbox-group v-model="form.name1" size="small">
-												<el-checkbox label="Enable" border></el-checkbox>
-											</el-checkbox-group>
-										</el-form-item>
-									</div>
-								</el-form>
-							</div>
-						</div>
-					</div>
-					<!--  RF end-->
-
-
-
-
-
-					<!--  PA    start  -->
-
-					<div class="col-md-6">
-						<div class="box">
-							<div class="box-header with-border">
-								<h3 class="box-title">PA</h3>
-								<div class="box-tools pull-right" style="top: 9px;">
-									<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
-									<el-button size="small">Read</el-button>
-								</div>
-							</div>
-							<div class="clear" style="padding-top:10px;">
-								<el-form ref="form" :model="form" label-width="160px" size="small">
-									<div class="col-md-12">
-										<el-form-item label="PA ATT">
-											<el-input v-model="form.tag" style="width: 110px;"></el-input>
-										</el-form-item>
-									</div>
-									<div class="col-md-12">
-										<el-form-item label="VSWR Thr">
-											<el-input v-model="form.tag" style="width: 110px;"></el-input>
-										</el-form-item>
-									</div>
-									<div class="col-md-12">
-										<el-form-item label="PA Switch">
-											<el-checkbox-group v-model="form.name" size="small">
-												<el-checkbox label="Agent Switch" border></el-checkbox>
-											</el-checkbox-group>
-											<el-checkbox-group v-model="form.name1" size="small">
-												<el-checkbox label="Enable" border></el-checkbox>
-											</el-checkbox-group>
-										</el-form-item>
-									</div>
-
-									<div class="col-md-12">
-										<el-form-item label="PA Over Temp Alarm">
-											<el-checkbox-group v-model="form.name" size="small">
-												<el-checkbox label="Agent Switch" border></el-checkbox>
-											</el-checkbox-group>
-											<el-checkbox-group v-model="form.name1" size="small">
-												<el-checkbox label="Enable" border></el-checkbox>
-											</el-checkbox-group>
-										</el-form-item>
-									</div>
-									<div class="col-md-12">
-										<el-form-item label="PA VSWR Alarm">
+											<el-button v-else disabled type="success" size="mini">
+												Reset
+											</el-button>
+											<el-button type="primary" size="mini" @click="Backlink">Back
+											</el-button>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>roc 1</td>
+								</tr>
+								<tr>
+									<td>数据...</td>
+								</tr>
+								<tr>
+									<td>数据...</td>
+								</tr>
+								<tr>
+									<td> 数据...</td>
+								</tr>
+								<tr>
+									<td>
+										<el-input v-model="form.tag" size="mini"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<el-input v-model="form.tag" size="mini"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<el-input v-model="form.tag" size="mini"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<el-input v-model="form.tag" size="mini"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<el-input v-model="form.tag" size="mini"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<el-input v-model="form.tag" size="mini"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<el-input v-model="form.tag" size="mini"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td style=" padding: 0px;">
 										<el-checkbox-group v-model="form.name" size="small">
-											<el-checkbox label="Agent Switch" border></el-checkbox>
+											<el-checkbox label="Agent" border></el-checkbox>
 										</el-checkbox-group>
+
 										<el-checkbox-group v-model="form.name1" size="small">
 											<el-checkbox label="Enable" border></el-checkbox>
 										</el-checkbox-group>
-										</el-form-item>
-									</div>
-									<div class="col-md-12">
-										<el-form-item label="PA Fault Alarm">
-											<el-checkbox-group v-model="form.name" size="small">
-												<el-checkbox label="Agent Switch" border></el-checkbox>
-											</el-checkbox-group>
-											<el-checkbox-group v-model="form.name1" size="small">
-												<el-checkbox label="Enable" border></el-checkbox>
-											</el-checkbox-group>
-										</el-form-item>
-									</div>
+									</td>
+								</tr>
+								<tr>
+									<td style=" padding: 0px;">
+										<el-checkbox-group v-model="form.name" size="small">
+											<el-checkbox label="Agent" border></el-checkbox>
+										</el-checkbox-group>
 
-								</el-form>
-							</div>
-						</div>
+										<el-checkbox-group v-model="form.name1" size="small">
+											<el-checkbox label="Enable" border></el-checkbox>
+										</el-checkbox-group>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<el-input v-model="form.tag" size="mini"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<el-input v-model="form.tag" size="mini"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<el-input v-model="form.tag" size="mini"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<el-input v-model="form.tag" size="mini"></el-input>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<el-input v-model="form.tag" size="mini"></el-input>
+									</td>
+								</tr>
+	<tr>
+									<td style=" padding: 0px;">
+										<el-checkbox-group v-model="form.name" size="small">
+											<el-checkbox label="Agent" border></el-checkbox>
+										</el-checkbox-group>
+
+										<el-checkbox-group v-model="form.name1" size="small">
+											<el-checkbox label="Enable" border></el-checkbox>
+										</el-checkbox-group>
+									</td>
+								</tr>
+								<tr>
+									<td style=" padding: 0px;">
+										<el-checkbox-group v-model="form.name" size="small">
+											<el-checkbox label="Agent" border></el-checkbox>
+										</el-checkbox-group>
+								
+										<el-checkbox-group v-model="form.name1" size="small">
+											<el-checkbox label="Enable" border></el-checkbox>
+										</el-checkbox-group>
+									</td>
+								</tr>
+								<tr>
+									<td style=" padding: 0px;">
+										<el-checkbox-group v-model="form.name" size="small">
+											<el-checkbox label="Agent" border></el-checkbox>
+										</el-checkbox-group>
+								
+										<el-checkbox-group v-model="form.name1" size="small">
+											<el-checkbox label="Enable" border></el-checkbox>
+										</el-checkbox-group>
+									</td>
+								</tr>
+								<tr>
+									<td style=" padding: 0px;">
+										<el-checkbox-group v-model="form.name" size="small">
+											<el-checkbox label="Agent" border></el-checkbox>
+										</el-checkbox-group>
+								
+										<el-checkbox-group v-model="form.name1" size="small">
+											<el-checkbox label="Enable" border></el-checkbox>
+										</el-checkbox-group>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-
-					<!--  PA    end  -->
+					<!-- 数据循环 -->
+				
+				
+				<!-- 数据循环 -->
+								<div class="col-xs-2 hover">
+									<table class="table res table-bordered  dataTable">
+										<tbody>
+											<tr>
+												<td style="height:45px">
+													<div class="viswCard">
+														<el-button type="success" v-if="canSave" size="mini" @click="Resetlink">Reset
+														</el-button>
+				
+														<el-button v-else disabled type="success" size="mini">
+															Reset
+														</el-button>
+														<el-button type="primary" size="mini" @click="Backlink">Back
+														</el-button>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>roc 1</td>
+											</tr>
+											<tr>
+												<td>数据...</td>
+											</tr>
+											<tr>
+												<td>数据...</td>
+											</tr>
+											<tr>
+												<td> 数据...</td>
+											</tr>
+											<tr>
+												<td>
+													<el-input v-model="form.tag" size="mini"></el-input>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<el-input v-model="form.tag" size="mini"></el-input>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<el-input v-model="form.tag" size="mini"></el-input>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<el-input v-model="form.tag" size="mini"></el-input>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<el-input v-model="form.tag" size="mini"></el-input>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<el-input v-model="form.tag" size="mini"></el-input>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<el-input v-model="form.tag" size="mini"></el-input>
+												</td>
+											</tr>
+											<tr>
+												<td style=" padding: 0px;">
+													<el-checkbox-group v-model="form.name" size="small">
+														<el-checkbox label="Agent" border></el-checkbox>
+													</el-checkbox-group>
+				
+													<el-checkbox-group v-model="form.name1" size="small">
+														<el-checkbox label="Enable" border></el-checkbox>
+													</el-checkbox-group>
+												</td>
+											</tr>
+											<tr>
+												<td style=" padding: 0px;">
+													<el-checkbox-group v-model="form.name" size="small">
+														<el-checkbox label="Agent" border></el-checkbox>
+													</el-checkbox-group>
+				
+													<el-checkbox-group v-model="form.name1" size="small">
+														<el-checkbox label="Enable" border></el-checkbox>
+													</el-checkbox-group>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<el-input v-model="form.tag" size="mini"></el-input>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<el-input v-model="form.tag" size="mini"></el-input>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<el-input v-model="form.tag" size="mini"></el-input>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<el-input v-model="form.tag" size="mini"></el-input>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<el-input v-model="form.tag" size="mini"></el-input>
+												</td>
+											</tr>
+				<tr>
+												<td style=" padding: 0px;">
+													<el-checkbox-group v-model="form.name" size="small">
+														<el-checkbox label="Agent" border></el-checkbox>
+													</el-checkbox-group>
+				
+													<el-checkbox-group v-model="form.name1" size="small">
+														<el-checkbox label="Enable" border></el-checkbox>
+													</el-checkbox-group>
+												</td>
+											</tr>
+											<tr>
+												<td style=" padding: 0px;">
+													<el-checkbox-group v-model="form.name" size="small">
+														<el-checkbox label="Agent" border></el-checkbox>
+													</el-checkbox-group>
+											
+													<el-checkbox-group v-model="form.name1" size="small">
+														<el-checkbox label="Enable" border></el-checkbox>
+													</el-checkbox-group>
+												</td>
+											</tr>
+											<tr>
+												<td style=" padding: 0px;">
+													<el-checkbox-group v-model="form.name" size="small">
+														<el-checkbox label="Agent" border></el-checkbox>
+													</el-checkbox-group>
+											
+													<el-checkbox-group v-model="form.name1" size="small">
+														<el-checkbox label="Enable" border></el-checkbox>
+													</el-checkbox-group>
+												</td>
+											</tr>
+											<tr>
+												<td style=" padding: 0px;">
+													<el-checkbox-group v-model="form.name" size="small">
+														<el-checkbox label="Agent" border></el-checkbox>
+													</el-checkbox-group>
+											
+													<el-checkbox-group v-model="form.name1" size="small">
+														<el-checkbox label="Enable" border></el-checkbox>
+													</el-checkbox-group>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- 数据循环 -->
+								<!-- 数据循环 -->
+												<div class="col-xs-2 hover">
+													<table class="table res table-bordered  dataTable">
+														<tbody>
+															<tr>
+																<td style="height:45px">
+																	<div class="viswCard">
+																		<el-button type="success" v-if="canSave" size="mini" @click="Resetlink">Reset
+																		</el-button>
+								
+																		<el-button v-else disabled type="success" size="mini">
+																			Reset
+																		</el-button>
+																		<el-button type="primary" size="mini" @click="Backlink">Back
+																		</el-button>
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td>roc 1</td>
+															</tr>
+															<tr>
+																<td>数据...</td>
+															</tr>
+															<tr>
+																<td>数据...</td>
+															</tr>
+															<tr>
+																<td> 数据...</td>
+															</tr>
+															<tr>
+																<td>
+																	<el-input v-model="form.tag" size="mini"></el-input>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<el-input v-model="form.tag" size="mini"></el-input>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<el-input v-model="form.tag" size="mini"></el-input>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<el-input v-model="form.tag" size="mini"></el-input>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<el-input v-model="form.tag" size="mini"></el-input>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<el-input v-model="form.tag" size="mini"></el-input>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<el-input v-model="form.tag" size="mini"></el-input>
+																</td>
+															</tr>
+															<tr>
+																<td style=" padding: 0px;">
+																	<el-checkbox-group v-model="form.name" size="small">
+																		<el-checkbox label="Agent" border></el-checkbox>
+																	</el-checkbox-group>
+								
+																	<el-checkbox-group v-model="form.name1" size="small">
+																		<el-checkbox label="Enable" border></el-checkbox>
+																	</el-checkbox-group>
+																</td>
+															</tr>
+															<tr>
+																<td style=" padding: 0px;">
+																	<el-checkbox-group v-model="form.name" size="small">
+																		<el-checkbox label="Agent" border></el-checkbox>
+																	</el-checkbox-group>
+								
+																	<el-checkbox-group v-model="form.name1" size="small">
+																		<el-checkbox label="Enable" border></el-checkbox>
+																	</el-checkbox-group>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<el-input v-model="form.tag" size="mini"></el-input>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<el-input v-model="form.tag" size="mini"></el-input>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<el-input v-model="form.tag" size="mini"></el-input>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<el-input v-model="form.tag" size="mini"></el-input>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<el-input v-model="form.tag" size="mini"></el-input>
+																</td>
+															</tr>
+								<tr>
+																<td style=" padding: 0px;">
+																	<el-checkbox-group v-model="form.name" size="small">
+																		<el-checkbox label="Agent" border></el-checkbox>
+																	</el-checkbox-group>
+								
+																	<el-checkbox-group v-model="form.name1" size="small">
+																		<el-checkbox label="Enable" border></el-checkbox>
+																	</el-checkbox-group>
+																</td>
+															</tr>
+															<tr>
+																<td style=" padding: 0px;">
+																	<el-checkbox-group v-model="form.name" size="small">
+																		<el-checkbox label="Agent" border></el-checkbox>
+																	</el-checkbox-group>
+															
+																	<el-checkbox-group v-model="form.name1" size="small">
+																		<el-checkbox label="Enable" border></el-checkbox>
+																	</el-checkbox-group>
+																</td>
+															</tr>
+															<tr>
+																<td style=" padding: 0px;">
+																	<el-checkbox-group v-model="form.name" size="small">
+																		<el-checkbox label="Agent" border></el-checkbox>
+																	</el-checkbox-group>
+															
+																	<el-checkbox-group v-model="form.name1" size="small">
+																		<el-checkbox label="Enable" border></el-checkbox>
+																	</el-checkbox-group>
+																</td>
+															</tr>
+															<tr>
+																<td style=" padding: 0px;">
+																	<el-checkbox-group v-model="form.name" size="small">
+																		<el-checkbox label="Agent" border></el-checkbox>
+																	</el-checkbox-group>
+															
+																	<el-checkbox-group v-model="form.name1" size="small">
+																		<el-checkbox label="Enable" border></el-checkbox>
+																	</el-checkbox-group>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												<!-- 数据循环 -->
 
 
 				</div>
-
-				<!-- Alarm end -->
-
-
-				<!-- /.nav-tabs-custom -->
 			</div>
 
+		</div>
+		</div>
 		</div>
 		<script type="text/javascript" src="assets/js/jquery.js"></script>
 		<script type="text/javascript" src="assets/js/vue.js"></script>
@@ -309,50 +700,95 @@
 
 		</style>
 		<script type="text/javascript">
-			var app;
 			let data = {
+				app: "",
+				show: false,
+				show1: true,
+				canSave: true,
+				value1: "0",
+				value: "1",
 				form: {
-					name: true,
-					name1:false,
-					tag:"测试数据..."
-					 
-				},
-				options: [{
-					value: '1',
-					label: 'ROC 1'
-				}, {
-					value: '2',
-					label: 'ROC 2'
-				}],
-				value: '1',
-				aushow: sessionStorage.getItem("equipment") == "au",
-				rushow: sessionStorage.getItem("equipment"),
-
-			};
-			app = new Vue({
+					name: "数据...",
+					name1: false
+				}
+			}
+			
+			
+			
+			var Helios = new Vue({
 				el: "#content",
 				data: data,
-
-				created: function() {
-
+				beforeCreate() {
+					/*console.log("创建前：");
+					console.log(this.$data); */
+				},
+				created() {
+					// console.log("创建完成：");
+					// console.log(this.$data);
+					
+					this.get();
+					
+					
+			
+				},
+				beforeMount() {
+					/* console.log("挂载前：");
+					console.log(this.$data); */
 				},
 				mounted() {
+					/*console.log("时时监控数据变化,并随之更新");*/
 					$("body").resize();
-
+			
 				},
-
 				updated() {
 					// console.log("==更新成功==");
-					//console.log(this.$data);
+					console.log(this.$data);
 				},
-
+				//事件
 				methods: {
-					onSubmit() {
-						util.success("数据请求成功");
-					}
+					
+					
+					
+					get(){
+						var obj1 = [54, 55, 56, 57];
+						var obj = {
+							"data": obj1.join(),
+							"action": "READ"
+						}
+					},
+					
+					
+					
+					
+					
+					Backlink: function() {
+					//	window.location.href = "mu.html";
+					},
+					Resetlink: function() {
+						Helios.$data.show = false;
+						Helios.$data.show1 = true;
+						Helios.$data.canSave = false;
+						setTimeout(() => {
+							Helios.$data.show = true;
+							Helios.$data.canSave = true;
+							Helios.$data.show1 = false;
+							toast.$message({
+								message: '数据请求成功',
+								type: 'success',
+								offset: 120
+							});
+						}, 1200);
+					},
+					
+					
+					
+					
+					
+					
 				},
-
-			})
+			
+			
+			});
 		</script>
 	</body>
 </html>

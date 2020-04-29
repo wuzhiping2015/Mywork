@@ -74,50 +74,47 @@
 							<div class="box-header with-border">
 								<h3 class="box-title">DeviceInfo</h3>
 								<div class="box-tools pull-right" style="top: 9px;">
-									<el-button type="primary" @click="onSubmit" size="small">数据同步</el-button>
+									<el-button type="primary" @click="onSubmit" size="small">Read</el-button>
 								</div>
 							</div>
 
 							<div class="clear" style="padding-top:10px;">
 								<el-form ref="form" :model="form" label-width="180px" size="medium">
 									<div style="width: 600px;">
+										
 										<el-form-item label="设备厂商代码">
-											{{form.name}}
+											{{form["45"]}}
 										</el-form-item>
 										<el-form-item label="设备类别">
-											{{form.name}}
+											{{form["46"]}}
 										</el-form-item>
 										<el-form-item label="设备型号">
-											{{form.name}}
+											{{form["47"]}}
 										</el-form-item>
-										<el-form-item label="设备序列号">
-											{{form.name}}
+										<el-form-item label="设备生产序列号">
+											{{form["48"]}}
 										</el-form-item>
 										<el-form-item label="软件版本">
-											{{form.name}}
+											{{form["49"]}}
 										</el-form-item>
-
 										<el-form-item label="FPGA版本">
-											{{form.name}}
+											{{form["50"]}}
 										</el-form-item>
-
-										<el-form-item label="站点编码">
-											{{form.name}}
+										<el-form-item label="设备温度">
+											{{form["51"]}}
 										</el-form-item>
-
 										<el-form-item label="站点编号">
-											{{form.name}}
+											{{form["52"]}}
 										</el-form-item>
-
+										<el-form-item label="设备编号">
+											{{form["53"]}}
+										</el-form-item>
 									</div>
 								</el-form>
 							</div>
 						</div>
-
 					</div>
-
 					<!--  DL I/P  end-->
-
 				</div>
 
 				<!-- /.nav-tabs-custom -->
@@ -133,34 +130,63 @@
 
 		</style>
 		<script type="text/javascript">
-			var app;
+			var helios;
 			let data = {
-				form: {
-					name: '数据...',
-
-				},
+				form: {},
 				aushow: sessionStorage.getItem("equipment") == "au",
 				rushow: sessionStorage.getItem("equipment") == "ru",
-
 			};
-			app = new Vue({
+
+			let getajax = {
+				deviceionfo(c) {
+					var obj1 = [45, 46, 47, 48, 49, 50, 51, 52, 53];
+					var obj = {
+						"data": obj1.join(),
+						"action": "READ",
+					}
+					util.getattrajax(obj, function(data) {
+						var data = (data.data);
+						var getdata = new Object;
+						if (data.length > 0) {
+							if (c) {
+								toast.$message({
+									message: 'Synchronous success',
+									type: 'success',
+									offset: 90,
+									showClose: true,
+								});
+							}
+						}
+						for (var i = 0; i < data.length; i++) {
+							if (data[i].adr == obj1[i]) {
+								if (data[i].value== "") {
+									getdata[obj1[i]] = "Empty data"
+								} else {
+									getdata[obj1[i]] = data[i].value;
+								}
+							}
+						}
+						helios.form = getdata
+					});
+				},
+			}
+
+			helios = new Vue({
 				el: "#content",
 				data: data,
-
 				created: function() {
 
 				},
 				mounted() {
 					$("body").resize();
-
+					getajax.deviceionfo();
 				},
 				updated() {
-					// console.log("==更新成功==");
-					//console.log(this.$data);
+				//	console.log(this.$data);
 				},
 				methods: {
-					onSubmit() {
-						util.success("数据请求成功");
+					onSubmit(c) {
+						getajax.deviceionfo(c);
 					}
 				},
 

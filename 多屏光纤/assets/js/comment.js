@@ -21,7 +21,12 @@ var d = document.createElement('link');
 d.setAttribute('rel', 'shortcut icon');
 d.setAttribute('href', 'assets/images/helios.ico');
 document.getElementsByTagName('head')[0].appendChild(d);
-var loading = document.createElement("div");
+
+var new_element = document.createElement('link');
+new_element.setAttribute('rel', 'stylesheet');
+new_element.setAttribute('href', 'assets/css/iconfont2/iconfont.css');
+document.getElementsByTagName('head')[0].appendChild(new_element);
+
 let tagname = sessionStorage.getItem("equipment");
 
 /* sessionStorage.setItem("equipment", "au"); */
@@ -74,10 +79,10 @@ var util = {
 			"cursor": "no-drop",
 			"background": "#3c6485",
 			"color": "#c3bfbf"
-		}).html('<i class="el-icon-loading"></i> 进入系统中,请稍后...');
+		}).html('<i class="el-icon-loading"></i> Into the system...');
 		sessionStorage.setItem('$session', user);
 		setTimeout(() => {
-			window.location.href = "indexes.html";
+			window.location.href = "Index.html";
 		}, 1000);
 		/*   $.ajax({
 					url: "../cgi-bin/doaction.cgi",
@@ -121,18 +126,29 @@ var util = {
 	},
 
 	//读取
-	getattrajax: function(url2, callback) {
+	getattrajax: function(attr, callback) {
 		var p = new Promise(function(resolve, reject) {
 			$.ajax({
-				url: url2,
-				dataType: "json",
+				url: "../cgi-bin/doaction.cgi",
+				data: attr,
 				type: "get",
+
 				//async: false,
 				success: function(data, status) {
-					var rsp = data;
-					console.log(data);
-					console.log(status);
-					if (rsp.status == 'success') {
+
+					var rsp = JSON.parse(data);
+					//console.log(rsp);
+					//console.log(status);
+				//	console.log(typeof rsp);
+
+					if (typeof rsp == "string") {
+						toast.$message.error("Error：" + attr.data);
+					} else {
+						callback(rsp);
+						resolve(rsp);
+						//	window.location.href = "../login.html";
+					}
+					/* if (rsp.status == 'success') {
 						callback(rsp);
 						resolve(rsp);
 					} else {
@@ -144,7 +160,7 @@ var util = {
 							callback(rsp);
 							resolve(rsp);
 						}
-					}
+					} */
 				},
 				error: function(req, status, err) {
 					console.log(req);
@@ -152,7 +168,7 @@ var util = {
 					console.log(err);
 					callback(err);
 					resolve(err);
-					//reject(err);
+					reject(err);
 				}
 			});
 
@@ -161,29 +177,31 @@ var util = {
 	},
 
 	//修改
-	postattrajax: function(url2, callback, data) {
+	postattrajax: function(attr, callback) {
+
 		var p = new Promise(function(resolve, reject) {
 			$.ajax({
-				url: url2,
-				data: JSON.stringify(data),
+				url: "../cgi-bin/doaction.cgi",
+				data: attr,
 				type: "post",
+				dataType: "text",
+				//	contentType:"application/json",
 				//async: false,
+				beforeSend: function(xhr) {
+					//console.log(xhr);
+					//console.log("success");
+				},
+				beforeCreate: function() {
+					//console.log("success");
+				},
 				success: function(data, status) {
-					console.log(data);
-					console.log(status);
 					var rsp = JSON.parse(data);
-					if (rsp.status == 'success') {
-						callback(rsp.data);
-						resolve(rsp.data);
+					if (rsp.code == 1) {
+						callback(rsp.code);
+						resolve(rsp.code);
 					} else {
-						if (rsp.data == "401") {
-							alert("not authorized");
-							window.location.href = "../login.html";
-						} else {
-							// util.error(rsp.data);
-							callback(rsp.data);
-							resolve(rsp.data);
-						}
+						callback(rsp.code);
+						resolve(rsp.code);
 					}
 				},
 				error: function(req, status, err) {
@@ -211,17 +229,17 @@ Vue.component('el-main-header', {
 			url: sessionStorage.getItem(url),
 			tagurl: "",
 			urls: [{
-					name: 'Home',
+					name: 'Information',
 					children: [{
-						"url": "Index.html",
-						"tab": "Index"
+						"url": "Information.html",
+						"tab": "Information"
 					}, ]
 				},
 				{
 					name: 'Device',
 					children: [{
-							"url": "Topology.html",
-							"tab": "Topology"
+							"url": "Status.html",
+							"tab": "Status"
 						},
 
 					]
@@ -244,15 +262,25 @@ Vue.component('el-main-header', {
 
 							"tab": "VPN"
 						},
-
 					]
 				},
 
 				{
-					name: 'Hardware',
+					name: 'Alarm',
 					children: [{
-
 						"tab": "Alarm"
+					}, ]
+				},
+				{
+					name: 'Loginfo',
+					children: [{
+						"tab": "Loginfo"
+					}, ]
+				},
+				{
+					name: 'Cluster',
+					children: [{
+						"tab": "Cluster"
 					}, ]
 				},
 
@@ -284,7 +312,6 @@ Vue.component('el-main-header', {
 			window.location.href = "login.html";
 		},
 		logout(url) {
-
 			const children = ["Status", "ParaSet", "Roc", "Deviceinfo", "Topology"];
 			if (url == children[0] || url == children[1] || url == children[2] || url == children[4]) {
 				sessionStorage.setItem("url", url);
@@ -297,18 +324,21 @@ Vue.component('el-main-header', {
 			this.action = sessionStorage.getItem("url");
 		}
 	},
+	/* 	<a href="javascript:void(0);" class="sidebar-toggle" data-toggle="push-menu" role="button">
+		    <span class="sr-only"></span>
+		</a> */
 	template: ` <header class="main-header">
     <a href="Index.html" class="logo" title="Helios">
         <span class="logo-mini"><img src="assets/images/logo1.png" alt="whelios"  width="36"> </span>
-        <span class="logo-lg"><img src="assets/images/logo.png" alt="whelios" > </span>
+        <span class="logo-lg" title="Whelios"><img src="assets/images/logo.png" alt="whelios" > </span>
     </a>
-    <div class="navbar navbar-static-top">
-	     
+  <div class="navbar navbar-static-top">
+   
         <div class="avatar"><img src="assets/images/user-pic.png" alt=""> <span class="user-name">{{logUserName}}</span> 
-                <em class="fa fa-fw fa-sort-desc" style="color:#fff"></em>
+                <em class="el-icon-arrow-down el-icon--right" style="color:#fff"></em>
             <ul class="avatar-more">
-                <!--li><a class="" href="userupdate.html"><i class="fa fa-fw fa-user"></i>用户信息</a></li-->
-                <li @click="quit"><a href="javascript:;"><i class="fa fa-fw fa-power-off"></i>安全退出</a></li>
+                <!--li><a class="" href="userupdate.html"><i class=" fa-user"></i>用户信息</a></li-->
+                <li @click="quit"><a href="javascript:;"><i class="fa fa-fw icon iconfont icon-tuichu"></i>Safety Exit</a></li>
             </ul>
         </div>
         <div class="tagerLink">
@@ -402,7 +432,7 @@ Vue.component("el-main-sidebar", {
 		handleNodeClick(data) {
 			if (data.type == 0) {
 				sessionStorage.setItem("equipment", "au");
-				sessionStorage.setItem("url", "Topology");
+				sessionStorage.setItem("url", "Status");
 			} else if (data.type == 1) {
 				sessionStorage.setItem("equipment", "eu");
 				sessionStorage.setItem("url", "Status");
@@ -419,20 +449,26 @@ Vue.component("el-main-sidebar", {
 				console.log(this.tagname);
 			}); */
 	},
+
+
+	/* <img  v-if='data.type==0? true :false' align="absMiddle" src="assets/images/root.gif">
+	<img  v-if='data.type==1? true :false' align="absMiddle" src="assets/images/folder.gif">
+	<img  v-if='data.type==2? true :false' align="absMiddle" src="assets/images/file.gif"> */
+
 	template: ` <div class="main-sidebar">
 		 <div class="box-header with-border">
-		 	<h3 class="box-title"><i class="el-icon-location"></i> {{tagname}} </h3>
+		 	<h3 class="box-title"><i class="icon iconfont icon-caijishebeixinxichaxun"></i> {{tagname}} </h3>
 		 </div>
 		 
 		<div class="sidebar">
 			<el-tree :data="sidebar" default-expand-all  :props="defaultProps" @node-click="handleNodeClick">
 					 <span class="custom-tree-node" slot-scope="{ node, data }">
-						 <span > 
-						   <img  v-if='data.type==0? true :false' align="absMiddle" src="assets/images/root.gif">
-							<img  v-if='data.type==1? true :false' align="absMiddle" src="assets/images/folder.gif">
-							 <img  v-if='data.type==2? true :false' align="absMiddle" src="assets/images/file.gif">
+						 
+						     <i v-if='data.type==0 ? true :false' class="icon iconfont icon-jierujiedian"></i> 
+						     <i v-if='data.type==1 ? true :false' class="icon iconfont icon-jierushipeiqileixing"></i> 
+							 <i v-if='data.type==2 ? true :false' class="icon iconfont icon-LTEjizhanyanshou"></i> 
 						   {{ node.label }}  
-						</span>     
+						    
 					</span>
 			</el-tree>
 		</div>
@@ -540,9 +576,10 @@ Vue.component("device", {
 			equipment: sessionStorage.getItem("equipment"),
 			active: 0,
 			tagurl: "",
-			children: [{
-					"tab": "Topology"
-				},
+			children: [
+				/* {
+						"tab": "Topology"
+					}, */
 				{
 					"tab": "Status"
 				},
@@ -625,7 +662,18 @@ Vue.component("device", {
 			<div class="nav-tabs-custom">
 				<ul class="nav nav-tabs"  >
 					 <li v-for="item in children"  :class="{active: item.tab == tagurl}"  @click="moreState(item.tab)">
-						<a href="javascript:void(0);" >{{item.tab}}</a>
+						<a href="javascript:void(0);">
+						
+						<span v-if=" item.tab == 'Status' ? true :false"  class="icon iconfont icon-zhuangtai1"></span> 
+						<span v-if=" item.tab == 'ParaSet' ? true :false"  class="icon iconfont icon-shezhi"></span> 
+					
+						<span v-if=" item.tab == 'Roc' ? true :false"  class="icon iconfont icon-kongzhitai"></span> 
+						
+						
+						<span v-if=" item.tab == 'Deviceinfo' ? true :false"  class="icon iconfont icon-caijishebeixinxichaxun"></span> 
+						
+						{{item.tab}}
+					</a>
 					 </li>
 				</ul>
 			</div>
