@@ -64,160 +64,48 @@
 							<div class="box-header with-border">
 								<h3 class="box-title">Light</h3>
 								<div class="box-tools pull-right" style="top: 9px;">
-									<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
-									<el-button size="small">Read</el-button>
+									<el-button type="primary" @click="setLight" :disabled="!Set" size="small">Set</el-button>
+									<el-button size="small" @click="getLight(1)" :disabled="!Read">Read</el-button>
 								</div>
 							</div>
 							<div class="clear" style="padding-top: 10px;">
 								<el-form ref="form" :model="form" label-width="220px" size="medium">
 									<div class="col-md-12">
 										<el-form-item label="Agent Switch">
-										<el-checkbox-group v-model="form.name" size="small">
-											<el-checkbox label="Agent Switch" border></el-checkbox>
-										</el-checkbox-group>
-										
-										<el-checkbox-group v-model="form.name1" size="small">
-											<el-checkbox label="Enable" border></el-checkbox>
-										</el-checkbox-group>
+											<el-checkbox-group v-model="form.name" size="small">
+												<el-checkbox label="Agent Switch" border></el-checkbox>
+											</el-checkbox-group>
+
+											<el-checkbox-group v-model="form.name1" size="small">
+												<el-checkbox label="Enable" border></el-checkbox>
+											</el-checkbox-group>
 										</el-form-item>
 									</div>
 									<div class="col-md-12">
 										<el-form-item label=" Enable">
-										<el-checkbox-group v-model="form.name" size="small">
-											<el-checkbox label="Agent Switch" border></el-checkbox>
-										</el-checkbox-group>
-										
-										<el-checkbox-group v-model="form.name1" size="small">
-											<el-checkbox label="Enable" border></el-checkbox>
-										</el-checkbox-group>
-										</el-form-item>
-									</div>
-
-
-
-									<div class="col-md-12">
-										<el-form-item label="Light 1 Fault Alarm Enbale">
 											<el-checkbox-group v-model="form.name" size="small">
 												<el-checkbox label="Agent Switch" border></el-checkbox>
 											</el-checkbox-group>
-											
+
 											<el-checkbox-group v-model="form.name1" size="small">
 												<el-checkbox label="Enable" border></el-checkbox>
 											</el-checkbox-group>
 										</el-form-item>
 									</div>
-									<div class="col-md-12">
-										<el-form-item label="Light 2 Fault Alarm Enbale">
-										<el-checkbox-group v-model="form.name" size="small">
-											<el-checkbox label="Agent Switch" border></el-checkbox>
-										</el-checkbox-group>
-										
-										<el-checkbox-group v-model="form.name1" size="small">
-											<el-checkbox label="Enable" border></el-checkbox>
-										</el-checkbox-group>
-										</el-form-item>
-									</div>
-									<div class="col-md-12">
-										<el-form-item label="Light 3 Fault Alarm Enbale">
-										<el-checkbox-group v-model="form.name" size="small">
-											<el-checkbox label="Agent Switch" border></el-checkbox>
-										</el-checkbox-group>
-										
-										<el-checkbox-group v-model="form.name1" size="small">
-											<el-checkbox label="Enable" border></el-checkbox>
-										</el-checkbox-group>
-										</el-form-item>
-									</div>
-									<div class="col-md-12">
-										<el-form-item label="Light 4 Fault Alarm Enbale">
-										<el-checkbox-group v-model="form.name" size="small">
-											<el-checkbox label="Agent Switch" border></el-checkbox>
-										</el-checkbox-group>
-										
-										<el-checkbox-group v-model="form.name1" size="small">
-											<el-checkbox label="Enable" border></el-checkbox>
-										</el-checkbox-group>
-										</el-form-item>
-									</div>
-
-
-									<div class="col-md-12">
-										<el-form-item label="Light 5 Fault Alarm Enbale">
-										<el-checkbox-group v-model="form.name" size="small">
-											<el-checkbox label="Agent Switch" border></el-checkbox>
-										</el-checkbox-group>
-										
-										<el-checkbox-group v-model="form.name1" size="small">
-											<el-checkbox label="Enable" border></el-checkbox>
-										</el-checkbox-group>
-										</el-form-item>
-									</div>
-
-									<div class="col-md-12">
-										<el-form-item label="Light 6 Fault Alarm Enbale">
-											<el-checkbox-group v-model="form.name" size="small">
-												<el-checkbox label="Agent Switch" border></el-checkbox>
-											</el-checkbox-group>
-											
-											<el-checkbox-group v-model="form.name1" size="small">
-												<el-checkbox label="Enable" border></el-checkbox>
-											</el-checkbox-group>
-										</el-form-item>
-									</div>
-
-
-									<div class="col-md-12">
-										<el-form-item label="Light 7 Fault Alarm Enbale">
-										<el-checkbox-group v-model="form.name" size="small">
-											<el-checkbox label="Agent Switch" border></el-checkbox>
-										</el-checkbox-group>
-										
-										<el-checkbox-group v-model="form.name1" size="small">
-											<el-checkbox label="Enable" border></el-checkbox>
-										</el-checkbox-group>
-										</el-form-item>
-									</div>
-
-
-									<div class="col-md-12">
-										<el-form-item label="Light 8 Fault Alarm Enbale">
-										<el-checkbox-group v-model="form.name" size="small">
-											<el-checkbox label="Agent Switch" border></el-checkbox>
-										</el-checkbox-group>
-										
-										<el-checkbox-group v-model="form.name1" size="small">
-											<el-checkbox label="Enable" border></el-checkbox>
-										</el-checkbox-group>
-										</el-form-item>
-									</div>
-
-
-									<div class="col-md-12">
-										<el-form-item label="Light UP Fault Alarm Enbale">
-											<el-checkbox-group v-model="form.name" size="small">
-												<el-checkbox label="Agent Switch" border></el-checkbox>
-											</el-checkbox-group>
-											
-											<el-checkbox-group v-model="form.name1" size="small">
-												<el-checkbox label="Enable" border></el-checkbox>
-											</el-checkbox-group>
-										</el-form-item>
-									</div>
-
-									<div class="col-md-12">
-										<el-form-item label="Light Down Fault Alarm Enbale">
-											<el-checkbox-group v-model="form.name" size="small">
-												<el-checkbox label="Agent Switch" border></el-checkbox>
-											</el-checkbox-group>
-											
-											<el-checkbox-group v-model="form.name1" size="small">
-												<el-checkbox label="Enable" border></el-checkbox>
-											</el-checkbox-group>
-										</el-form-item>
-									</div>
-
 								</el-form>
+								<el-form ref="Lightdata" label-width="220px" size="medium">
+									<div class="col-md-12" v-for="(v,i) in  Lightdata">
+										<el-form-item :label="v.name">
+											<el-checkbox-group v-model="v.agent" size="small">
+												<el-checkbox label="Agent Switch" border></el-checkbox>
+											</el-checkbox-group>
 
+											<el-checkbox-group v-model="v.enbale" size="small">
+												<el-checkbox label="Enable" border></el-checkbox>
+											</el-checkbox-group>
+										</el-form-item>
+									</div>
+								</el-form>
 							</div>
 						</div>
 					</div>
@@ -230,49 +118,24 @@
 							<div class="box-header with-border">
 								<h3 class="box-title">Alarm</h3>
 								<div class="box-tools pull-right" style="top: 9px; right:20px;">
-									<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
-									<el-button size="small">Read</el-button>
+									<el-button  @click="setAlarm" :disabled="!Set" size="small" type="primary">Set</el-button>
+									<el-button @click="getAlarm(1)" :disabled="!Read"  size="small">Read</el-button>
 								</div>
 							</div>
 							<div class="clear" style="padding-top: 10px;">
-								<el-form ref="form" :model="form" label-width="120px" size="medium">
-									<div class="col-md-12">
-										<el-form-item label="AC Power off">
-											<el-checkbox-group v-model="form.name" size="small">
+								<el-form ref="Alarmdata" label-width="220px" size="medium">
+									<div class="col-md-12" v-for="(v,i) in  Alarmdata">
+										<el-form-item :label="v.name">
+											<el-checkbox-group v-model="v.agent" size="small">
 												<el-checkbox label="Agent Switch" border></el-checkbox>
 											</el-checkbox-group>
-											
-											<el-checkbox-group v-model="form.name1" size="small">
+
+											<el-checkbox-group v-model="v.enbale" size="small">
 												<el-checkbox label="Enable" border></el-checkbox>
 											</el-checkbox-group>
 										</el-form-item>
 									</div>
-
-									<div class="col-md-12">
-										<el-form-item label="Door Open">
-											<el-checkbox-group v-model="form.name" size="small">
-												<el-checkbox label="Agent Switch" border></el-checkbox>
-											</el-checkbox-group>
-											
-											<el-checkbox-group v-model="form.name1" size="small">
-												<el-checkbox label="Enable" border></el-checkbox>
-											</el-checkbox-group>
-										</el-form-item>
-									</div>
-									<div class="col-md-12">
-										<el-form-item label="DC Power off">
-										<el-checkbox-group v-model="form.name" size="small">
-											<el-checkbox label="Agent Switch" border></el-checkbox>
-										</el-checkbox-group>
-										
-										<el-checkbox-group v-model="form.name1" size="small">
-											<el-checkbox label="Enable" border></el-checkbox>
-										</el-checkbox-group>
-										</el-form-item>
-									</div>
-
 								</el-form>
-
 							</div>
 						</div>
 					</div>
@@ -293,42 +156,308 @@
 		<script type="text/javascript" src="assets/js/comment.js"></script>
 
 		<script type="text/javascript">
-			var app;
+			var helios;
 			let data = {
 				equipment: sessionStorage.getItem("equipment"),
 				form: {
 					name: true,
-					name1: false,
-					tag: "测试数据...",
-				}
+					tag: 111,
+				},
+				Set: true,
+				Read: true,
+				Lightdata: [],
+				Alarmdata: []
 			};
-			app = new Vue({
+			helios = new Vue({
 				el: "#content",
 				data: data,
-
-				created() {
-					//	console.log(this.$data);
-				},
 				mounted() {
 					$("body").resize();
 				},
-				updated() {
-					console.log("==更新成功==");
-					//console.log(this.$data);
-				},
-				updated() {
-					// console.log("==更新成功==");
-					//console.log(this.$data);
-				},
-				beforeUpdate() {
-					console.log("==更新成功==");
-					//console.log(this.$data);
+				beforeMount() {
+					/* console.log("挂载前：");*/
+					this.getLight();
+					this.getAlarm();
 				},
 
 				methods: {
 					onSubmit() {
 						util.success("数据请求成功");
-					}
+					},
+					getLight(c) {
+						var adr = [66, 67, 68, 69, 163, 164, 165, 166, 176, 177];
+						var obj = {
+							"data": adr.join(),
+							"action": "READ"
+						};
+						util.getattrajax(obj, function(data) {
+							var data = data.data;
+							var data1 = [];
+							var data1 = [];
+							if (data.length > 0) {
+								if (c >= 0) {
+									helios.$data.Read = false;
+									setTimeout(() => {
+										helios.$data.Read = true;
+										toast.$message({
+											message: "success:Light",
+											type: 'success',
+											showClose: true,
+											offset: 10
+										});
+									}, 1200);
+								}
+								for (var i = 0; i < data.length; i++) {
+									if (66 == data[i].adr) {
+										let obj = util.ResTruefalse("Light 1 Fault Alarm", data[i].adr, data[i].value);
+										data1.push(obj);
+									}
+									if (67 == data[i].adr) {
+										let obj = util.ResTruefalse("Light 2 Fault Alarm", data[i].adr, data[i].value);
+										data1.push(obj);
+									}
+									if (68 == data[i].adr) {
+										let obj = util.ResTruefalse("Light 3 Fault Alarm", data[i].adr, data[i].value);
+										data1.push(obj);
+									}
+									if (69 == data[i].adr) {
+										let obj = util.ResTruefalse("Light 4 Fault Alarm", data[i].adr, data[i].value);
+										data1.push(obj);
+									}
+									if (163 == data[i].adr) {
+										let obj = util.ResTruefalse("Light 5 Fault Alarm", data[i].adr, data[i].value);
+										data1.push(obj);
+									}
+									if (164 == data[i].adr) {
+										let obj = util.ResTruefalse("Light 6 Fault Alarm", data[i].adr, data[i].value);
+										data1.push(obj);
+									}
+									if (165 == data[i].adr) {
+										let obj = util.ResTruefalse("Light 7 Fault Alarm", data[i].adr, data[i].value);
+										data1.push(obj);
+									}
+									if (166 == data[i].adr) {
+										let obj = util.ResTruefalse("Light 8 Fault Alarm", data[i].adr, data[i].value);
+										data1.push(obj);
+									}
+									if (176 == data[i].adr) {
+										let obj = util.ResTruefalse("Light UP Fault Alarm", data[i].adr, data[i].value);
+										data1.push(obj);
+									}
+									if (177 == data[i].adr) {
+										let obj = util.ResTruefalse("Light Down Fault Alarm", data[i].adr, data[i].value);
+										data1.push(obj);
+									}
+								}
+								helios.Lightdata = data1;
+
+								console.log(data1);
+
+							} else {
+								util.error("Error：Light");
+							}
+
+						});
+					},
+
+
+					setLight() {
+						helios.$data.Set = false;
+						var adr1 = [66, 67, 68, 69, 163, 164, 165, 166, 176, 177]; // 与 新数据配对  
+						var data = [];
+						for (var i = 0; i < helios.Lightdata.length; i++) {
+							var obj = {
+								adr: "",
+								value: ""
+							}
+							if (66 == helios.Lightdata[i].adr) {
+								obj.adr = helios.Lightdata[i].adr;
+								obj.value = util.resnumber(helios.Lightdata[i].agent, helios.Lightdata[i].enbale);
+								data.push(obj);
+							}
+							if (67 == helios.Lightdata[i].adr) {
+								obj.adr = helios.Lightdata[i].adr;
+								obj.value = util.resnumber(helios.Lightdata[i].agent, helios.Lightdata[i].enbale);
+								data.push(obj);
+							}
+							if (68 == helios.Lightdata[i].adr) {
+								obj.adr = helios.Lightdata[i].adr;
+								obj.value = util.resnumber(helios.Lightdata[i].agent, helios.Lightdata[i].enbale);
+								data.push(obj);
+							}
+							if (69 == helios.Lightdata[i].adr) {
+								obj.adr = helios.Lightdata[i].adr;
+								obj.value = util.resnumber(helios.Lightdata[i].agent, helios.Lightdata[i].enbale);
+								data.push(obj);
+							}
+							if (163 == helios.Lightdata[i].adr) {
+								obj.adr = helios.Lightdata[i].adr;
+								obj.value = util.resnumber(helios.Lightdata[i].agent, helios.Lightdata[i].enbale);
+								data.push(obj);
+							}
+							if (164 == helios.Lightdata[i].adr) {
+								obj.adr = helios.Lightdata[i].adr;
+								obj.value = util.resnumber(helios.Lightdata[i].agent, helios.Lightdata[i].enbale);
+								data.push(obj);
+							}
+							if (165 == helios.Lightdata[i].adr) {
+								obj.adr = helios.Lightdata[i].adr;
+								obj.value = util.resnumber(helios.Lightdata[i].agent, helios.Lightdata[i].enbale);
+								data.push(obj);
+							}
+							if (166 == helios.Lightdata[i].adr) {
+								obj.adr = helios.Lightdata[i].adr;
+								obj.value = util.resnumber(helios.Lightdata[i].agent, helios.Lightdata[i].enbale);
+								data.push(obj);
+							}
+							if (176 == helios.Lightdata[i].adr) {
+								obj.adr = helios.Lightdata[i].adr;
+								obj.value = util.resnumber(helios.Lightdata[i].agent, helios.Lightdata[i].enbale);
+								data.push(obj);
+							}
+							if (177 == helios.Lightdata[i].adr) {
+								obj.adr = helios.Lightdata[i].adr;
+								obj.value = util.resnumber(helios.Lightdata[i].agent, helios.Lightdata[i].enbale);
+								data.push(obj);
+							}
+						}
+
+
+						var obj = {
+							"data": JSON.stringify(data),
+							"action": "SET"
+						}
+						util.postattrajax(obj, function(data) {
+							if (1 != data) {
+								toast.$message({
+									message: 'Error:Alarm',
+									type: 'error',
+									showClose: true,
+									offset: 80
+								});
+							} else {
+								setTimeout(() => {
+									helios.$data.Set = true;
+									toast.$message({
+										message: "success:Alarm",
+										type: 'success',
+										showClose: true,
+										offset: 40
+									});
+								}, 1200);
+							}
+						});
+					},
+
+					getAlarm(c) {
+						var adr = [54, 55, 57, 56];
+						var obj = {
+							"data": adr.join(),
+							"action": "READ"
+						};
+
+						util.getattrajax(obj, function(data) {
+							var data = data.data;
+							var data1 = [];
+							if (data.length > 0) {
+								if (c > 0) {
+									helios.$data.Read = false;
+									setTimeout(() => {
+										helios.$data.Read = true;
+										toast.$message({
+											message: "success:Alarm",
+											type: 'success',
+											showClose: true,
+											offset: 10
+										});
+									}, 1200);
+								}
+								for (var i = 0; i < data.length; i++) {
+									if (54 == data[i].adr) {
+										let obj = util.ResTruefalse("AC ALARM", data[i].adr, data[i].value);
+										data1.push(obj);
+									}
+									if (55 == data[i].adr) {
+										let obj = util.ResTruefalse("DC ALARM", data[i].adr, data[i].value);
+										data1.push(obj);
+									}
+									if (56 == data[i].adr) {
+										let obj = util.ResTruefalse("OTEMP ALARM", data[i].adr, data[i].value);
+										data1.push(obj);
+									}
+									if (57 == data[i].adr) {
+										let obj = util.ResTruefalse("DOOR OPEN", data[i].adr, data[i].value);
+										data1.push(obj);
+									}
+								}
+								helios.Alarmdata = data1;
+							} else {
+								toast.$message.error("Error");
+							}
+						})
+
+
+					},
+
+
+					setAlarm() {
+						helios.$data.Set = false;
+						var adr1 = [54, 55, 57, 56]; // 与 新数据配对  
+						var data = [];
+						for (var i = 0; i < helios.Alarmdata.length; i++) {
+							var obj = {
+								adr: "",
+								value: ""
+							}
+							if (54 == helios.Alarmdata[i].adr) {
+								obj.adr = helios.Alarmdata[i].adr;
+								obj.value = util.resnumber(helios.Alarmdata[i].agent, helios.Alarmdata[i].enbale);
+								data.push(obj);
+							}
+							if (55 == helios.Alarmdata[i].adr) {
+								obj.adr = helios.Alarmdata[i].adr;
+								obj.value = util.resnumber(helios.Alarmdata[i].agent, helios.Alarmdata[i].enbale);
+								data.push(obj);
+							}
+							if (56 == helios.Alarmdata[i].adr) {
+								obj.adr = helios.Alarmdata[i].adr;
+								obj.value = util.resnumber(helios.Alarmdata[i].agent, helios.Alarmdata[i].enbale);
+								data.push(obj);
+							}
+							if (57 == helios.Alarmdata[i].adr) {
+								obj.adr = helios.Alarmdata[i].adr;
+								obj.value = util.resnumber(helios.Alarmdata[i].agent, helios.Alarmdata[i].enbale);
+								data.push(obj);
+							}
+						}
+
+
+						var obj = {
+							"data": JSON.stringify(data),
+							"action": "SET"
+						}
+						util.postattrajax(obj, function(data) {
+							if (1 != data) {
+								toast.$message({
+									message: 'Error:Alarm',
+									type: 'error',
+									showClose: true,
+									offset: 80
+								});
+							} else {
+								setTimeout(() => {
+									helios.$data.Set = true;
+									toast.$message({
+										message: "success:Alarm",
+										type: 'success',
+										showClose: true,
+										offset: 40
+									});
+								}, 1200);
+							}
+						});
+					},
+
 				},
 
 			})

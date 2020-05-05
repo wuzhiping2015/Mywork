@@ -44,7 +44,7 @@
 					<section class="">
 						<ol class="breadcrumb">
 							<li>
-								<a href="Ethernet.html" >Ethernet</a>
+								<a href="Ethernet.html">Ethernet</a>
 							</li>
 							<li>
 								<a href="Modem.html" style="font-weight: bold;">Modem</a>
@@ -68,33 +68,28 @@
 								<div class="col-md-6">
 									<div class="box">
 										<div class="box-header with-border">
-											<h3 class="box-title">&nbsp;</h3>
+											<h3 class="box-title">Gprs Modem</h3> <!-- GRPS -->
 											<div class="box-tools pull-right" style="top: 9px;">
-												<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
-												<el-button size="small">Read</el-button>
+												<el-button @click="setGprs" :disabled="!Set" size="small" type="primary">Set</el-button>
+												<el-button @click="getGprs(1)" :disabled="!Read" size="small">Read</el-button>
 											</div>
 										</div>
 										<div class="clear" style="padding-top: 10px;">
-											<el-form ref="form" :model="form" label-width="180px" size="medium">
-												<div class="col-md-10">
+											<el-form ref="gprsdata" label-width="180px" size="medium">
 
-													<el-form-item label="Modem Enable">
-														<el-checkbox-group v-model="form.name1" size="small">
-															<el-checkbox label="Enable" border></el-checkbox>
-														</el-checkbox-group>
-													</el-form-item>
-													<el-form-item label="APN">
-														<el-input v-model="form.tag" size=""></el-input>
-													</el-form-item>
-
-													<el-form-item label="ISP User">
-														<el-input v-model="form.tag" size=""></el-input>
-													</el-form-item>
-
-													<el-form-item label="ISP Password">
-														<el-input v-model="form.tag" size=""></el-input>
+												<div class="col-md-10" v-for="(v,i) in gprsdata" v-if="v.adr!=152">
+													<el-form-item :label="v.name">
+														<el-input v-model="v.value"></el-input>
 													</el-form-item>
 												</div>
+
+
+												<div class="col-md-12" v-for="(v,i) in  gprsdata" v-if="v.adr==152">
+													<el-form-item :label="v.name">
+														<el-switch v-model="v.value" disabled="disabled"></el-switch>
+													</el-form-item>
+												</div>
+
 											</el-form>
 
 										</div>
@@ -108,27 +103,17 @@
 										<div class="box-header with-border">
 											<h3 class="box-title">&nbsp;</h3>
 											<div class="box-tools pull-right" style="top: 9px;">
-												<el-button type="success" @click="onSubmit" size="small">数据同步</el-button>
-
+												<el-button @click="gprsdata2(1)" :disabled="!Read" size="small">Read</el-button>
 											</div>
 										</div>
 										<div class="clear" style="padding-top: 10px;">
-											<el-form ref="form" :model="form" label-width="180px" size="medium">
-												<div class="col-md-10">
-													<el-form-item label="Current IP">
-														{{form.tag}}
+											<el-form ref="data2" label-width="180px" size="medium">
+												<div class="col-md-12" v-for="(v,i) in  data2" v-if="v.adr!=152">
+													<el-form-item :label="v.name">
+														{{v.value}}
 													</el-form-item>
-
-													<el-form-item label="Link Status">
-														{{form.tag}}
-													</el-form-item>
-
-
 												</div>
-
-
 											</el-form>
-
 										</div>
 									</div>
 								</div>
@@ -155,48 +140,191 @@
 					name: true,
 					name1: false,
 					tag: 111,
-				}
+				},
+				gprsdata: [],
+				data2: [],
+				Set: true,
+				Read: true,
 			};
-			var Helios = new Vue({
+			var helios = new Vue({
 				el: "#MainContext",
 				data: data,
-				beforeCreate() {
-					/*console.log("创建前：");
-					console.log(this.$data); */
-				},
-				created() {
-					//  console.log("创建完成：");
-					// console.log(this.$data);
-					/* this.$data.hsulength = this.$data.HSU.length; */
 
-				},
-				beforeMount() {
-					/* console.log("挂载前：");
-					console.log(this.$data); */
-
-				},
 				mounted() {
 					/* console.log("时时监控数据变化,并随之更新");*/
 					$("body").resize();
-
-
+					console.log(this.$data);
+				},
+				beforeMount() {
+					/*console.log("创建前："); */
+					this.getGprs();
+					this.gprsdata2();
 				},
 
-				updated() {
-
-
-				},
 				//事件
 				methods: {
-					onSubmit() {
-						util.success("数据请求成功");
-					}
-				},
-				filters: {
+					getGprs(c) {
+						var adr = [149, 150, 151, 152]; /* 152 状态 */
+						var obj = {
+							"data": adr.join(),
+							"action": "READ"
+						};
+						util.getattrajax(obj, function(data) {
+							var data = data.data;
+							var data1 = [];
+							if (data.length > 0) {
+								if (c > 0) {
+									helios.$data.Read = false;
+									setTimeout(() => {
+										helios.$data.Read = true;
+										toast.$message({
+											message: "success",
+											type: 'success',
+											showClose: true,
+											offset: 10
+										});
+									}, 1200);
+								}
+								for (var i = 0; i < data.length; i++) {
+									if (149 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "MODEM APN",
+											value: data[i].value
+										}
+										data1.push(obj);
+									}
+									if (150 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "APN USERNAME",
+											value: data[i].value
+										}
+										data1.push(obj);
+									}
+									if (151 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "APN PASSWORD",
+											value: data[i].value
+										}
+										data1.push(obj);
+									}
+									if (152 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "GPRS STATUS",
+											value: data[i].value == "1" ? true : false
+										}
+										data1.push(obj);
+									}
+
+								}
+								helios.gprsdata = data1;
+							} else {
+								toast.$message.error("Error");
+							}
+						})
+					},
+					setGprs() {
+						var adrs = [149, 150, 151]; // 与 新数据配对  
+						var data = [];
+						for (var i = 0; i < helios.gprsdata.length; i++) {
+							var obj = {
+								adr: "",
+								value: ""
+							}
+							if (149 == helios.gprsdata[i].adr) {
+								obj.adr = helios.gprsdata[i].adr;
+								obj.value = helios.gprsdata[i].value;
+								data.push(obj);
+							}
+							if (150 == helios.gprsdata[i].adr) {
+								obj.adr = helios.gprsdata[i].adr;
+								obj.value = helios.gprsdata[i].value;
+								data.push(obj);
+							}
+							if (151 == helios.gprsdata[i].adr) {
+								obj.adr = helios.gprsdata[i].adr;
+								obj.value = helios.gprsdata[i].value;
+								data.push(obj);
+							}
+						}
+
+						var obj = {
+							"data": JSON.stringify(data),
+							"action": "SET"
+						}
+
+						util.postattrajax(obj, function(data) {
+							if (1 != data) {
+								toast.$message({
+									message: ' Error:' + data.message,
+									type: 'error',
+									showClose: true,
+									offset: 80
+								});
+							} else {
+								toast.$message({
+									message: "success",
+									type: 'success',
+									showClose: true,
+									offset: 80
+								});
+							}
+						});
+					},
+
+					gprsdata2(c) {
+						var adr = [153, 154];
+						var obj = {
+							"data": adr.join(),
+							"action": "READ"
+						};
+						util.getattrajax(obj, function(data) {
+							var data = data.data;
+							var data1 = [];
+							if (data.length > 0) {
+								if (c > 0) {
+									helios.$data.Read = false;
+									setTimeout(() => {
+										helios.$data.Read = true;
+										toast.$message({
+											message: "success",
+											type: 'success',
+											showClose: true,
+											offset: 10
+										});
+									}, 1200);
+								}
+								for (var i = 0; i < data.length; i++) {
+									if (153 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "WLAN IP",
+											value: data[i].value
+										}
+										data1.push(obj);
+									}
+									if (154 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "WLAN GW",
+											value: data[i].value
+										}
+										data1.push(obj);
+									}
+								}
+								helios.data2 = data1;
+							} else {
+								toast.$message.error("Error");
+							}
+						})
+					},
+
+
 
 				},
-
-
 
 			});
 		</script>

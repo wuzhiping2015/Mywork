@@ -69,30 +69,24 @@
 								<div class="col-md-6">
 									<div class="box">
 										<div class="box-header with-border">
-											<h3 class="box-title">Port1</h3>
+											<h3 class="box-title">Port 1 </h3>
 											<div class="box-tools pull-right" style="top: 9px;">
-												<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
-												<el-button size="small">Read</el-button>
+												<div class="box-tools pull-right" style="top: 9px; right:20px;">
+													<el-button @click="setnetwork" :disabled="!Set" size="small" type="primary">Set</el-button>
+													<el-button @click="getnetwork(1)" :disabled="!Read" size="small">Read</el-button>
+												</div>
 											</div>
 										</div>
 										<div class="clear" style="padding-top: 10px;">
-											<el-form ref="form" :model="form" label-width="180px" size="medium">
-												<div class="col-md-10">
-													<el-form-item label="IP Address">
-														<el-input v-model="form.tag" size=""></el-input>
-													</el-form-item>
-
-													<el-form-item label="Subnet Mask">
-														<el-input v-model="form.tag" size=""></el-input>
-													</el-form-item>
-
-													<el-form-item label="Default Gateway">
-														<el-input v-model="form.tag" size=""></el-input>
-													</el-form-item>
-												</div>
-
-
-											</el-form>
+											<div class="clear" style="padding-top: 10px;">
+												<el-form ref="Port1" label-width="180px" size="medium">
+													<div class="col-md-10" v-for="(v,i) in Port1">
+														<el-form-item :label="v.name">
+															<el-input v-model="v.value"></el-input>
+														</el-form-item>
+													</div>
+												</el-form>
+											</div>
 
 										</div>
 									</div>
@@ -106,29 +100,18 @@
 										<div class="box-header with-border">
 											<h3 class="box-title">Port 2</h3>
 											<div class="box-tools pull-right" style="top: 9px;">
-												<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
-												<el-button size="small">Read</el-button>
+												<el-button @click="setPort2" :disabled="!Set" size="small" type="primary">Set</el-button>
+												<el-button @click="getPort2(1)" :disabled="!Read" size="small">Read</el-button>
 											</div>
 										</div>
 										<div class="clear" style="padding-top: 10px;">
-											<el-form ref="form" :model="form" label-width="180px" size="medium">
-												<div class="col-md-10">
-													<el-form-item label="IP Address">
-														<el-input v-model="form.tag" size=""></el-input>
-													</el-form-item>
-
-													<el-form-item label="Subnet Mask">
-														<el-input v-model="form.tag" size=""></el-input>
-													</el-form-item>
-
-													<el-form-item label="Default Gateway">
-														<el-input v-model="form.tag" size=""></el-input>
+											<el-form ref="Port2" label-width="180px" size="medium">
+												<div class="col-md-10" v-for="(v,i) in Port2">
+													<el-form-item :label="v.name">
+														<el-input v-model="v.value"></el-input>
 													</el-form-item>
 												</div>
-
-
 											</el-form>
-
 										</div>
 									</div>
 								</div>
@@ -156,22 +139,14 @@
 			let data = {
 				equipment: sessionStorage.getItem("equipment"),
 				url: sessionStorage.getItem("url"),
-				form: {
-					name: true,
-					tag: 111,
-				}
+				 
+				Set: true,
+				Read: true,
+				Port1: [],
+				Port2: [],
 			};
 
-			let getajax = {
-				Port1() {
-						let address=new Array();
-						address.push();
-				},
-				Port2(){
-					
-				}
-			}
-			var Helios = new Vue({
+			var helios = new Vue({
 				el: "#MainContext",
 				data: data,
 				beforeCreate() {
@@ -185,30 +160,247 @@
 
 				},
 				beforeMount() {
-					/* console.log("挂载前：");
-					console.log(this.$data); */
-
+					/* console.log("挂载前：");*/
+					this.getnetwork();
+					this.getPort2();
 				},
 				mounted() {
 					/* console.log("时时监控数据变化,并随之更新");*/
 					$("body").resize();
-					getajax.Port1();
-
-				},
-
-				updated() {
-
-
-				},
+				}, 
 				//事件
 				methods: {
-					onSubmit() {
-						util.success("数据请求成功");
-					}
-				},
-				filters: {
+					getnetwork(c) {
+						var adr = [122, 123, 124, 125];
+						var obj = {
+							"data": adr.join(),
+							"action": "READ"
+						};
 
+						util.getattrajax(obj, function(data) {
+							var data = data.data;
+							var data1 = [];
+							if (data.length > 0) {
+								if (c > 0) {
+									helios.$data.Read = false;
+									setTimeout(() => {
+										helios.$data.Read = true;
+										toast.$message({
+											message: "success:Port 1",
+											type: 'success',
+											showClose: true,
+											offset: 10
+										});
+									}, 1200);
+								}
+								for (var i = 0; i < data.length; i++) {
+									if (122 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "IP Address",
+											value: data[i].value
+										}
+										data1.push(obj);
+									}
+									if (123 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "SUBNET MASK",
+											value: data[i].value
+										}
+										data1.push(obj);
+									}
+									if (124 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "GATEWAY",
+											value: data[i].value
+										}
+										data1.push(obj);
+									}
+									/* if (125 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "MAC ADDRESS",
+											value: data[i].value
+										}
+										data1.push(obj);
+									} */
+								}
+								helios.Port1 = data1;
+							} else {
+								toast.$message.error("Error");
+							}
+						})
+					},
+				
+				
+					setnetwork() {
+						var adrs = [122, 123, 124]; // 与 新数据配对  
+						var data = [];
+						for (var i = 0; i < helios.Port1.length; i++) {
+							var obj = {
+								adr: "",
+								value: ""
+							}
+							if (122 == helios.Port1[i].adr) {
+								obj.adr = helios.Port1[i].adr;
+								obj.value = helios.Port1[i].value;
+								data.push(obj);
+							}
+							if (123 == helios.Port1[i].adr) {
+								obj.adr = helios.Port1[i].adr;
+								obj.value = helios.Port1[i].value;
+								data.push(obj);
+							}
+							if (124 == helios.Port1[i].adr) {
+								obj.adr = helios.Port1[i].adr;
+								obj.value = helios.Port1[i].value;
+								data.push(obj);
+							}
+						}
+
+						var obj = {
+							"data": JSON.stringify(data),
+							"action": "SET"
+						}
+						console.log(data);
+						return false;
+						util.postattrajax(obj, function(data) {
+							console.log(data);
+							if (1 != data) {
+								toast.$message({
+									message: ' Error:Port 1',
+									type: 'error',
+									showClose: true,
+									offset: 80
+								});
+							} else {
+								toast.$message({
+									message: "success:Port 1",
+									type: 'success',
+									showClose: true,
+									offset: 80
+								});
+							}
+						});
+					},
+
+					getPort2(c) {
+						var adr = [126, 127, 128, 129];
+						var obj = {
+							"data": adr.join(),
+							"action": "READ"
+						};
+
+						util.getattrajax(obj, function(data) {
+							var data = data.data;
+							var data1 = [];
+							if (data.length > 0) {
+								if (c > 0) {
+									helios.$data.Read = false;
+									setTimeout(() => {
+										helios.$data.Read = true;
+										toast.$message({
+											message: "success:Port 2",
+											type: 'success',
+											showClose: true,
+											offset: 10
+										});
+									}, 1200);
+								}
+								for (var i = 0; i < data.length; i++) {
+									if (126 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "IP Address",
+											value: data[i].value
+										}
+										data1.push(obj);
+									}
+									if (127 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "SUBNET MASK",
+											value: data[i].value
+										}
+										data1.push(obj);
+									}
+									if (128 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "GATEWAY",
+											value: data[i].value
+										}
+										data1.push(obj);
+									}
+									/* if (125 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "MAC ADDRESS",
+											value: data[i].value
+										}
+										data1.push(obj);
+									} */
+								}
+								helios.Port2 = data1;
+							} else {
+								toast.$message.error("Error");
+							}
+						})
+					},
+					setPort2() {
+						var adrs = [126, 127, 128, 129]; // 与 新数据配对  
+						var data = [];
+						for (var i = 0; i < helios.Port2.length; i++) {
+							var obj = {
+								adr: "",
+								value: ""
+							}
+							if (126 == helios.Port2[i].adr) {
+								obj.adr = helios.Port2[i].adr;
+								obj.value = helios.Port2[i].value;
+								data.push(obj);
+							}
+							if (127 == helios.Port2[i].adr) {
+								obj.adr = helios.Port2[i].adr;
+								obj.value = helios.Port2[i].value;
+								data.push(obj);
+							}
+							if (128 == helios.Port2[i].adr) {
+								obj.adr = helios.Port2[i].adr;
+								obj.value = helios.Port2[i].value;
+								data.push(obj);
+							}
+						}
+
+						var obj = {
+							"data": JSON.stringify(data),
+							"action": "SET"
+						}
+						console.log(data);
+						return false;
+						util.postattrajax(obj, function(data) {
+							console.log(data);
+							if (1 != data) {
+								toast.$message({
+									message: ' Error:Port 2',
+									type: 'error',
+									showClose: true,
+									offset: 80
+								});
+							} else {
+								toast.$message({
+									message: "success:Port 2",
+									type: 'success',
+									showClose: true,
+									offset: 80
+								});
+							}
+						});
+					},
 				},
+
 
 
 

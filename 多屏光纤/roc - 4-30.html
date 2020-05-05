@@ -127,14 +127,14 @@
 									<td colspan="2"><span class="icon iconfont icon-kongzhitai"></span> <b>Type</b></td>
 								</tr>
 								<tr>
-									<td colspan="2"><strong>UL POUT</strong></td>
+									<td colspan="2"><strong>UL Output Power</strong></td>
 								</tr>
 								<tr>
-									<td colspan="2"><strong>DL PIN</strong></td>
+									<td colspan="2"><strong>DL Input Power</strong></td>
 								</tr>
 
 								<tr>
-									<td colspan="2"><b>ROC FEEDBACK</b></td>
+									<td colspan="2"><b> Roc Feedback</b></td>
 								</tr>
 
 								<tr>
@@ -271,17 +271,6 @@
 										</el-checkbox-group>
 									</td>
 								</tr>
-
-								<tr v-for="(vv,jj) in Rocdata" v-if="vv.adr==16">
-									<td>
-										<el-select v-model="vv.value[i]" size="small">
-											<el-option label="0" value="0"></el-option>
-											<el-option label="1" value="1"></el-option>
-											<el-option label="2" value="2"></el-option>
-											<el-option label="3" value="3"></el-option>
-										</el-select>
-									</td>
-								</tr>
 								<tr v-for="(vv,jj) in Rocdata" v-if="vv.adr==15">
 									<td>
 										<el-select v-model="vv.value[i]" size="small">
@@ -292,6 +281,18 @@
 										</el-select>
 									</td>
 								</tr>
+								<tr v-for="(vv,jj) in Rocdata" v-if="vv.adr==16">
+									<td>
+										<el-select v-model="vv.value[i]" size="small">
+											<el-option label="0" value="0"></el-option>
+											<el-option label="1" value="1"></el-option>
+											<el-option label="2" value="2"></el-option>
+											<el-option label="3" value="3"></el-option>
+										</el-select>
+
+									</td>
+								</tr>
+
 							</tbody>
 						</table>
 					</div>
@@ -314,6 +315,12 @@
 				canSave: true,
 				Read: true,
 
+				value1: "0",
+				value: "3",
+				form: {
+					name: "数据...",
+					name1: false
+				},
 				Rocdata: [],
 				Roclength: 0,
 			}
@@ -322,21 +329,23 @@
 				data: data,
 				created() {
 					// console.log("创建完成：");
+					console.log((this.$data));
 
 				},
 				mounted() {
 					/*console.log("");*/
-					console.log((this.$data));
 					$("body").resize();
 
 				},
 				updated() {
 					/*console.log("时时监控数据变化,并随之更新");*/
 					//	console.log((this.$data.Rocdata));
+
 					//console.log( JSON.stringify(this.$data.rocdata));
 				},
 				beforeMount() {
-					/* console.log("挂载前：");*/
+					/* console.log("挂载前：");
+					console.log(this.$data); */
 					this.Getroc_Data();
 				},
 				//事件
@@ -357,7 +366,7 @@
 									setTimeout(() => {
 										Helios.$data.Read = true;
 										toast.$message({
-											message: "success:ROC" + index,
+											message: "success:" + index,
 											type: 'success',
 											showClose: true,
 											offset: 40
@@ -365,8 +374,9 @@
 									}, 1200);
 								}
 
+
 								for (var i = 0; i < data.length; i++) {
-									
+									console.log(data[i]);
 									if (data[i].adr == 6) {
 										let obj = {
 											name: "UL POUT",
@@ -475,7 +485,7 @@
 									}
 								}
 
-							 
+								console.log(getdata);
 								Helios.Rocdata = getdata;
 
 
@@ -497,142 +507,92 @@
 								adr: "",
 								value: ""
 							}
-							//获取6条
-							var RocdataValue = Helios.Rocdata[j].value;
-
-							var agent = Helios.Rocdata[j].agent;
-							var enbale = Helios.Rocdata[j].enbale;
-
 							if (Helios.Rocdata[j].adr == 1) {
 								obj.adr = Helios.Rocdata[j].adr;
-								//设置第几条
-								RocdataValue[index] = (Helios.Rocdata[j].value[index]);
-								obj.value = RocdataValue.join();  //
+								obj.value = Helios.Rocdata[j].value[index];
 								data.push(obj)
-
 								//console.log(Helios.Rocdata[j].value[index]);
 							}
 							if (Helios.Rocdata[j].adr == 2) {
 								obj.adr = Helios.Rocdata[j].adr;
-								RocdataValue[index] = (Helios.Rocdata[j].value[index]);
-								obj.value = RocdataValue.join();
+								obj.value = Helios.Rocdata[j].value[index];
 								data.push(obj)
 							}
-
 							if (Helios.Rocdata[j].adr == 3) {
-								obj.adr = Helios.Rocdata[j].adr;
-								RocdataValue[index] = (Helios.Rocdata[j].value[index]);
-								obj.value = RocdataValue.join();
-								data.push(obj)
-							}
-							if (Helios.Rocdata[j].adr == 4) {
-								obj.adr = Helios.Rocdata[j].adr;
-								RocdataValue[index] = (Helios.Rocdata[j].value[index]);
-								obj.value = RocdataValue.join();
-								data.push(obj)
-							}
-							if (Helios.Rocdata[j].adr == 5) {
-								obj.adr = Helios.Rocdata[j].adr;
-								RocdataValue[index] = Helios.Rocdata[j].value[index];
-								obj.value = RocdataValue.join();
-								data.push(obj)
-							}
-							if (Helios.Rocdata[j].adr == 13) {
-								obj.adr = Helios.Rocdata[j].adr;
-								RocdataValue[index] = Helios.Rocdata[j].value[index];
-								obj.value = RocdataValue.join();
-								data.push(obj)
-							}
-
-							/* if (Helios.Rocdata[j].adr == 14) {
 								obj.adr = Helios.Rocdata[j].adr;
 								obj.value = Helios.Rocdata[j].value[index];
 								data.push(obj)
 							}
-								
+							if (Helios.Rocdata[j].adr == 4) {
+								obj.adr = Helios.Rocdata[j].adr;
+								obj.value = Helios.Rocdata[j].value[index];
+								data.push(obj)
+							}
+							if (Helios.Rocdata[j].adr == 5) {
+								obj.adr = Helios.Rocdata[j].adr;
+								obj.value = Helios.Rocdata[j].value[index];
+								data.push(obj)
+							}
+							if (Helios.Rocdata[j].adr == 13) {
+								obj.adr = Helios.Rocdata[j].adr;
+								obj.value = Helios.Rocdata[j].value[index];
+								data.push(obj)
+							}
+							if (Helios.Rocdata[j].adr == 14) {
+								obj.adr = Helios.Rocdata[j].adr;
+								obj.value = Helios.Rocdata[j].value[index];
+								data.push(obj)
+							}
+
 							if (Helios.Rocdata[j].adr == 9) {
 								obj.adr = Helios.Rocdata[j].adr;
 								obj.value = Helios.resnumber(Helios.Rocdata[j].agent[index], Helios.Rocdata[j].enbale[index]);
 								data.push(obj);
-							} */
-
-							if (Helios.Rocdata[j].adr == 14) {
-								obj.adr = Helios.Rocdata[j].adr;
-								RocdataValue[index] = Helios.Rocdata[j].value[index];
-								obj.value = RocdataValue.join();
-								data.push(obj)
-							}
-
-							if (Helios.Rocdata[j].adr == 9) {
-								obj.adr = Helios.Rocdata[j].adr;
-								//  一个重点****
-								agent[index] = (Helios.Rocdata[j].agent[index]);
-								enbale[index] = (Helios.Rocdata[j].enbale[index]);
-								obj.value = Helios.resnumber(agent, enbale);
-								console.log(typeof obj.value);
-
-								data.push(obj);
 							}
 							if (Helios.Rocdata[j].adr == 10) {
 								obj.adr = Helios.Rocdata[j].adr;
-								//  一个重点****
-								agent[index] = (Helios.Rocdata[j].agent[index]);
-								enbale[index] = (Helios.Rocdata[j].enbale[index]);
-								obj.value = Helios.resnumber(agent, enbale);
-								data.push(obj);
+								obj.value = Helios.resnumber(Helios.Rocdata[j].agent[index], Helios.Rocdata[j].enbale[index]);
+								data.push(obj)
 							}
-							if (Helios.Rocdata[j].adr == 15) {
+						/* 	if (Helios.Rocdata[j].adr == 15) {
 								obj.adr = Helios.Rocdata[j].adr;
-								RocdataValue[index] = Helios.Rocdata[j].value[index];
-								obj.value = RocdataValue.join();
+								obj.value = Helios.Rocdata[j].value[index];
 								data.push(obj)
 							}
 							if (Helios.Rocdata[j].adr == 16) {
 								obj.adr = Helios.Rocdata[j].adr;
-								RocdataValue[index] = Helios.Rocdata[j].value[index];
-								obj.value = RocdataValue.join();
+								obj.value = Helios.Rocdata[j].value[index];
 								data.push(obj)
-							}
+							} */
 						}
-
-						
-
-
-						/* 	var stringobjdata = [];
-
-							for (var i = 0; i < data.length; i++) {	
-								var stringObj = {
-									"adr": "",
-									"value": ""
-								}
-								stringObj.adr = data[i].adr;
-								stringObj.value = data[i].value.join();
-								stringobjdata.push(stringObj);
-							}
-						console.log(stringobjdata); */
-
+						//data.push( rocindex={roc:index} );
+						/* for(var i=0;i<Helios.Roclength-5;i++){
+							var obj={
+								adr:"",
+								value:""
+							} 
+						} */
 						var obj = {
 							"data": JSON.stringify(data),
 							"action": "SET"
 						}
-
 						util.postattrajax(obj, function(data) {
-							
+							console.log(data);
 							if (1 != data) {
 								toast.$message({
 									message: ' Error' + data,
 									type: 'error',
 									showClose: true,
-									offset: 40
+									offset: 80
 								});
 							} else {
 								setTimeout(() => {
 									Helios.$data.canSave = true;
 									toast.$message({
-										message: "success:ROC" + index,
+										message: "success:" + index,
 										type: 'success',
 										showClose: true,
-										offset: 40
+										offset: 80
 									});
 								}, 1200);
 							}
@@ -672,20 +632,17 @@
 					},
 					//真假转换为数字
 					resnumber(agent, enbale) {
-						let make = [];
-						for (var i = 0; i < Helios.Roclength; i++) {
-							if (agent[i] == false && enbale[i] == false) {
-								make.push("0");
-							} else if (agent[i] == false && enbale[i] == true) {
-								make.push("1");
-							} else if (agent[i] == true && enbale[i] == false) {
-								make.push("2");
-							} else if (agent[i] == true && enbale[i] == true) {
-								make.push("3");
-							}
+						if (agent == false && enbale == false) {
+							return "0";
+						} else if (agent == false && enbale == true) {
+							return "1";
+						} else if (agent == true && enbale == false) {
+							return "2";
+						} else if (agent == true && enbale == true) {
+							return "3";
 						}
-						return make.join();
 					},
+
 				},
 			});
 		</script>

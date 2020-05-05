@@ -132,15 +132,12 @@ var util = {
 				url: "../cgi-bin/doaction.cgi",
 				data: attr,
 				type: "get",
-
 				//async: false,
 				success: function(data, status) {
-
 					var rsp = JSON.parse(data);
 					//console.log(rsp);
 					//console.log(status);
-				//	console.log(typeof rsp);
-
+					//	console.log(typeof rsp);
 					if (typeof rsp == "string") {
 						toast.$message.error("Error：" + attr.data);
 					} else {
@@ -196,12 +193,13 @@ var util = {
 				},
 				success: function(data, status) {
 					var rsp = JSON.parse(data);
+					console.log(rsp);
 					if (rsp.code == 1) {
 						callback(rsp.code);
 						resolve(rsp.code);
 					} else {
-						callback(rsp.code);
-						resolve(rsp.code);
+						callback(rsp);
+						resolve(rsp);
 					}
 				},
 				error: function(req, status, err) {
@@ -216,6 +214,49 @@ var util = {
 		});
 		return p;
 	},
+
+
+	//没有数组 真假转换
+	ResTruefalse(name, adr, value) {
+		let obj = {
+			name: "",
+			adr: "",
+			agent: "",
+			enbale: "",
+		}
+		obj.adr = adr;
+		obj.name = name;
+		if ("0" == value) {
+			obj.agent = false;
+			obj.enbale = false;
+		}
+		if ("1" == value) {
+			obj.agent = false;
+			obj.enbale = true;
+		}
+		if ("2" == value) {
+			obj.agent = true;
+			obj.enbale = false;
+		}
+		if ("3" == value) {
+			obj.agent = true;
+			obj.enbale = true;
+		}
+		return obj
+	},
+	//没有数组 真假转换为数字
+	resnumber(agent, enbale) {
+		if (agent == false && enbale == false) {
+			return "0";
+		} else if (agent == false && enbale == true) {
+			return "1";
+		} else if (agent == true && enbale == false) {
+			return "2";
+		} else if (agent == true && enbale == true) {
+			return "3";
+		}
+	}
+
 
 }
 util.Tablocation();
