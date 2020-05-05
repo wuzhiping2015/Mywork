@@ -65,47 +65,36 @@
 
 							<div class="row">
 
-								<!-- Port1 START -->
+								<!-- snpm2 START -->
 								<div class="col-md-6">
 									<div class="box">
 										<div class="box-header with-border">
-											<h3 class="box-title">SNMP V2</h3>
-											<div class="box-tools pull-right" style="top: 9px;">
-												<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
-												<el-button size="small">Read</el-button>
-											</div>
+											<h3 class="box-title">SNMP V2</h3> <!-- GRPS -->
+								<div class="box-tools pull-right" style="top: 9px;">
+									<el-button @click="Setsnmp2" :disabled="!Set" size="small" type="primary">Set</el-button>
+									<el-button @click="Getsnmp2(1)" :disabled="!Read" size="small">Read</el-button>
+								</div>
 										</div>
 										<div class="clear" style="padding-top: 10px;">
-											<el-form ref="form" :model="form" label-width="180px" size="medium">
-												<div class="col-md-10">
-													<el-form-item label="SNMP Enable">
-													
-														<el-checkbox-group v-model="form.name1" size="small">
-															<el-checkbox label="Enable" border></el-checkbox>
-														</el-checkbox-group>
+											<el-form ref="snmp2data" label-width="180px" size="medium">
+												<div class="col-md-12" v-for="(v,i) in  snmp2data" v-if="v.adr==140">
+													<el-form-item :label="v.name">
+														<el-switch v-model="v.value"></el-switch>
 													</el-form-item>
-													<el-form-item label="IP Address">
-														<el-input v-model="form.tag" size=""></el-input>
-													</el-form-item>
-
-													<el-form-item label="Port">
-														<el-input v-model="form.tag" size=""></el-input>
-													</el-form-item>
-
-													<el-form-item label="Hearbeat(min)">
-														<el-input v-model="form.tag" size=""></el-input>
-													</el-form-item>
-													<el-form-item label="Community">
-														<el-input v-model="form.tag" size=""></el-input>
+												</div>
+												<div class="col-md-10" v-for="(v,i) in snmp2data" v-if="v.adr!=140">
+													<el-form-item :label="v.name">
+														<el-input v-model="v.value"></el-input>
 													</el-form-item>
 												</div>
 											</el-form>
 										</div>
 									</div>
 								</div>
-								<!-- Port1 END -->
 
-								<!-- Port1 START -->
+								<!-- snpm2 END -->
+
+								<!-- snpm3 START -->
 								<div class="col-md-6">
 									<div class="box">
 										<div class="box-header with-border">
@@ -119,7 +108,7 @@
 											<el-form ref="form" :model="form" label-width="180px" size="medium">
 												<div class="col-md-10">
 													<el-form-item label="SNMP Enable">
-													
+
 														<el-checkbox-group v-model="form.name1" size="small">
 															<el-checkbox label="Enable" border></el-checkbox>
 														</el-checkbox-group>
@@ -168,7 +157,7 @@
 										</div>
 									</div>
 								</div>
-								<!-- Port1 END -->
+								<!-- snpm3 END -->
 							</div>
 						</div>
 					</div>
@@ -190,7 +179,7 @@
 				form: {
 					name: true,
 					name1: false,
-					tag:"数据整理中..." ,
+					tag: "数据整理中...",
 				},
 
 				Auth_value: '1',
@@ -214,8 +203,15 @@
 
 
 
+
+				Set: true,
+				Read: true,
+
+				snmp2data: [],
+				snmp3data: []
+
 			};
-			var Helios = new Vue({
+			var helios = new Vue({
 				el: "#MainContext",
 				data: data,
 				beforeCreate() {
@@ -231,7 +227,7 @@
 				beforeMount() {
 					/* console.log("挂载前：");
 					console.log(this.$data); */
-
+					this.Getsnmp2();
 				},
 				mounted() {
 					/* console.log("时时监控数据变化,并随之更新");*/
@@ -248,7 +244,150 @@
 				methods: {
 					onSubmit() {
 						util.success("数据请求成功");
+					},
+					
+					Getsnmp2(c) {
+						var adr = [130, 131, 132, 133, 140]; /* 152 状态 */ /*  */
+						var obj = {
+							"data": adr.join(),
+							"action": "READ"
+						};
+						util.getattrajax(obj, function(data) {
+							var data = data.data;
+							var data1 = [];
+							if (data.length > 0) {
+								if (c > 0) {
+									helios.$data.Read = false;
+									setTimeout(() => {
+										helios.$data.Read = true;
+										toast.$message({
+											message: "success",
+											type: 'success',
+											showClose: true,
+											offset: 10
+										});
+									}, 1200);
+								}
+								for (var i = 0; i < data.length; i++) {
+									/* 	if (130 == data[i].adr) {
+											let obj = {
+												adr: data[i].adr,
+												name: "SNMP VERSION",
+												value: data[i].value
+											}
+											data1.push(obj);
+										} */
+									if (131 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "SNMP IP",
+											value: data[i].value
+										}
+										data1.push(obj);
+									}
+									if (132 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "SNMP PORT",
+											value: data[i].value
+										}
+										data1.push(obj);
+									}
+									if (133 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "SNMP COMMUNITY",
+											value: data[i].value,
+											//value: data[i].value == "1" ? true : false
+										}
+										data1.push(obj);
+									}
+									if (140 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "SNMP SWITCH",
+											//value: data[i].value,
+											value: data[i].value == "1" ? true : false
+										}
+										data1.push(obj);
+									}
+									if (141 == data[i].adr) {
+										let obj = {
+											adr: data[i].adr,
+											name: "SNMP HEARTBEAT",
+											value: data[i].value,
+											//value: data[i].value == "1" ? true : false
+										}
+										data1.push(obj);
+									}
+								}
+								console.log(data1);
+								helios.snmp2data = data1;
+							} else {
+								toast.$message.error("Error");
+							}
+						})
+					},
+					Setsnmp2() {
+						var adrs = [130, 131, 132, 133, 140]; // 与 新数据配对
+						var data = [];
+						for (var i = 0; i < helios.snmp2data.length; i++) {
+							var obj = {
+								adr: "",
+								value: ""
+							}
+							/* if (130 == helios.snmp2data[i].adr) {
+								obj.adr = helios.snmp2data[i].adr;
+								obj.value = "3";
+								data.push(obj);
+							} */
+							if (131 == helios.snmp2data[i].adr) {
+								obj.adr = helios.snmp2data[i].adr;
+								obj.value = helios.snmp2data[i].value;
+								data.push(obj);
+							}
+							if (132 == helios.snmp2data[i].adr) {
+								obj.adr = helios.snmp2data[i].adr;
+								obj.value = helios.snmp2data[i].value;
+								data.push(obj);
+							}
+							if (133 == helios.snmp2data[i].adr) {
+								obj.adr = helios.snmp2data[i].adr;
+								obj.value = helios.snmp2data[i].value;
+								data.push(obj);
+							}
+							if (140 == helios.snmp2data[i].adr) {
+								obj.adr = helios.snmp2data[i].adr;
+								//obj.value = util.resnumber(helios.snmp2data[i].agent, helios.snmp2data[i].enbale);
+								obj.value = helios.snmp2data[i].value == true ? "1" : "0";
+								data.push(obj);
+							}
+						}
+
+						var obj = {
+							"data": JSON.stringify(data),
+							"action": "SET"
+						}
+
+						util.postattrajax(obj, function(data) {
+							if (1 != data) {
+								toast.$message({
+									message: ' Error:' + data.message,
+									type: 'error',
+									showClose: true,
+									offset: 80
+								});
+							} else {
+								toast.$message({
+									message: "success",
+									type: 'success',
+									showClose: true,
+									offset: 80
+								});
+							}
+						});
 					}
+				
 				},
 				filters: {
 
