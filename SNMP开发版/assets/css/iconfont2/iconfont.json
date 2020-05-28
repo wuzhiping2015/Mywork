@@ -1,0 +1,226 @@
+{
+  "id": "1848106",
+  "name": "SNMP",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "SNMP",
+  "glyphs": [
+    {
+      "icon_id": "843328",
+      "name": "新增",
+      "font_class": "xinzeng",
+      "unicode": "e6dc",
+      "unicode_decimal": 59100
+    },
+    {
+      "icon_id": "2966206",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "8721206",
+      "name": "搜索",
+      "font_class": "sousuo1",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "1374",
+      "name": "信号",
+      "font_class": "xinhao1",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "3338423",
+      "name": "上行宽带",
+      "font_class": "shanghangkuandai",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "3338424",
+      "name": "下行宽带",
+      "font_class": "xiahangkuandai",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "7335567",
+      "name": "温度",
+      "font_class": "wendu1",
+      "unicode": "eb37",
+      "unicode_decimal": 60215
+    },
+    {
+      "icon_id": "10398117",
+      "name": "速率C",
+      "font_class": "sushuaiC",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "10398119",
+      "name": "速率D",
+      "font_class": "sushuaiD",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "11061468",
+      "name": "信号",
+      "font_class": "--copy",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "13453211",
+      "name": "固件",
+      "font_class": "gujian",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "14151221",
+      "name": "主机状态",
+      "font_class": "zhujizhuangtai",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "1549399",
+      "name": "退出",
+      "font_class": "tuichu",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    },
+    {
+      "icon_id": "10380641",
+      "name": "个人中心 选中",
+      "font_class": "gerenzhongxinxuanzhong",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "10566224",
+      "name": "状态",
+      "font_class": "zhuangtai2",
+      "unicode": "e854",
+      "unicode_decimal": 59476
+    },
+    {
+      "icon_id": "10766117",
+      "name": "告警",
+      "font_class": "gaojing2",
+      "unicode": "e6d4",
+      "unicode_decimal": 59092
+    },
+    {
+      "icon_id": "11043498",
+      "name": "开启状态",
+      "font_class": "kaiqi",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "11043529",
+      "name": "关闭状态",
+      "font_class": "guanbi",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "11694342",
+      "name": "告警",
+      "font_class": "gaojing3",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "11761413",
+      "name": "温度",
+      "font_class": "wendu",
+      "unicode": "e71c",
+      "unicode_decimal": 59164
+    },
+    {
+      "icon_id": "410164",
+      "name": "序列号管理",
+      "font_class": "xuliehaoguanli",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "1127408",
+      "name": "等级一",
+      "font_class": "level1",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "1127409",
+      "name": "等级二",
+      "font_class": "level2",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "1127410",
+      "name": "等级三",
+      "font_class": "level3",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "1715577",
+      "name": "告警",
+      "font_class": "gaojing",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "3521123",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "4016529",
+      "name": "云主机",
+      "font_class": "yunzhuji",
+      "unicode": "e6b8",
+      "unicode_decimal": 59064
+    },
+    {
+      "icon_id": "5327589",
+      "name": "加载",
+      "font_class": "jiazai",
+      "unicode": "e721",
+      "unicode_decimal": 59169
+    },
+    {
+      "icon_id": "7461740",
+      "name": "序列号",
+      "font_class": "xuliehao",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "8288874",
+      "name": "删除",
+      "font_class": "shanchu",
+      "unicode": "e852",
+      "unicode_decimal": 59474
+    },
+    {
+      "icon_id": "8691930",
+      "name": "mac地址规整",
+      "font_class": "macdizhiguizheng",
+      "unicode": "e6f3",
+      "unicode_decimal": 59123
+    }
+  ]
+}

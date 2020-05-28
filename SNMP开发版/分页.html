@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Helios </title>
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+
+	</head>
+	</style>
+
+	<body class="skin-black sidebar-collapse sidebar-mini">
+
+		<!-- 页头 -->
+		<div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+			<el-main-header :loguser="logUserName" :logUser="logUserName"></el-main-header>
+		</div>
+		<!-- 页头end -->
+
+		<!-- 侧边栏导航 -->
+		<div id="comp-sidebar">
+			<el-main-sidebar></el-main-sidebar>
+		</div>
+		<!-- 侧边栏导航 end -->
+
+		<!-- 内容区域 -->
+		<div class="content-wrapper" id="content-wrapper">
+
+
+			<div>
+				<div class="api_search">
+					<el-row>
+						<el-card class="box-card">
+							<div slot="header" class="clearfix">
+								<span>验证类短息发送</span>
+							</div>
+
+							<!--表格-->
+							<!--v-bind:data="tableData"-->
+							<el-input v-model="tableDataName" placeholder="请输入姓名" style="width:240px"></el-input>
+							<el-button type="primary" @click="doFilter">搜索</el-button>
+							<el-table :data="tableDtaEnd" style="width: 100%">
+
+								<el-table-column v-for="item in info" v-bind:label="item.text" :prop="item.english" width="180">
+								</el-table-column>
+								<el-table-column label="操作" width="180">
+									<template slot-scope="scope">
+										<el-button size="small">编辑</el-button>
+										<el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+									</template>
+								</el-table-column>
+							</el-table>
+							<!--分页-->
+							<!--<el-pagination background layout="prev, pager, next" :total="10" style="margin-top:100px;"></el-pagination>-->
+	<el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange"
+						 :current-page="currentPage" :page-sizes="[1,5,10,20]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalItems"></el-pagination>
+
+
+				</div>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+		<script type="text/javascript" src="assets/js/adminlte.js"></script>
+		</div>
+
+
+		<script type="text/javascript">
+			var app = new Vue({
+				el: "#content-wrapper",
+				data: {
+					/* 删除 */
+					packData: [],
+					delVisible: false, //删除提示弹框的状态
+					msg: "", //记录每一条的信息，便于取id
+					delarr: [], //存放删除的数据
+					multipleSelection: [], //多选的数据
+					/* 删除  end*/
+
+					tableDataName: "",
+					info: [{
+							id: 0,
+							text: 'ID',
+							english: 'mobile'
+						},
+						{
+							id: 1,
+							text: '发送的内容',
+							english: 'sendContent'
+						},
+						{
+							id: 2,
+							text: '通道返回的数据',
+							english: 'channelReturnData'
+						},
+						{
+							id: 3,
+							text: '条数',
+							english: 'count'
+						},
+						{
+							id: 4,
+							text: '状态',
+							english: 'status'
+						},
+						{
+							id: 5,
+							text: '创建时间',
+							english: 'createTime'
+						}
+					],
+					tableData: [{
+							mobile: "1",
+							sendContent: "aaa",
+							channelReturnData: "1111",
+							count: "1111",
+							status: "1111",
+							createTime: "1111",
+						}, {
+							mobile: "2",
+							sendContent: "bbb",
+							channelReturnData: "1111",
+							count: "1111",
+							status: "1111",
+							createTime: "1111",
+						},
+						{
+							mobile: "3",
+							sendContent: "ccc",
+							channelReturnData: "1111",
+							count: "1111",
+							status: "1111",
+							createTime: "1111",
+						},
+						{
+							mobile: "4",
+							sendContent: "dddd",
+							channelReturnData: "1111",
+							count: "1111",
+							status: "1111",
+							createTime: "1111",
+						},
+						{
+							mobile: "5",
+							sendContent: "eee",
+							channelReturnData: "1111",
+							count: "1111",
+							status: "1111",
+							createTime: "1111",
+						}
+					],
+					/*分页数据*/
+					currentPage: 1, // 当前页码
+					total: 20, // 总条数
+					pageSize: 5, // 每页的数据条数
+					totalItems: 0,
+					tableDtaEnd: [],
+					filterTableDataEnd: [],
+				},
+				created: function() {
+					this.getData();
+				},
+				methods: {
+					getData: function() {
+
+						this.totalItems = this.tableData.length;
+						if (this.totalItems > this.pageSize) {
+							for (let index = 0; index < this.pageSize; index++) {
+								this.tableDtaEnd.push(this.tableData[index]);
+							}
+						} else {
+							this.tableDtaEnd = this.tableData;
+						}
+
+
+						/* var t = this;
+						$.ajax({
+							type: "POST",
+							url: '/SmsFlow/querySmsFlowInfoByUser',
+							data: {
+								'fSmsApiAccount': 'javatom11',
+								'fApiType': 1000,
+							},
+							dataType: 'json',
+							success: function(res) {
+								console.log(res.values);
+								for (var i = 0; i < res.values.length; i++) {
+									var obj = {};
+									obj.mobile = res.values[i].fMobile;
+									obj.sendContent = res.values[i].fContent;
+									obj.channelReturnData = res.values[i].fChannlReturnData;
+									obj.count = 1;
+									obj.status = res.values[i].fState;
+									obj.createTime = t.$options.methods.dateFormat(res.values[i].fCreatetime);
+									t.tableData.push(obj);
+								}
+							},
+							error: function(err) {
+								console.log("未获取到数据!");
+							}
+						}) */
+					},
+					//日期转化
+					dateFormat: function(dateTime) {
+						var dateNew = new Date(dateTime).toJSON();
+						var date = new Date(+new Date(dateNew) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(
+							/\.[\d]{3}Z/,
+							'')
+						return date;
+					},
+					//分页点击方法
+					handleSizeChange: function(val) {
+						this.currentPage = 1;
+						this.pageSize = val;
+					},
+					handleCurrentChange: function(val) {
+						this.currentPage = val;
+					},
+
+					//单行删除
+					handleDelete(index, row) {
+						this.idx = index;
+						this.msg = row; //每一条数据的记录
+						this.delarr.push(this.msg.mobile); //把单行删除的每条数据的id添加进放删除数据的数组
+						/* 	this.delVisible = true; */
+
+						toast.$confirm("此操作将永久删除该数据，是否继续", "提示", {
+							confirmButtonText: "确定",
+							cancelButtonText: '取消',
+							type: "warning"
+						}).then(() => {
+							console.log(index);
+							console.log(row);
+							console.log(this.delarr);
+
+							toast.$notify({
+								title: '成功',
+								message: '删除成功',
+								type: 'success',
+								duration: 1000
+							});
+						});
+					},
+					// 搜索
+					doFilter() {
+						if (this.tableDataName == "") {
+							this.$message.warning("查询条件不能为空！");
+							this.tableData = JSON.parse(JSON.stringify(this.tableData));
+							return;
+						}
+
+						//	this.tableData = [];
+
+						this.tableDtaEnd = [];
+						this.filterTableDataEnd = [];
+						this.tableData.forEach((value, index) => {
+							if (value.sendContent.indexOf(this.tableDataName) >= 0) {
+								this.filterTableDataEnd.push(value);
+							}
+						})
+						this.currentPage = 1;
+						this.totalItems = this.filterTableDataEnd.length;
+
+						this.currentChangePage(this.filterTableDataEnd);
+
+						/* 	this.tableData = JSON.parse(JSON.stringify(this.tableData));
+						 */
+
+						/* 	let data = this.tableData.filter((item => item.indexOf(this.tableData >= 0)));
+							this.tableData = data; */
+
+						/* 	this.tableData.forEach((value, index) => {
+								if (value.sendContent) {
+									console.log(value.sendContent.indexOf(this.tableDataName))
+									if (value.sendContent.indexOf(this.tableDataName) == 0) {
+										this.$data.tableData(value)
+									}
+								}
+							});
+						this.currentPage = 1 */
+						//页面数据改变重新统计数据数量和当前页
+
+						//页面初始化数据需要判断是否检索过
+
+					}
+				},
+				mounted: function() {
+					console.log(this.$data);
+				},
+
+			})
+		</script>
+
+	</body>
+</html>
