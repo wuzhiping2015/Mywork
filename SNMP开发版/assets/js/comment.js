@@ -175,11 +175,11 @@ getattrajax: function(url, adr, callback) {
 				type: "POST", //提交方式
 				dataType: "json", //返回的数据类型，TEXT字符串 JSON返回JSON XML返回XML；dataType中T要大写！！
 				beforeSend: function(data) {
-					console.log(data);
-					console.log("success");
+				//	console.log(data);
+				//	console.log("success");
 				},
 				beforeCreate: function(data) {
-					console.log(data);
+				//	console.log(data);
 				},
 				success: function(data) { //回调函数，data为形参，是从login-cl.php页面返回的值
 					if (200 == data.code) {

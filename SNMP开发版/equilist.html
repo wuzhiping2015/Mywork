@@ -121,7 +121,8 @@
 									<el-table-column label="操作" width="400">
 										<template slot-scope="{row}">
 											<el-button size="mini" icon="el-icon-edit" type="primary"
-												@click.native.prevent="lookmax(row,tableDataEnd)">查看设备</el-button>
+												@click.native.prevent="getBaseInfoData(row,tableDataEnd)">查看设备
+											</el-button>
 											<el-button size="mini" icon="el-icon-setting" type="primary"
 												@click.native.prevent="setmax(row,tableDataEnd)">配
 												置</el-button>
@@ -213,30 +214,21 @@
 							<div v-show="tabshow==0">
 								<div class="box-footer">
 									{{configuration.ip}}
-									 
-								
-											
 									<el-form label-width="120px" ref="equipmentdata" :model="equipmentdata">
 										<el-row :gutter="20">
-											<el-col :span="6">
-												<el-form-item label="siteName" prop="siteName">
-													<el-input v-model="equipmentdata.siteName" required="required">
-													</el-input>
-												</el-form-item>
-											</el-col>
 											<el-col :span="6" v-for="(v,i) in getBaseInfo">
-												<el-form-item :label="v.zh" :prop="v.zh">
-													<el-input v-model="v.value">
-													</el-input>
+												<el-form-item :label="v.EN" :prop="v.EN">
+													<input type="text" autocomplete="off" v-model="v.value"
+														class="el-input__inner">
 												</el-form-item>
 											</el-col>
-										  
 										</el-row>
 									</el-form>
 									<div class="dialog-footer tl" style=" margin-left: 120px; padding: 20px 0px;">
-										<el-button type="primary" @click="Addequipment(1,this)" size="medium">确 定
+										<el-button type="primary" @click="readBaseInfoData(1)" size="medium">确 定
 										</el-button>
-										<el-button type="success" @click="Addequipment(2)" size="medium">取 消</el-button>
+										<el-button type="success" @click="readBaseInfoData(2)" size="medium">取 消
+										</el-button>
 									</div>
 								</div>
 							</div>
@@ -307,24 +299,26 @@
 			data: data,
 			mounted() {
 				$("body").resize();
+				this.getuquilist();
 			},
-
 			beforeMount() {
 				this.getuquilist();
 			},
-			updated() {
-				//console.log(this.$data.equipmentdata);
-			},
 
 			methods: {
-
 				//初始获取数据
 				getuquilist() {
 					var token = sessionStorage.getItem("$token");
 					var obj = {
 						token: token,
 					}
-					let dataajax = [];
+					let dataajax = [
+						{
+							EN: "11",
+							value: "11",
+							zh: "11",
+						}
+					];
 
 					//获取ajax data
 					util.getattrajax(SNMPAPI.getList, obj, function (data) {
@@ -473,436 +467,14 @@
 					});
 				},
 
-
-
-				//添加设备 弹窗
-				Addfirm() {
-					this.Addfirmware = true;
+				//	EL-TABLE PROP 
+				substr_name(row, column, cellValue, index) {
+					let val = "";
+					//val = cellValue.substring(0, 6) + "...";
+					val = cellValue;
+					return val;
+					//console.log(cellValue)
 				},
-				//AJAX 添加设备
-				Addequipment() {
-					var $this = arguments[0];
-					if ($this == 2) {
-						helios.Addfirmware = false;
-						helios.equipmentdata = {
-							siteName: "",
-							mac: "",
-							sn: "",
-							ip: "",
-							type: "",
-							switch: true,
-						}
-						helios.isnull = "";
-						helios.show = false;
-					} else {
-
-						var token = sessionStorage.getItem("$token");
-						/* 	isnull:"--",
-							show:true, */
-						if (!helios.equipmentdata.siteName) {
-							helios.isnull = "站点名称不能为空";
-							helios.show = true;
-						}
-						else if (!helios.equipmentdata.mac) {
-							helios.isnull = "MAC不能为空";
-							helios.show = true;
-						}
-						else if (!helios.equipmentdata.sn) {
-							helios.isnull = "SN不能为空";
-							helios.show = true;
-						}
-						else if (!helios.equipmentdata.ip) {
-							helios.isnull = "IP不能为空";
-							helios.show = true;
-						} else {
-							helios.isnull = "";
-							helios.show = false;
-
-							var obj = {
-								siteName: helios.equipmentdata.siteName,
-								mac: helios.equipmentdata.mac,
-								sn: helios.equipmentdata.sn,
-								ip: helios.equipmentdata.ip,
-								devSwitch: helios.equipmentdata.switch == true ? 1 : 0,
-								type: helios.equipmentdata.type == "master" ? 1 : 2,
-							}
-							var arr = Object.values(helios.tableDataEnd);
-							arr.unshift(obj);
-							sessionStorage.setItem("equipment", JSON.stringify(arr));
-							//不刷新,插入
-							helios.tableDataEnd.unshift(obj);
-							helios.equipmentdata = {
-								siteName: "",
-								mac: "",
-								sn: "",
-								ip: "",
-								type: "",
-								switch: 0,
-							}
-
-							//请求
-							util.postattrajax(SNMPAPI.putBaseInfo, obj, function (data) {
-								toast.$message({
-									message: data,
-									type: 'success',
-									showClose: true,
-									offset: 80
-								});
-
-								//	$(".el-table").load(location.href + " .el-table");
-								//	window.location.reload()
-								//	helios.getuquilist();
-								/* helios.tableDataEnd.unshift({
-									siteName: 000,
-									mac: 000,
-									sn: 000,
-									ip: 000,
-									switch: 000,
-								}); */
-							});
-						}
-
-					}
-
-				},
-
-
-
-				//获取设备基本信息
-				lookmax(index, value) {
-					var obj = {
-						token: helios.token,
-						mac: index.mac,
-						sn: index.sn,
-						type: index.type,
-					}
-
-					//AJAX
-					util.getattrajax(SNMPAPI.getBaseInfo, obj, function (data) {
-						helios.tabshowBox = true;
-						var obj1 = {
-							antennaType: null,
-							band: null,
-							channelBw: null,
-							createDate: null,
-							devSwitch: true,
-							frequency: null,
-							id: null,
-							ip: null,
-							location: null,
-							mac: null,
-							masterMac: null,
-							productName: null,
-							remarks: null,
-							resourceAllocation: null,
-							sectorId: null,
-							siteName: null,
-							sn: null,
-							subnetMask: null,
-							txRatio: null,
-							type: null,
-							updateDate: null,
-							updater: null,
-							workMode: null,
-							sn: null,
-							mac: null,
-						};
-
-						var arr = Object.values(data);// 数据VALUE
-						var key = Object.keys(data.data); //数据KEY
-						/* 	console.log(data);
-							console.log(key[0]);
-							console.log(key); */
-
-						antennaType: null
-
-						//便利构造一个新的对象数据组
-						let Getdata = [];
-						key.forEach(keys => {
-							switch (keys) {
-								case "antennaType": {
-									var $obj = {
-										zh: "IP地址",
-										EN: "antennaType",
-										value: data.data.antennaType,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "band": {
-									var $obj = {
-										zh: "id",
-										EN: "band",
-										value: data.data.band,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "channelBw": {
-									var $obj = {
-										zh: "id",
-										EN: "channelBw",
-										value: data.data.channelBw,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "createDate": {
-									var $obj = {
-										zh: "id",
-										EN: "createDate",
-										value: data.data.createDate,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "devSwitch": {
-									var $obj = {
-										zh: "id",
-										EN: "devSwitch",
-										value: data.data.devSwitch,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "frequency": {
-									var $obj = {
-										zh: "id",
-										EN: "frequency",
-										value: data.data.frequency,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "id": {
-									var $obj = {
-										zh: "id",
-										EN: "id",
-										value: data.data.id,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "ip": {
-									var $obj = {
-										zh: "id",
-										EN: "ip",
-										value: data.data.ip,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "location": {
-									var $obj = {
-										zh: "id",
-										EN: "location",
-										value: data.data.location,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "mac": {
-									var $obj = {
-										zh: "id",
-										EN: "mac",
-										value: data.data.mac,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "mac": {
-									var $obj = {
-										zh: "id",
-										EN: "masterMac",
-										value: data.data.masterMac,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "productName": {
-									var $obj = {
-										zh: "id",
-										EN: "productName",
-										value: data.data.productName,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "remarks": {
-									var $obj = {
-										zh: "id",
-										EN: "remarks",
-										value: data.data.remarks,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "resourceAllocation": {
-									var $obj = {
-										zh: "id",
-										EN: "resourceAllocation",
-										value: data.data.resourceAllocation,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "sectorId": {
-									var $obj = {
-										zh: "id",
-										EN: "sectorId",
-										value: data.data.sectorId,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "siteName": {
-									var $obj = {
-										zh: "id",
-										EN: "siteName",
-										value: data.data.siteName,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "sn": {
-									var $obj = {
-										zh: "id",
-										EN: "sn",
-										value: data.data.sn,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "subnetMask": {
-									var $obj = {
-										zh: "id",
-										EN: "subnetMask",
-										value: data.data.subnetMask,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "txRatio": {
-									var $obj = {
-										zh: "id",
-										EN: "txRatio",
-										value: data.data.txRatio,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "type": {
-									var $obj = {
-										zh: "id",
-										EN: "type",
-										value: data.data.type,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "updateDate": {
-									var $obj = {
-										zh: "id",
-										EN: "updateDate",
-										value: data.data.updateDate,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "updater": {
-									var $obj = {
-										zh: "更新人",
-										EN: "updater",
-										value: data.data.updater,
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "workMode": {
-									var $obj = {
-										zh: "id",
-										EN: "workMode",
-										value: data.data.workMode,
-									}
-									Getdata.push($obj);
-									break;
-								}
-							}
-						});
-						console.log(Getdata);
-						helios.getBaseInfo=Getdata;
-						
-
-					
-						if ("" != data) {
-							obj1 = {
-								antennaType: arr[0].antennaType,
-								band: arr[0].band,
-								channelBw: arr[0].channelBw,
-								createDate: arr[0].createDate,
-								devSwitch: arr[0].devSwitch,
-								frequency: arr[0].frequency,
-								id: arr[0].id,
-								ip: arr[0].ip,
-								location: arr[0].location,
-								mac: arr[0].mac,
-								masterMac: arr[0].masterMac,
-								productName: arr[0].productName,
-								remarks: arr[0].remarks,
-								resourceAllocation: arr[0].resourceAllocation,
-								sectorId: arr[0].sectorId,
-								siteName: arr[0].siteName,
-								sn: arr[0].sn,
-								subnetMask: arr[0].subnetMask,
-								txRatio: arr[0].txRatio,
-								type: arr[0].type,
-								updateDate: arr[0].updateDate,
-								updater: arr[0].updater,
-								workMode: arr[0].workMode,
-							};
-
-							/* console.log(obj1);
-							console.log(data.data); */
-
-							helios.configuration = (data.data);
-							//console.log(helios.configuration);
-
-
-						} else {
-							alert("error!")
-						}
-						/* 	var obj1 = {
-								siteName: "",
-								mac: "",
-								sn: "",
-								ip: "",
-								switch: "",
-							} 
-							for (var index in data) {
-								var obj1 = {
-									siteName: data[index].siteName,
-									mac: data[index].mac,
-									sn: data[index].sn,
-									ip: data[index].ip,
-									switch: data[index].switch,
-								}
-								dataajax.push(obj1);
-							} */
-					});
-
-
-					/* let url = "http://jsonplaceholder.typicode.com/users/" + index;
-					util.getattrajax(url, function(data) {
-						console.log(data);
-					}); */
-					//window.location.href = 'Basicinfo.html';
-					//sessionStorage.setItem("lookmax", index);
-
-				},
-
-
-
-
 
 
 				//设置设备
@@ -939,17 +511,456 @@
 					}
 				},
 
-				substr_name(row, column, cellValue, index) {
-					let val = "";
-					//val = cellValue.substring(0, 6) + "...";
-					val = cellValue;
-					return val;
-					//console.log(cellValue)
-				}
 
+				//添加设备 弹窗
+				Addfirm() {
+					this.Addfirmware = true;
+				},
+
+
+
+
+				//新添加设备
+				Addequipment() {
+					var $this = arguments[0];
+					if ($this == 2) {
+						helios.Addfirmware = false;
+						helios.equipmentdata = {
+							siteName: "",
+							mac: "",
+							sn: "",
+							ip: "",
+							type: "",
+							switch: true,
+						}
+						helios.isnull = "";
+						helios.show = false;
+					}
+					else {
+						var token = sessionStorage.getItem("$token");
+						/* 	isnull:"--",
+							show:true, */
+						if (!helios.equipmentdata.siteName) {
+							helios.isnull = "站点名称不能为空";
+							helios.show = true;
+						}
+						else if (!helios.equipmentdata.mac) {
+							helios.isnull = "MAC不能为空";
+							helios.show = true;
+						}
+						else if (!helios.equipmentdata.sn) {
+							helios.isnull = "SN不能为空";
+							helios.show = true;
+						}
+						else if (!helios.equipmentdata.ip) {
+							helios.isnull = "IP不能为空";
+							helios.show = true;
+						} else {
+							helios.isnull = "";
+							helios.show = false;
+
+							var obj = {
+								siteName: helios.equipmentdata.siteName,
+								mac: helios.equipmentdata.mac,
+								sn: helios.equipmentdata.sn,
+								ip: helios.equipmentdata.ip,
+								devSwitch: helios.equipmentdata.switch == true ? 1 : 0,
+								type: helios.equipmentdata.type == "master" ? 1 : 2,
+							}
+							//不刷新,插入
+							var arr = Object.values(helios.tableDataEnd);
+							arr.unshift(obj);
+							helios.tableDataEnd.unshift(obj);
+							//sessionStorage.setItem("equipment", JSON.stringify(arr));
+
+							helios.equipmentdata = {
+								siteName: "",
+								mac: "",
+								sn: "",
+								ip: "",
+								type: "",
+								switch: 0,
+							}
+
+							//请求
+							util.postattrajax(SNMPAPI.putBaseInfo, obj, function (data) {
+								toast.$message({
+									message: data,
+									type: 'success',
+									showClose: true,
+									offset: 80
+								});
+							});
+						}
+
+					}
+
+				},
+				//新添加设备 end
+
+
+				//获取设备基本信息
+				getBaseInfoData(index, value) {
+					var obj = {
+						token: helios.token,
+						mac: index.mac,
+						sn: index.sn,
+						type: index.type,
+					}
+
+					//AJAX
+					util.getattrajax(SNMPAPI.getBaseInfo, obj, function (data) {
+						helios.tabshowBox = true;
+						var arr = Object.values(data);// 数据VALUE
+						var key = Object.keys(data.data); //数据KEY
+
+						/*	console.log(key[0]);
+							console.log(key); */
+
+
+						//便利构造一个新的对象数据组
+						let Getdata = [];
+						console.log(key);
+
+						key.forEach(keys => {
+							switch (keys) {
+								case "antennaType": {
+									var $obj = {
+										zh: "IP地址",
+										EN: "antennaType",
+										value: helios.Valueisnull(data.data.antennaType),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "band": {
+									var $obj = {
+										zh: "id",
+										EN: "band",
+										value: helios.Valueisnull(data.data.band),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "channelBw": {
+									var $obj = {
+										zh: "id",
+										EN: "channelBw",
+										value: helios.Valueisnull(data.data.channelBw),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "createDate": {
+									var $obj = {
+										zh: "id",
+										EN: "createDate",
+										value: helios.Valueisnull(data.data.createDate),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "devSwitch": {
+									var $obj = {
+										zh: "id",
+										EN: "devSwitch",
+										value: helios.Valueisnull(data.data.devSwitch),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "frequency": {
+									var $obj = {
+										zh: "id",
+										EN: "frequency",
+										value: helios.Valueisnull(data.data.frequency),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "id": {
+									var $obj = {
+										zh: "id",
+										EN: "id",
+										value: helios.Valueisnull(data.data.id),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "ip": {
+									var $obj = {
+										zh: "id",
+										EN: "ip",
+										value: helios.Valueisnull(data.data.ip),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "location": {
+									var $obj = {
+										zh: "id",
+										EN: "location",
+										value: helios.Valueisnull(data.data.location),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "mac": {
+									var $obj = {
+										zh: "id",
+										EN: "mac",
+										value: helios.Valueisnull(data.data.mac),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "mac": {
+									var $obj = {
+										zh: "id",
+										EN: "masterMac",
+										value: helios.Valueisnull(data.data.masterMac),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "productName": {
+									var $obj = {
+										zh: "id",
+										EN: "productName",
+										value: helios.Valueisnull(data.data.productName),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "remarks": {
+									var $obj = {
+										zh: "id",
+										EN: "remarks",
+										value: helios.Valueisnull(data.data.remarks),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "resourceAllocation": {
+									var $obj = {
+										zh: "id",
+										EN: "resourceAllocation",
+										value: helios.Valueisnull(data.data.resourceAllocation),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "sectorId": {
+									var $obj = {
+										zh: "id",
+										EN: "sectorId",
+										value: helios.Valueisnull(data.data.sectorId),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "siteName": {
+									var $obj = {
+										zh: "id",
+										EN: "siteName",
+										value: helios.Valueisnull(data.data.siteName),
+									}
+									console.log($obj);
+									Getdata.push($obj);
+									break;
+								}
+								case "sn": {
+									var $obj = {
+										zh: "id",
+										EN: "sn",
+										value: helios.Valueisnull(data.data.sn),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "subnetMask": {
+									var $obj = {
+										zh: "id",
+										EN: "subnetMask",
+										value: helios.Valueisnull(data.data.subnetMask),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "txRatio": {
+									var $obj = {
+										zh: "id",
+										EN: "txRatio",
+										value: helios.Valueisnull(data.data.txRatio),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "type": {
+									var $obj = {
+										zh: "id",
+										EN: "type",
+										value: helios.Valueisnull(data.data.type),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "updateDate": {
+									var $obj = {
+										zh: "id",
+										EN: "updateDate",
+										value: helios.Valueisnull(data.data.updateDate),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "updater": {
+									var $obj = {
+										zh: "更新人",
+										EN: "updater",
+										value: helios.Valueisnull(data.data.updater),
+									}
+									Getdata.push($obj);
+									break;
+								}
+								case "workMode": {
+									var $obj = {
+										zh: "id",
+										EN: "workMode",
+										value: helios.Valueisnull(data.data.workMode),
+									}
+									Getdata.push($obj);
+									break;
+								}
+							}
+						});
+						sessionStorage.setItem("BaseInfo", JSON.stringify(Getdata));
+						helios.getBaseInfo = Getdata;
+					});
+				},
+				//特殊处理
+				//是否为空
+				Valueisnull(value) {
+					//console.log(value);
+					if ("" == value || undefined == value || null == value) {
+						return "";
+					} else {
+						return value
+					}
+				},
+
+				//取消 & 修改, 修改设备信息
+				readBaseInfoData() {
+					let key = arguments[0];
+					if (2 == key) {
+						//取消
+						let BaseInfoData = sessionStorage.getItem("BaseInfo");
+						helios.getBaseInfo = JSON.parse(BaseInfoData);
+					} else {
+						//修改
+						var token = sessionStorage.getItem("$token");
+						var obj = {
+							mac: helios.getBaseInfo.mac,
+							sn: helios.getBaseInfo.sn,
+							ip: helios.getBaseInfo.ip,
+							siteName: helios.getBaseInfo.siteName,
+							channelBw: helios.getBaseInfo.channelBw,
+							//	devSwitch: helios.getBaseInfo.devSwitch == true ,
+							//: helios.getBaseInfo.type == "master" ? 1 : 2,
+						}
+
+
+						var arr = Object.values(helios.getBaseInfo);//遍历数据 关键词
+						let postBaseInfoData = [];
+						arr.forEach(keys => {
+							let $obj = {}; //存入需要修改的数据
+							switch (keys.EN) {
+								case "mac": {
+									$obj = {
+										mac: keys.value,
+									}
+									postBaseInfoData.push($obj);
+									break;
+								}
+								case "sn": {
+									$obj = {
+										sn: keys.value,
+									}
+									postBaseInfoData.push($obj);
+									break;
+								}
+								case "ip": {
+									$obj = {
+										ip: keys.value,
+									}
+									postBaseInfoData.push($obj);
+									break;
+								}
+								case "siteName": {
+									$obj = {
+										siteName: keys.value,
+									}
+									postBaseInfoData.push($obj);
+									break;
+								}
+								case "channelBw": {
+									$obj = {
+										channelBw: keys.value,
+									}
+									postBaseInfoData.push($obj);
+									break;
+								}
+							}
+						});
+
+
+						console.log(JSON.stringify(postBaseInfoData));
+
+						console.log(Array.from(postBaseInfoData));
+
+						return false;
+
+
+
+						//	console.log(key);
+
+						//不刷新,插入
+						var arr = Object.values(helios.tableDataEnd);
+						arr.unshift(obj);
+						helios.tableDataEnd.unshift(obj);
+
+						//修改请求
+						util.postattrajax(SNMPAPI.putBaseInfo, obj, function (data) {
+							toast.$message({
+								message: data,
+								type: 'success',
+								showClose: true,
+								offset: 80
+							});
+						});
+
+
+
+					}
+				}
 			},
 
+			/* 	filters: {
+					eeq: function (value) {
+						console.log(value);
+						if ("" == value || undefined == value || null == value) {
+							return "";
+						} else {
+							return value;
+						}
+					}
+				} */
+
 		})
+
+
+
+
 	</script>
 </body>
 
