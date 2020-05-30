@@ -80,12 +80,7 @@
 							<div class="box-body table-responsive no-padding" id="dataajax">
 
 								<el-table :data="tableDataEnd" style="width: 100%" ref="tableDataEnd"
-									prop="tableDataEnd">
-									<!-- siteName: "",
-										mac: "",
-										sn: "",
-										ip: "",
-										switch: "", -->
+									prop="tableDataEnd" :key="DataEndkey">
 									<el-table-column prop="siteName" label="站点名称" :formatter="substr_name">
 									</el-table-column>
 									<el-table-column prop="mac" label="mac">
@@ -119,11 +114,11 @@
 
 
 									<el-table-column label="操作" width="400">
-										<template slot-scope="{row}">
-											<el-button size="mini" icon="el-icon-edit" type="primary"
+										<!--  <template slot-scope="{row}">
+											  <el-button  icon="el-icon-edit" type="primary"
 												@click.native.prevent="getBaseInfoData(row,tableDataEnd)">查看设备
-											</el-button>
-											<el-button size="mini" icon="el-icon-setting" type="primary"
+											</el-button> -->
+										<!-- 	<el-button size="mini" icon="el-icon-setting" type="primary"
 												@click.native.prevent="setmax(row,tableDataEnd)">配
 												置</el-button>
 											<el-button size="mini" icon="el-icon-receiving" type="primary"
@@ -132,7 +127,11 @@
 											</el-button>
 											<el-button size="mini" icon="el-icon-delete" type="danger"
 												@click.native.prevent="delerow(row,tableDataEnd)">删除</el-button>
+										</template> -->
 
+										<template slot-scope="scope">
+											<el-button @click.stop.prevent="getBaseInfoData(scope.row , tableDataEnd)"
+												type="primary">编辑</el-button>
 										</template>
 									</el-table-column>
 								</el-table>
@@ -174,8 +173,8 @@
 							</el-form-item>
 							<el-form-item label="设备类型" style="margin-top:12px;">
 								<el-radio-group v-model="equipmentdata.type" size="medium">
-									<el-radio label="master" value="master"></el-radio>
-									<el-radio label="slave" value="master"></el-radio>
+									<el-radio label="master" value="1"></el-radio>
+									<el-radio label="slave" value="2"></el-radio>
 								</el-radio-group>
 							</el-form-item>
 
@@ -217,7 +216,26 @@
 									<el-form label-width="120px" ref="equipmentdata" :model="equipmentdata">
 										<el-row :gutter="20">
 											<el-col :span="6" v-for="(v,i) in getBaseInfo">
-												<el-form-item :label="v.EN" :prop="v.EN">
+												<el-form-item :label="v.EN" :prop="v.EN" v-if="v.EN=='mac'">
+													{{v.value}}
+												</el-form-item>
+												<el-form-item :label="v.EN" :prop="v.EN" v-if="v.EN=='sn'">
+													{{v.value}}
+												</el-form-item>
+
+												<el-form-item :label="v.EN" :prop="v.EN" v-if="v.EN=='type'">
+													<el-radio-group v-model="v.value " size="medium">
+														<el-radio label="master" value="1"></el-radio>
+														<el-radio label="slave" value="2"></el-radio>
+													</el-radio-group>
+												</el-form-item>
+
+												<el-form-item :label="v.EN" :prop="v.EN" v-if="v.EN=='devSwitch'">
+													<el-switch v-model="v.value"></el-switch>
+												</el-form-item>
+
+												<el-form-item :label="v.EN" :prop="v.EN"
+													v-if="v.EN!='devSwitch'  &&  v.EN!='type' &&  v.EN!='sn'  &&  v.EN!='mac'">
 													<input type="text" autocomplete="off" v-model="v.value"
 														class="el-input__inner">
 												</el-form-item>
@@ -266,6 +284,9 @@
 			Addfirmware: false, //添加设备
 			tabshow: 0,  // Tab
 			tabshowBox: false, //设备管理 
+			DataEndkey: "",//临时变量
+			dataIndex: "",
+			datavalue: "",
 
 			//添加设备
 			equipmentdata: {
@@ -302,23 +323,16 @@
 				this.getuquilist();
 			},
 			beforeMount() {
-				this.getuquilist();
+				//	this.getuquilist();
 			},
 
 			methods: {
 				//初始获取数据
 				getuquilist() {
 					var token = sessionStorage.getItem("$token");
-					var obj = {
-						token: token,
-					}
-					let dataajax = [
-						{
-							EN: "11",
-							value: "11",
-							zh: "11",
-						}
-					];
+					var obj = { token: token }  //请求传参
+
+					let dataajax = [];     //请求接数据
 
 					//获取ajax data
 					util.getattrajax(SNMPAPI.getList, obj, function (data) {
@@ -338,13 +352,16 @@
 								sn: getdata[index].sn,
 								ip: getdata[index].ip,
 								type: getdata[index].type,
-								switch: getdata[index].devSwitch,
+								switch: getdata[index].devSwitch, //开关
 							}
 							dataajax.push(obj1);
 						}
+						//第一次存入,修改的时候需要
+						sessionStorage.setItem("dataajax", JSON.stringify(dataajax));
+						//console.log(dataajax);
 
 						//处理   el-table  数据
-						helios.totalItems = dataajax.length;
+						helios.totalItems = dataajax.length; //分页
 						if (helios.totalItems > helios.pageSize) {
 							for (let index = 0; index < helios.pageSize; index++) {
 								helios.tableDataEnd.push({
@@ -355,8 +372,10 @@
 									type: dataajax[index].type,
 									switch: dataajax[index].switch,
 								});
+								helios.DataEndkey = Math.random();
 							}
 						} else {
+							helios.DataEndkey = Math.random();
 							helios.tableDataEnd = dataajax;
 						}
 
@@ -411,7 +430,6 @@
 
 				//组件自带监控当前页码   end**************
 
-
 				//搜索 **********************
 				doFilter() {
 					if (this.tableDataName == "") {
@@ -436,7 +454,6 @@
 					//页面初始化数据需要判断是否检索过
 					this.flag = true
 				},
-
 
 
 				//删除**********************
@@ -517,9 +534,6 @@
 					this.Addfirmware = true;
 				},
 
-
-
-
 				//新添加设备
 				Addequipment() {
 					var $this = arguments[0];
@@ -564,7 +578,7 @@
 								mac: helios.equipmentdata.mac,
 								sn: helios.equipmentdata.sn,
 								ip: helios.equipmentdata.ip,
-								devSwitch: helios.equipmentdata.switch == true ? 1 : 0,
+								devSwitch: helios.equipmentdata.switch == true,
 								type: helios.equipmentdata.type == "master" ? 1 : 2,
 							}
 							//不刷新,插入
@@ -581,6 +595,7 @@
 								type: "",
 								switch: 0,
 							}
+							console.log(obj);
 
 							//请求
 							util.postattrajax(SNMPAPI.putBaseInfo, obj, function (data) {
@@ -601,29 +616,62 @@
 
 				//获取设备基本信息
 				getBaseInfoData(index, value) {
+
+					helios.dataIndex = index;
+					helios.datavalue = value;
 					var obj = {
 						token: helios.token,
 						mac: index.mac,
 						sn: index.sn,
 						type: index.type,
 					}
-
 					//AJAX
 					util.getattrajax(SNMPAPI.getBaseInfo, obj, function (data) {
 						helios.tabshowBox = true;
 						var arr = Object.values(data);// 数据VALUE
 						var key = Object.keys(data.data); //数据KEY
-
-						/*	console.log(key[0]);
-							console.log(key); */
-
-
+						/*console.log(key[0]);*/
+						console.log(data);
 						//便利构造一个新的对象数据组
 						let Getdata = [];
-						console.log(key);
-
 						key.forEach(keys => {
 							switch (keys) {
+								case "mac": {
+									var $obj = {
+										zh: "--",
+										EN: "mac",
+										value: helios.Valueisnull(data.data.mac),
+									}
+									Getdata[0] = ($obj);
+									break;
+								}
+								case "sn": {
+									var $obj = {
+										zh: "--",
+										EN: "sn",
+										value: helios.Valueisnull(data.data.sn),
+									}
+									Getdata[1] = ($obj);
+									break;
+								}
+								case "type": {
+									var $obj = {
+										zh: "--",
+										EN: "type",
+										value: helios.Valueisnull(data.data.type) == 1 ? "master" : "slave",
+									}
+									Getdata[2] = ($obj);
+									break;
+								}
+								case "devSwitch": {
+									var $obj = {
+										zh: "--",
+										EN: "devSwitch",
+										value: (data.data.devSwitch)
+									}
+									Getdata[3] = ($obj);
+									break;
+								}
 								case "antennaType": {
 									var $obj = {
 										zh: "IP地址",
@@ -635,7 +683,7 @@
 								}
 								case "band": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "band",
 										value: helios.Valueisnull(data.data.band),
 									}
@@ -644,7 +692,7 @@
 								}
 								case "channelBw": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "channelBw",
 										value: helios.Valueisnull(data.data.channelBw),
 									}
@@ -653,25 +701,17 @@
 								}
 								case "createDate": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "createDate",
 										value: helios.Valueisnull(data.data.createDate),
 									}
 									Getdata.push($obj);
 									break;
 								}
-								case "devSwitch": {
-									var $obj = {
-										zh: "id",
-										EN: "devSwitch",
-										value: helios.Valueisnull(data.data.devSwitch),
-									}
-									Getdata.push($obj);
-									break;
-								}
+
 								case "frequency": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "frequency",
 										value: helios.Valueisnull(data.data.frequency),
 									}
@@ -680,7 +720,7 @@
 								}
 								case "id": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "id",
 										value: helios.Valueisnull(data.data.id),
 									}
@@ -689,7 +729,7 @@
 								}
 								case "ip": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "ip",
 										value: helios.Valueisnull(data.data.ip),
 									}
@@ -698,25 +738,17 @@
 								}
 								case "location": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "location",
 										value: helios.Valueisnull(data.data.location),
 									}
 									Getdata.push($obj);
 									break;
 								}
-								case "mac": {
+
+								case "masterMac": {
 									var $obj = {
-										zh: "id",
-										EN: "mac",
-										value: helios.Valueisnull(data.data.mac),
-									}
-									Getdata.push($obj);
-									break;
-								}
-								case "mac": {
-									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "masterMac",
 										value: helios.Valueisnull(data.data.masterMac),
 									}
@@ -725,7 +757,7 @@
 								}
 								case "productName": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "productName",
 										value: helios.Valueisnull(data.data.productName),
 									}
@@ -734,7 +766,7 @@
 								}
 								case "remarks": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "remarks",
 										value: helios.Valueisnull(data.data.remarks),
 									}
@@ -743,7 +775,7 @@
 								}
 								case "resourceAllocation": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "resourceAllocation",
 										value: helios.Valueisnull(data.data.resourceAllocation),
 									}
@@ -752,7 +784,7 @@
 								}
 								case "sectorId": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "sectorId",
 										value: helios.Valueisnull(data.data.sectorId),
 									}
@@ -761,26 +793,17 @@
 								}
 								case "siteName": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "siteName",
 										value: helios.Valueisnull(data.data.siteName),
 									}
-									console.log($obj);
 									Getdata.push($obj);
 									break;
 								}
-								case "sn": {
-									var $obj = {
-										zh: "id",
-										EN: "sn",
-										value: helios.Valueisnull(data.data.sn),
-									}
-									Getdata.push($obj);
-									break;
-								}
+
 								case "subnetMask": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "subnetMask",
 										value: helios.Valueisnull(data.data.subnetMask),
 									}
@@ -789,25 +812,17 @@
 								}
 								case "txRatio": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "txRatio",
 										value: helios.Valueisnull(data.data.txRatio),
 									}
 									Getdata.push($obj);
 									break;
 								}
-								case "type": {
-									var $obj = {
-										zh: "id",
-										EN: "type",
-										value: helios.Valueisnull(data.data.type),
-									}
-									Getdata.push($obj);
-									break;
-								}
+
 								case "updateDate": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "updateDate",
 										value: helios.Valueisnull(data.data.updateDate),
 									}
@@ -825,7 +840,7 @@
 								}
 								case "workMode": {
 									var $obj = {
-										zh: "id",
+										zh: "--",
 										EN: "workMode",
 										value: helios.Valueisnull(data.data.workMode),
 									}
@@ -834,117 +849,146 @@
 								}
 							}
 						});
+						//存入做为取消 时候使用
 						sessionStorage.setItem("BaseInfo", JSON.stringify(Getdata));
+
+						console.log(Getdata);
+
 						helios.getBaseInfo = Getdata;
 					});
-				},
-				//特殊处理
-				//是否为空
-				Valueisnull(value) {
-					//console.log(value);
-					if ("" == value || undefined == value || null == value) {
-						return "";
-					} else {
-						return value
-					}
+
 				},
 
-				//取消 & 修改, 修改设备信息
+				//取消 & 修改,  设备信息
 				readBaseInfoData() {
+					var that = this;
 					let key = arguments[0];
 					if (2 == key) {
 						//取消
 						let BaseInfoData = sessionStorage.getItem("BaseInfo");
 						helios.getBaseInfo = JSON.parse(BaseInfoData);
+						helios.tabshowBox = false;
 					} else {
 						//修改
-						var token = sessionStorage.getItem("$token");
-						var obj = {
-							mac: helios.getBaseInfo.mac,
-							sn: helios.getBaseInfo.sn,
-							ip: helios.getBaseInfo.ip,
-							siteName: helios.getBaseInfo.siteName,
-							channelBw: helios.getBaseInfo.channelBw,
-							//	devSwitch: helios.getBaseInfo.devSwitch == true ,
-							//: helios.getBaseInfo.type == "master" ? 1 : 2,
-						}
-
-
 						var arr = Object.values(helios.getBaseInfo);//遍历数据 关键词
 						let postBaseInfoData = [];
+						let $obj = {}; //存入需要修改的数据
 						arr.forEach(keys => {
-							let $obj = {}; //存入需要修改的数据
 							switch (keys.EN) {
 								case "mac": {
-									$obj = {
-										mac: keys.value,
-									}
-									postBaseInfoData.push($obj);
+									$obj.mac = keys.value;
 									break;
 								}
 								case "sn": {
-									$obj = {
-										sn: keys.value,
-									}
-									postBaseInfoData.push($obj);
+									$obj.sn = keys.value;
 									break;
 								}
 								case "ip": {
-									$obj = {
-										ip: keys.value,
-									}
-									postBaseInfoData.push($obj);
+									$obj.ip = keys.value;
 									break;
 								}
 								case "siteName": {
-									$obj = {
-										siteName: keys.value,
-									}
-									postBaseInfoData.push($obj);
+									$obj.siteName = keys.value;
 									break;
 								}
-								case "channelBw": {
-									$obj = {
-										channelBw: keys.value,
-									}
-									postBaseInfoData.push($obj);
+								/* case "channelBw": {
+									$obj.channelBw = keys.value;
+									break;
+								} */
+								case "devSwitch": {
+									$obj.devSwitch = keys.value;
 									break;
 								}
+								case "type": {
+									$obj.type = keys.value == "master" ? 1 : 2;
+									break;
+								}
+
 							}
 						});
 
-
-						console.log(JSON.stringify(postBaseInfoData));
-
-						console.log(Array.from(postBaseInfoData));
-
-						return false;
-
-
-
+						$obj.token = sessionStorage.getItem("$token");
 						//	console.log(key);
-
 						//不刷新,插入
-						var arr = Object.values(helios.tableDataEnd);
-						arr.unshift(obj);
-						helios.tableDataEnd.unshift(obj);
+						//var arr = Object.values(helios.tableDataEnd);
+						//	arr.unshift($obj);
+						//	helios.tableDataEnd.unshift(obj);
 
-						//修改请求
-						util.postattrajax(SNMPAPI.putBaseInfo, obj, function (data) {
-							toast.$message({
+						//修改请求 
+
+
+						//console.log($obj); return false;
+
+						util.postattrajax(SNMPAPI.putBaseInfo, $obj, function (data) {
+							//	that.$set(helios.tableDataEnd, helios.dataIndex, helios.datavalue);
+							//	helios.tableDataEnd = helios.dataIndex;
+							//	sessionStorage.setItem("dataajax", JSON.stringify(dataajax));
+
+							helios.tableDataEnd = [$obj];
+							console.log(helios.tableDataEnd);
+							console.log($obj);
+							window.location.reload();
+							//	helios.tabshowBox = false;
+
+
+
+
+
+							/* 	console.log(helios.filterTableDataEnd);
+							     console.log(helios.tableDataBegin); */
+							/*	helios.getuquilist(); */
+							/* helios.tableDataEnd.length = 0; */
+
+							/* setTimeout(function () {
+								let dataajax = sessionStorage.getItem("dataajax");
+								console.log(JSON.parse(dataajax));
+								console.log(JSON.parse(dataajax).slice(0, 5));
+								helios.tableDataEnd = (JSON.parse(dataajax).slice(0, helios.pageSize));
+							}, 1500);
+ */
+
+
+							/* toast.$message({
 								message: data,
 								type: 'success',
 								showClose: true,
 								offset: 80
-							});
+							}); */
 						});
 
 
 
 					}
 				}
-			},
 
+
+				//特殊处理
+				//是否为空
+				, Valueisnull(value) {
+					//console.log(value);
+					if ("" == value || undefined == value || null == value) {
+						return "";
+					}
+
+					else {
+						return value
+					}
+				},
+
+			},
+			filters: {
+				typeof: function (value) {
+					if (value == 1) {
+						return "master"
+					}
+					else if (value == 2) {
+						return "slave"
+					}
+					else {
+						return "master"
+					}
+				}
+			}
 			/* 	filters: {
 					eeq: function (value) {
 						console.log(value);
@@ -956,7 +1000,7 @@
 					}
 				} */
 
-		})
+		});
 
 
 

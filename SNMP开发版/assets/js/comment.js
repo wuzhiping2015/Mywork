@@ -18,7 +18,7 @@ let SNMPAPI = {
 	getList: "http://192.168.90.34:8089/snmp/device/getList", //获取设备列表,
 	putBaseInfo: "http://192.168.90.34:8089/snmp/device/putBaseInfo", // 提交添加设备基本信息
 	getBaseInfo: "http://192.168.90.34:8089/snmp/device/getBaseInfo", // 获取设备基本信息
-	 
+
 }
 
 
@@ -38,35 +38,35 @@ new_element.setAttribute('href', 'assets/css/iconfont2/iconfont.css');
 document.getElementsByTagName('head')[0].appendChild(new_element);
 
 var util = {
-	warning: function(msg) {
+	warning: function (msg) {
 		toast.$message({
 			message: msg,
 			showClose: true,
 			type: 'warning'
 		});
 	},
-	info: function(msg) {
+	info: function (msg) {
 		toast.$message({
 			message: msg
 		});
 	},
-	success: function(msg) {
+	success: function (msg) {
 		toast.$message({
 			message: msg,
 			type: 'success'
 		});
 	},
-	error: function(msg) {
+	error: function (msg) {
 		toast.$message({
 			message: msg,
 			showClose: true,
 			type: 'error'
 		});
 	},
-	copy: function() {
+	copy: function () {
 		return "Copyright © 2006-2020 福建京奥通信技术有限公司";
 	},
-	Tablocation: function() {
+	Tablocation: function () {
 		$("#Tablocation").html(
 			`
 		<li >
@@ -78,11 +78,11 @@ var util = {
 		);
 	},
 	//登录
-	login: function(user, pwd) {
+	login: function (user, pwd) {
 		$.ajax({
 			url: SNMPAPI.LOGIN,
 			//headers: {'token': token},
-			beforeSend: function(request) {
+			beforeSend: function (request) {
 				//	request.setRequestHeader("Authorization", token);
 			},
 			data: {
@@ -90,7 +90,7 @@ var util = {
 				"password": pwd,
 			},
 			type: "post",
-			success: function(data, status) {
+			success: function (data, status) {
 				var OBdata = data;
 				if (200 === OBdata.code) {
 					//	document.cookie = OBdata.data.token;
@@ -116,56 +116,56 @@ var util = {
 		});
 	},
 
-	
 
-//读取
-getattrajax: function(url, adr, callback) {
-	var token = sessionStorage.getItem("$token");
-	var p = new Promise(function(resolve, reject) {
-		$.ajax({
-			url: url,
-			data: adr,
-			headers: token,
-			type: "get",
-			dataType: 'json',
-			async: true,
-			success: function(data, status) {
-			
-				if (200 == data.code) {
-					callback(data.data);
-					resolve(data.data);
-				} else {
-					callback(data.data);
-					resolve(data.data);
+
+	//读取
+	getattrajax: function (url, adr, callback) {
+		var token = sessionStorage.getItem("$token");
+		var p = new Promise(function (resolve, reject) {
+			$.ajax({
+				url: url,
+				data: adr,
+				headers: token,
+				type: "get",
+				dataType: 'json',
+				async: true,
+				success: function (data, status) {
+
+					if (200 == data.code) {
+						callback(data.data);
+						resolve(data.data);
+					} else {
+						callback(data.data);
+						resolve(data.data);
+					}
+					/* var rsp = JSON.parse(data);
+					if (rsp.code == 1) {
+						callback(rsp.code);
+						resolve(rsp.code);
+					} else {
+						callback(rsp);
+						resolve(rsp);
+					} */
+				},
+				error: function (req, status, err) {
+					console.log(req);
+					console.log(status);
+					console.log(err);
+					callback(err);
+					resolve(err);
+					reject(err);
 				}
-				/* var rsp = JSON.parse(data);
-				if (rsp.code == 1) {
-					callback(rsp.code);
-					resolve(rsp.code);
-				} else {
-					callback(rsp);
-					resolve(rsp);
-				} */
-			},
-			error: function(req, status, err) {
-				console.log(req);
-				console.log(status);
-				console.log(err);
-				callback(err);
-				resolve(err);
-				reject(err);
-			}
-		});
+			});
 
-	});
-	return p;
-},
+		});
+		return p;
+	},
 
 
 	//修改
-	postattrajax: function(url, adr, callback) {
+	postattrajax: function (url, adr, callback) {
 		var token = sessionStorage.getItem("$token");
-		var p = new Promise(function(resolve, reject) {
+		var p = new Promise(function (resolve, reject) {
 			$.ajax({
 				url: url, //要处理的页面
 				data: adr, //要传过去的数据
@@ -174,14 +174,15 @@ getattrajax: function(url, adr, callback) {
 				},
 				type: "POST", //提交方式
 				dataType: "json", //返回的数据类型，TEXT字符串 JSON返回JSON XML返回XML；dataType中T要大写！！
-				beforeSend: function(data) {
-				//	console.log(data);
-				//	console.log("success");
+				beforeSend: function (data) {
+					console.log(data);
+					//	console.log("success");
 				},
-				beforeCreate: function(data) {
-				//	console.log(data);
+				beforeCreate: function (data) {
+					console.log(data);
 				},
-				success: function(data) { //回调函数，data为形参，是从login-cl.php页面返回的值
+				success: function (data) { //回调函数，data为形参，是从login-cl.php页面返回的值
+					console.log(data);
 					if (200 == data.code) {
 						callback(data.message);
 						resolve(data.message);
@@ -190,7 +191,7 @@ getattrajax: function(url, adr, callback) {
 						resolve(data.message);
 					}
 				},
-				error: function() {
+				error: function () {
 					console.log(status);
 					console.log(err);
 					resolve(status);
@@ -209,7 +210,7 @@ util.Tablocation();
 
 /****************  头部 start****************/
 Vue.component('el-main-header', {
-	data: function() {
+	data: function () {
 		return {
 			action: 0,
 			menuList: [
@@ -246,9 +247,9 @@ Vue.component('el-main-header', {
 			logUserName: sessionStorage.getItem('$session')
 		}
 	},
-	mounted: function() {
-		this.$nextTick(function() {
-			$.each(this.menuList, function(i, t) {
+	mounted: function () {
+		this.$nextTick(function () {
+			$.each(this.menuList, function (i, t) {
 				if (url.indexOf(t.url) > 0) {
 					t.isActive = true;
 					return false;
@@ -307,7 +308,7 @@ Vue.component('el-main-header', {
 if ($("#comp-header").length > 0) {
 	new Vue({
 		el: '#comp-header',
-		data: function() {
+		data: function () {
 			return {
 				logUserName: '',
 			}
@@ -320,7 +321,7 @@ if ($("#comp-header").length > 0) {
 
 Vue.component("el-main-sidebar", {
 	props: ['msg'],
-	data: function() {
+	data: function () {
 		return {
 			b: 0,
 			action: 0,
@@ -330,25 +331,25 @@ Vue.component("el-main-sidebar", {
 		}
 	},
 	methods: {
-		incrementHandler: function() {},
-		checkabc: function(x) {
+		incrementHandler: function () { },
+		checkabc: function (x) {
 			sessionStorage.setItem('tab', x);
 			this.navIndex = x;
 		},
-		getindex: function(x) {
+		getindex: function (x) {
 			this.b = x
 		},
 
 	},
-	mounted: function() {
-		this.$nextTick(function() {
+	mounted: function () {
+		this.$nextTick(function () {
 
 			var tempMenu = []; //主菜单
 			var obj = {}; //主菜单
 
 			tempMenu.push(obj);
 			this.menuList = tempMenu;
-			$.each(this.menuList, function(i, t) {
+			$.each(this.menuList, function (i, t) {
 				if (url.indexOf(t.url) > 0) {
 					t.isActive = true;
 					document.getElementById("head1").innerText = t.name;
@@ -379,18 +380,18 @@ function check_ev() {
 		return;
 	}
 }
-window.onload = function() {
+window.onload = function () {
 	var url = window.location.href;
 	if (url.indexOf('login.html') == -1) {
-		setTimeout(function() {
+		setTimeout(function () {
 			check_ev();
 		}, 100)
 		var maxTime = 300; // seconds
 		var time = maxTime;
-		document.body.addEventListener("mousemove", function() {
+		document.body.addEventListener("mousemove", function () {
 			time = maxTime; // reset
 		}, false);
-		var intervalId = setInterval(function() {
+		var intervalId = setInterval(function () {
 			time--;
 			if (time <= 0) {
 				ShowInvalidLoginMessage();
