@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="assets/images/helios.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Helios </title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/skins/skin-black.min-1.css?2019827" />
+
+    <link rel="stylesheet" href="assets/css/index.css?2019827">
+
+</head>
+<style>
+    .box-widget [class*="-6font"]>li .label-text-vm {
+        width: 53px;
+    }
+
+    .box-widget [class*="col-grid-m"]>li {
+        width: 260px;
+    }
+
+    .widget-user .progress.sm {
+        margin-top: 7px;
+    }
+
+    .widget-user .iconfont {
+        position: absolute;
+        top: 34px;
+        left: 10px;
+        color: #fff;
+    }
+
+    .maplist .iconfont {
+        display: block;
+    }
+
+    .el-dialog {
+        width: 30%;
+    }
+</style>
+
+<body class="skin-black sidebar-open sidebar-mini">
+
+    <div class="wrapper">
+        <!-- 页头 -->
+        <div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+            <el-main-header :loguser="logUserName" :logUser="logUserName"></el-main-header>
+
+
+            <!--  <header class="main-header">
+                <a href="index2.html" class="logo">
+                    <span class="logo-mini"><img src="assets/images/logo1.png" alt="whelios"> </span>
+                    <span class="logo-lg"><img src="assets/images/logo.png" alt="whelios"> </span>
+                </a>
+                <nav class="navbar navbar-static-top">
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only"></span>
+                    </a>
+                    <div class="navbar-custom-menu"> </div>
+                    <div class="avatar"><img src="assets/images/user-pic.png" alt=""> <span
+                            class="user-name">BroadBand</span> <em
+                            class="fa fa-fw fa-caret-down icon-input-triangle icon-input-triangle"></em>
+                        <ul class="avatar-more">
+                            <li><a href="javascript:;" id="chinge"><i class="icon-zej icon-user"></i>个人中心</a></li>
+                            <li><a href="javascript:;" id="english" i18n="i18n.successful-case"><i
+                                        class="icon-zej icon-headphones"></i>消息提醒</a></li>
+                            <li><a href="javascript:;"><i class="icon-zej icon-off"></i>退出登录</a></li>
+                        </ul>
+                    </div>
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown messages-menu"><a href="#" data-toggle="dropdown"
+                                    class="dropdown-toggle"><i class="fa fa-wifi"></i> <span
+                                        class="label label-danger">2</span></a></li>
+                            <li class="dropdown messages-menu"><a href="#" data-toggle="dropdown"
+                                    class="dropdown-toggle"><i class="fa fa-envelope-o"></i> <span
+                                        class="label label-success">4</span></a></li>
+                            <li class="dropdown notifications-menu"><a href="#" data-toggle="dropdown"
+                                    class="dropdown-toggle"><i class="fa fa-bell-o"></i> <span
+                                        class="label label-warning">10</span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </header> -->
+        </div>
+        <!-- 页头end -->
+
+        <!-- 侧边栏导航 -->
+        <div id="comp-sidebar">
+            <el-main-sidebar></el-main-sidebar>
+        </div>
+        <!-- 侧边栏导航 end -->
+
+        <!-- 内容区域 -->
+        <div class="content-wrapper" id="content-wrapper">
+            <!-- 内容头部面包屑 -->
+            <section class="" style="display: none">
+                <ol class="breadcrumb">
+                    <li>
+                        <a id="head1" href="#"></a>
+                    </li>
+                    <li id="head2" class="active"></li>
+                </ol>
+            </section>
+            <!-- 主要内容显示 -->
+            <section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+                <!--  MASTER设置向导 -->
+                <div class="el-message-box__wrapper   animated fadeInDown" style="z-index: 2001; display: none;"
+                    v-show="s">
+                    <div class="el-message-box" style="width:1000px;">
+                        <div class="el-message-box__header">
+                            <div class="el-message-box__title">
+                                <span>MASTER 设置流程</span>
+                                <span class="mes-tip warm mb15">
+                                    <i class=""></i>
+                                    <i class="el-icon-edit"></i>
+                                    请提交资料激活HBS ( <em class="star">*</em>所有栏目为必填项)
+                                </span>
+                            </div>
+                            <button type="button" @click="close" title="Close" class="el-message-box__headerbtn"
+                                style="top:4px;font-size: 22px;"><i
+                                    class="el-message-box__close el-icon-close"></i></button>
+                        </div>
+                        <div class="el-message-box__content">
+                            <div class="el-message-box__message">
+                                <div class="col-xs-12">
+                                    <ul class="timeline" style="width:100%;">
+                                        <li class="time-label">
+                                            <span class="bg-teal">
+                                                step 1
+                                            </span>
+                                        </li>
+
+                                        <li>
+                                            <div class="timeline-item">
+                                                <div class="top-bar" style="padding-top: 0px;">
+
+                                                    <ul class="col-grid-m-9font col-search-s pr0 all-li-pb10">
+                                                        <li>
+                                                            <label class="label-text-vm"> <em class="star">*</em>sector
+                                                                ID</label>
+                                                            <div class="div-text-demo">
+                                                                <el-input placeholder="sector ID" size="mini">
+                                                                </el-input>
+
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <label class="label-text-vm"> <em class="star">*</em> sector
+                                                                name</label>
+                                                            <div class="div-text-demo">
+                                                                <el-input placeholder="sector name" size="mini">
+                                                                </el-input>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <label class="label-text-vm"> <em
+                                                                    class="star">*</em>location</label>
+                                                            <div class="div-text-demo">
+                                                                <el-input placeholder="location" size="mini"></el-input>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <label class="label-text-vm"> <em class="star">*</em>link
+                                                                password</label>
+                                                            <div class="div-text-demo">
+                                                                <el-input placeholder="link password" size="mini">
+                                                                </el-input>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <label class="label-text-vm"><em
+                                                                    class="star">*</em>format</label>
+                                                            <div class="div-text-demo">
+                                                                <el-select v-model="value3" placeholder="format"
+                                                                    size="mini" style="width: 100%">
+                                                                    <el-option key="1" label="decimal degrees"
+                                                                        value="1"> </el-option>
+                                                                    <el-option key="2" label=" degrees minutes seconds"
+                                                                        value="2"> </el-option>
+                                                                </el-select>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <label class="label-text-vm"> <em
+                                                                    class="star">*</em>latutude</label>
+                                                            <div class="div-text-demo">
+                                                                <el-input placeholder="latutude (-89 to +89)"
+                                                                    size="mini"></el-input>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <label class="label-text-vm"> <em
+                                                                    class="star">*</em>longitude </label>
+                                                            <div class="div-text-demo">
+                                                                <el-input placeholder="longitude (-180 to +89)"
+                                                                    size="mini"></el-input>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <label class="label-text-vm"> <em
+                                                                    class="star">*</em>azimuth</label>
+                                                            <div class="div-text-demo">
+                                                                <el-input placeholder="azimuth (0 to 360)" size="mini">
+                                                                </el-input>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <label class="label-text-vm"> <em
+                                                                    class="star">*</em>beamwidth</label>
+                                                            <div class="div-text-demo">
+                                                                <el-input placeholder="beamwidth  (0 to 360)"
+                                                                    size="mini"></el-input>
+                                                            </div>
+                                                        </li>
+
+
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                        </li>
+
+                                        <li class="time-label">
+                                            <span class="bg-teal">
+                                                step 2
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-item">
+                                                <div class="top-bar" style="padding-top: 0px;">
+                                                    <ul class="col-grid-m-9font col-search-s pr0 all-li-pb10">
+                                                        <li class="w100of">
+                                                            <label class="label-text-vm">
+                                                                <!-- <em class="star">*</em> -->IP Version
+                                                            </label>
+                                                            <div class="div-text-demo">
+                                                                <div class="area-list-radio">
+                                                                    <el-radio v-model="radio" label="1">Ipv4</el-radio>
+                                                                    <el-radio v-model="radio" label="2">Ipv6</el-radio>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <label class="label-text-vm">
+                                                                <em class="star">*</em> IP Address</label>
+                                                            <div class="div-text-demo">
+                                                                <el-input placeholder="IP Address" size="mini">
+                                                                </el-input>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <label class="label-text-vm">
+                                                                <em class="star">*</em>Subent Mask</label>
+                                                            <div class="div-text-demo">
+                                                                <el-input placeholder="Subent Mask" size="mini">
+                                                                </el-input>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <label class="label-text-vm">
+                                                                <em class="star">*</em>Default Gateway</label>
+                                                            <div class="div-text-demo">
+                                                                <el-input placeholder="Default Gateway" size="mini">
+                                                                </el-input>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="btneare" style="padding-top: 10px;">
+                                                            <label class="label-text-vm"> </label>
+                                                            <div class="div-text-demo">
+                                                                <el-button type="primary" size="mini" @click="b1">确认
+                                                                </el-button>
+                                                                <el-button type="success" size="mini" @click="b1">重置
+                                                                </el-button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                        </li>
+
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-clock-o bg-gray"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--   <div class="el-message-box__btns">
+                            <el-button type="primary" size="mini" @click="close">关闭</el-button>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="v-modal" tabindex="0" style="z-index: 2000; display: none;" v-show="s"></div>
+                <!--  MASTER设置向导  end-->
+
+
+
+                <div class="row">
+
+                    <div class="col-xs-9">
+
+                        <!--  <div class="box collapsed-box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Shortcuts</h3>
+                                <div class="box-tools pull-right">
+                                    <span data-toggle="tooltip" title="" class="badge progress-bar-info"
+                                        data-original-title="3 New Messages">11</span>
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class=" fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="box-body" style="display: none">
+                                <div class="box-body maplist">
+                                    <a href="javascript:void(0);" @click="configureopen" class="btn btn-app">
+                                        <i class=" iconfont icon-wifi"></i> configure
+                                    </a>
+                                    <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a>
+                                    <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a> <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a> <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a> <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a> <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a> <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a> <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                       -->
+
+
+
+
+                        <div class="box box-info" style="background: none">
+                            <div class="box-header with-border" style="background: #fff;    margin-bottom: 10px;">
+                                <h3 class="box-title">HSU list </h3>
+                                 <div class="box-tools pull-right">
+                                    <span class="label label-danger">4 New Members</span>
+
+                                    <!-- <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                            class="fa fa-minus"></i>
+                                    </button> -->
+                                </div>
+                            </div>
+                            <div class="box-body" style="padding:0px;">
+                                <div class="row">
+
+                                    <div class="col-xs-4" v-for="(item,index) in HSU">
+                                        <div class="box box-widget widget-user">
+                                            <div class="widget-user-header bg-aqua-active">
+                                                <h3 class="widget-user-username" title="Whelios">{{item.IP}}</h3>
+                                                <h5 class="widget-user-desc"> {{item.name}}
+                                                    <span font
+                                                        style=" color: #dedede; font-size: 13px;">{{item.start  | hsustart}}
+                                                        </font>
+                                                    </span></h5>
+                                                <span class="icon iconfont icon-xinhao3  " :class="'start_'+item.start"
+                                                    ref="setColor"></span>
+
+                                            </div>
+
+                                            <div class="box-footer" style="padding-top: 5px;">
+                                                <div class="row">
+                                                    <div class="col-sm-6 border-right">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">Loc</h5>
+                                                            <span class="description-text">{{item.Loc}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">Level</h5>
+                                                            <span class="description-text">{{item.Level}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <ul class="col-grid-m-6font col-search-s pr0 all-li-pb10">
+                                                    <li><label class="label-text-vm">HBS[dmb]</label>
+                                                        <div class="div-textarea ">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-aqua  bg-green"
+                                                                    v-bind:style="{width:item.HBS+'%'}">{{item.HBS}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li><label class="label-text-vm">HSU[dmb]</label>
+                                                        <div class="div-textarea ">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-aqua  bg-green"
+                                                                    v-bind:style="{width:item.HSU+'%'}">{{item.HSU}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li><label class="label-text-vm">Downlink[Mbps]</label>
+                                                        <div class="div-textarea ">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-aqua  bg-aqua-active"
+                                                                    v-bind:style="{width:item.Downlink+'%'}">
+                                                                    {{item.Downlink}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li><label class="label-text-vm"> Uplink[Mbps]</label>
+                                                        <div class="div-textarea ">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-aqua  bg-aqua-active"
+                                                                    v-bind:style="{width:item.Uplink+'%'}">
+                                                                    {{item.Uplink}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- 数据循环魔板 -->
+
+
+
+
+                                    <!-- 数据循环魔板 -->
+                                    <!--    <div class="col-xs-4">
+                                        <div class="box box-widget widget-user">
+                                            <div class="widget-user-header bg-aqua-active">
+                                                <h3 class="widget-user-username" title="Whelios">10.104.50.3</h3>
+                                                <h5 class="widget-user-desc"> Whelios <span>(一切正常)</span></h5>
+                                                <span class="icon iconfont icon-xinhao3  "></span>
+                                            </div>
+                                          
+                                            <div class="box-footer" style="padding-top: 5px;">
+                                                <div class="row">
+                                                    <div class="col-sm-6 border-right">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">Loc</h5>
+                                                            <span class="description-text">HNU01.01</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">Level</h5>
+                                                            <span class="description-text">A</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <ul class="col-grid-m-6font col-search-s pr0 all-li-pb10">
+                                                    <li><label class="label-text-vm">HBS[dmb]</label>
+                                                        <div class="div-textarea ">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-aqua  bg-green"
+                                                                    style="width: 30%">30</div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li><label class="label-text-vm">HSU[dmb]</label>
+                                                        <div class="div-textarea ">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-aqua  bg-green"
+                                                                    style="width: 30%">30</div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li><label class="label-text-vm">Downlink[Mbps]</label>
+                                                        <div class="div-textarea ">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-aqua  bg-aqua-active"
+                                                                    style="width: 80%">80</div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li><label class="label-text-vm"> Uplink[Mbps]</label>
+                                                        <div class="div-textarea ">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-aqua  bg-aqua-active"
+                                                                    style="width: 80%">80</div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <!-- 数据循环魔板 -->
+
+
+
+
+
+                                </div>
+
+
+                                <!-- 未激活 -->
+                                <div class="error-page" style="background: #fff;">
+                                    <h2 class="headline text-yellow">HBS</h2>
+                                    <div class="error-content">
+                                        <h3>
+                                            <i class="fa fa-warning text-yellow"></i>
+                                            The main window for HBS is not configured
+                                        </h3>
+                                        <p>
+                                            <button type="button" @click="locationActivation"
+                                                class="btn btn-block btn-warning"
+                                                style="width: 90%;margin: 0px auto;">Activation an HBS</button>
+                                            Welcome to HBS Activation wizard Click on the
+                                        </p>
+
+                                        <div class="input-group">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 未激活 end -->
+
+
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="box">
+                            <div class="box-header">
+
+                                <!-- <span class=" icon iconfont icon-xinhao3 text-teal "></span> -->
+                                <h3 class="box-title">Events Log</h3>
+                                <!--   <div class="box-tools">
+                                    <div class="input-group input-group-sm" style="width: 150px;"><input type="text"
+                                            name="table_search" placeholder="Search" class="form-control pull-right">
+                                        <div class="input-group-btn"><button type="submit" class="btn btn-default"><i
+                                                    class="fa fa-search"></i></button></div>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width:60px">Number</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th style="width:90px">Trap Scurce</th>
+                                            <th>Ipv4</th>
+                                            <th>Ipv6</th>
+                                            <th>Message</th>
+                                        </tr>
+                                        <tr>
+                                            <td> <a href="#">0001</a>
+                                            </td>
+                                            <td>23-8-2019</td>
+                                            <td>10:10:10</td>
+                                            <td><span class="label label-success">Intermal</span></td>
+                                            <td>Intermal</td>
+                                            <td>Intermal</td>
+                                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> <a href="#">0001</a>
+                                            <td>23-8-2019</td>
+                                            <td>10:10:10</td>
+                                            <td><span class="label label-success">Intermal</span></td>
+                                            <td>Intermal</td>
+                                            <td>Intermal</td>
+                                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- 右侧HBS 信息 -->
+                    <div class="col-xs-3" style="padding-left: 0px;">
+
+                          <!-- 扇区信息  -->
+                          <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Sector:Lab Sector</h3>
+                                <!-- <div class="box-tools pull-right" style="top: 9px;">
+                                    <i class="icon iconfont icon-jizhanleixing" ref="setInterColor"></i>
+                                </div> -->
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <ul class="col-grid-m-9font col-search-s pr0 all-li-pb10">
+                                    <li><label class="label-text-vm">Product Name</label>
+                                        <div class="div-textarea text-light-blue">
+                                            1234Labratory
+                                        </div>
+                                    </li>
+                                    <li><label class="label-text-vm">Antenna Type</label>
+                                        <div class="div-textarea text-light-blue">
+                                            Dual
+                                        </div>
+                                    </li>
+                                    <li><label class="label-text-vm">IP Address </label>
+                                        <div class="div-textarea text-light-blue">
+                                            10.104.60.200
+                                        </div>
+                                    </li>
+
+                                    <li><label class="label-text-vm"> Subnet Mask </label>
+                                        <div class="div-textarea text-light-blue">
+                                            255.255.0.200
+                                        </div>
+                                    </li>
+
+                                    <li><label class="label-text-vm">status </label>
+                                        <div class="div-textarea text-light-blue">
+                                            Active
+                                        </div>
+                                    </li>
+                                    <!-- <li class="w100of">
+                                        <div class="col-sm-11" style="padding-right: 0px;">
+                                           
+                                            <div class="clearfix">
+                                                <span class="pull-left">DL #1</span>
+                                                <small class="pull-right">90%</small>
+                                            </div>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-yellow progress-bar-striped"
+                                                    style="width: 70%;    -webkit-animation: progress-bar-stripes 2s linear infinite;
+                                                            -o-animation: progress-bar-stripes 2s linear infinite;
+                                                            animation: progress-bar-stripes 2s linear infinite;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="w100of">
+                                        <div class="col-sm-11" style="padding-right: 0px;">
+                                          
+                                            <div class="clearfix">
+                                                <span class="pull-left">UL #1</span>
+                                                <small class="pull-right">50%</small>
+                                            </div>
+                                            <div class="progress xs">
+                                                <div class="progress-bar  progress-bar-success progress-bar-striped"
+                                                    style="width: 50%; -webkit-animation: progress-bar-stripes 2s linear infinite;
+                                                        -o-animation: progress-bar-stripes 2s linear infinite;
+                                                        animation: progress-bar-stripes 2s linear infinite;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li> -->
+
+                                    <li>
+                                        <label class="label-text-vm">Cir Resources DL</label>
+                                        <div class="div-text-demo">
+                                            <div class="div-textarea ">
+                                                <div class="col-sm-6" style="padding-left: 0px;">
+                                                    <!-- Progress bars -->
+                                                    <div class="progress ">
+                                                        <div class="progress-bar   progress-bar-striped"
+                                                            style="width: 90%; -webkit-animation: progress-bar-stripes 2s linear infinite;
+                                                                -o-animation: progress-bar-stripes 2s linear infinite;
+                                                                animation: progress-bar-stripes 2s linear infinite; color: #fff"> 90%
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+
+                                    <li>
+                                        <label class="label-text-vm">Cir Resources UL</label>
+                                        <div class="div-text-demo">
+                                            <div class="div-textarea ">
+                                                <div class="col-sm-6" style="padding-left: 0px;">
+                                                    <div class="progress ">
+                                                        <div class="progress-bar progress-bar-striped"
+                                                            style="width: 70%; -webkit-animation: progress-bar-stripes 2s linear infinite;
+                                                                    -o-animation: progress-bar-stripes 2s linear infinite;
+                                                                    animation: progress-bar-stripes 2s linear infinite; color: #fff"> 70%
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- lab sectro   end-->
+
+                        </div>
+                        <!-- 扇区信息 end  -->
+                       
+                        <!--  HBS -->
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">HBS:Lab Local</h3>
+                                <!--  <div class="box-tools pull-right" style="top: 9px;">
+                                    <span class="icon iconfont icon-xinhao3  text-teal "></span>
+                                </div> -->
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <ul class="col-grid-m-9font col-search-s pr0 all-li-pb10">
+                                    <li><label class="label-text-vm">Product Name</label>
+                                        <div class="div-textarea text-light-blue">
+                                            1234Labratory
+                                        </div>
+                                    </li>
+                                    <li><label class="label-text-vm">Antenna Type</label>
+                                        <div class="div-textarea text-light-blue">
+                                            Dual
+                                        </div>
+                                    </li>
+                                    <li><label class="label-text-vm">IP Address </label>
+                                        <div class="div-textarea text-light-blue">
+                                            10.101.00.00
+                                        </div>
+                                    </li>
+
+                                    <li><label class="label-text-vm">Tx Ratio[%] </label>
+                                        <div class="div-textarea text-light-blue">
+                                            49.5 /50.5
+                                        </div>
+                                    </li>
+
+                                    <li><label class="label-text-vm">CIR/BE Ratio[%] </label>
+                                        <div class="div-textarea text-light-blue">
+                                            80.0/20.0
+                                        </div>
+                                    </li>
+                                    <li><label class="label-text-vm">Rx Rate</label>
+                                        <div class="div-textarea text-light-blue">
+                                            88[Mbps]
+                                        </div>
+                                    </li>
+                                    <li><label class="label-text-vm">Tx Rate</label>
+                                        <div class="div-textarea text-light-blue">
+                                            22[Mbps]
+                                        </div>
+                                    </li>
+                                    <!--  <li>
+                    <label class="label-text-vm">Cir Resources</label>
+                    <div class="div-text-demo">
+                        <div class="div-textarea text-green">
+                            <div class="col-sm-6">
+                               
+                                <div class="clearfix">
+                                    <span class="pull-left">DL #1</span>
+                                    <small class="pull-right">90%</small>
+                                </div>
+                                <div class="progress xs">
+                                    <div class="progress-bar progress-bar-green"
+                                        style="width: 90%;"></div>
+                                </div>
+
+                                <div class="clearfix">
+                                    <span class="pull-left">UL #2</span>
+                                    <small class="pull-right">70%</small>
+                                </div>
+                                <div class="progress xs">
+                                    <div class="progress-bar progress-bar-aqua" style="width: 70%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li> -->
+                                </ul>
+
+                            </div>
+                            <!--  HBS end -->
+
+
+
+
+
+
+
+
+                        </div>
+                        <!-- 右侧HBS 信息 end-->
+
+
+
+                     
+
+
+
+
+
+                    </div>
+
+
+            </section>
+        </div>
+        <!-- 内容区域 -->
+
+        <!-- 底部 -->
+        <!--   <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 2.4.0
+            </div>
+            <strong>Copyright © 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+            reserved.
+        </footer> -->
+        <!-- 底部 -->
+    </div>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vue.js"></script>
+    <script type="text/javascript" src="assets/js/index.js"></script>
+
+    <script type="text/javascript" src="assets/js/comment2.js"></script>
+    <script type="text/javascript" src="assets/js/adminlte.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+
+    <script>
+        let data = {
+            d: "",
+            s: true,
+            radio: '1',
+            value1: 1,
+            starts: 1,
+            value2: true,
+            vv: false,
+            value3: '',
+            configure: false,
+            HSU: [{
+                    "IP": "10.104.50.3",
+                    "name": "Whelios",
+                    "Loc": "HNU01.01",
+                    "Level": "B",
+                    "HBS": 30,
+                    "HSU": 10,
+                    "Downlink": 60,
+                    "Uplink": 20,
+                    "start": 1
+                },
+                {
+                    "IP": "22.99.50.3",
+                    "name": "google",
+                    "Loc": "HNU01.01",
+                    "Level": "A",
+                    "HBS": 60,
+                    "HSU": 90,
+                    "Downlink": 10,
+                    "Uplink": 30,
+                    "start": 0
+                },
+                {
+                    "IP": "88.104.50.3",
+                    "name": "baidu",
+                    "Loc": "baidu.01",
+                    "Level": "C",
+                    "HBS": 10,
+                    "HSU": 90,
+                    "Downlink": 20,
+                    "Uplink": 90,
+                    "start": 0
+                },
+            ]
+
+        };
+        var Helios = new Vue({
+            el: "#MainContext",
+            data: data,
+            beforeCreate() {
+                /*console.log("创建前：");
+                console.log(this.$data); */
+            },
+            created() {
+                //  console.log("创建完成：");
+                // console.log(this.$data);
+
+
+            },
+            beforeMount() {
+                /* console.log("挂载前：");
+                console.log(this.$data); */
+
+            },
+            mounted() {
+                /* console.log("时时监控数据变化,并随之更新");*/
+                $("body").resize();
+
+                /*  if (this.$data.starts == 1) {
+                     this.$data.starts += 1;
+                     this.$refs.setInterColor.style.color = "#00c0ef ";
+                    
+                     setInterval(() => {
+                         this.$refs.setInterColor.style.color = "#ff0000";
+                         this.$data.starts -= 1;
+                     }, 1000);
+                 } else {
+                   
+                 } */
+
+                 if (this.$refs.setInterColor != undefined) {
+                    setInterval(() => {
+                        if (this.$data.starts == 1) {
+                            this.$refs.setInterColor.style.color = "#ff0000";
+                            this.$data.starts -= 1;
+                        } else {
+                            this.$refs.setInterColor.style.color = "#00c0ef ";
+                            this.$data.starts += 1;
+                        }
+                    }, 1000);
+                } else {
+                    console.log(2222);
+                }
+
+
+
+
+            },
+
+            updated() {
+                // console.log("==更新成功==");
+                //  console.log(this.$data);
+                var start_1 = 1;
+                setInterval(() => {
+                    if (start_1 > 0) {
+                        $(".start_1,.start_2,.start_3").css("color", "red");
+                        start_1 -= 1;
+                    } else {
+
+                        $(".start_1,.start_2,.start_3").css("color", "#fff");
+                        start_1 += 1;
+                    }
+                }, 1000);
+
+            },
+            //事件
+            methods: {
+                b1() {
+                    toast.$notify({
+                        title: '成功',
+                        message: '数据请求成功',
+                        type: 'success',
+                        duration: 1000
+                    });
+                },
+                close() {
+                    this.$data.s = false;
+                    console.log(this.$data.s);
+                },
+                //快捷操作
+                configureopen() {
+                    this.$data.configure = true;
+                },
+                //激活HBS
+                locationActivation() {
+                    window.location.href = "Activation_hbs.html";
+                }
+            },
+            filters: {
+                hsustart(e) {
+                    if (1 == e) {
+                        return "(认证错误)"
+                    } else if (2 == e) {
+                        return "(软件升级)"
+                    } else {
+                        // return "运行正常"
+                    }
+                }
+            },
+
+
+
+        });
+    </script>
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Helios Login</title>
+    <link rel="stylesheet" href="assets/css/Helios_Login1.css">
+    <link rel="stylesheet" href="assets/css/Elementui_index.css">
+    <link rel="shortcut icon" href="assets/images/helios.ico">
+
+    <script type="text/javascript" src="assets/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/vue.js"></script>
+    <script type="text/javascript" src="assets/js/index.js"></script>
+    <script type="text/javascript" src="assets/js/particles.js"></script>
+
+</head>
+
+<body>
+
+    <div id="login11">
+        <div class="login-box" id="particles-js">
+            <canvas width="1848" height="925" style="width: 100%; height: 100%;"></canvas>
+            <div class="login-con">
+                <span class="login-text"></span>
+                <!--  <div style="color: #7ccdc8; padding-bottom: 6px; letter-spacing: 2px;"> -欢迎使用智能图传系统-</div> -->
+                <div class="">
+                    <ul class="login-form">
+                        <div class="item">
+                            <i class="icon iconfont icon-xingmingyonghumingnicheng"></i>
+                            <el-input placeholder="Username" size="mini"></el-input>
+                        </div>
+                        <div class="item">
+                            <i class="icon iconfont icon-mima"></i>
+                            <el-input type="password" placeholder="Password" size="mini"></el-input>
+                        </div>
+                        <div class="item">
+                            <i class="icon iconfont icon-yonghuleixing"  style="font-size: 20px; left: 2px;"></i>
+                            <el-select v-model="value3" placeholder="请选择用户类型" size="mini">
+                                <el-option v-for="item in options" :key="item.value" :label="item.label"
+                                    :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </div>
+                        <li>
+                            <button type="button" class="btn btn-primary" id="loginBtn" @click="Login()">登录</button>
+                            <p class="btn-bottom"> </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="login-footer">
+                Copyright © 2006-2019 福建京奥通信技术有限公司
+                <!-- *ICP备111111111号-11 -->
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var toast = new Vue({
+            el: ''
+        }); //引入VUE 对象方法
+
+        let data = {
+            d: "",
+            options: [{
+                value: '1',
+                label: 'Operator'
+            }, {
+                value: '2',
+                label: 'installer'
+            }, {
+                value: '3',
+                label: 'observer'
+            }],
+            value: '',
+            value3: '',
+        };
+        data.value3 = "";
+
+        var Helios = new Vue({
+            el: "#login11",
+            data: data,
+            beforeCreate() {
+                /*console.log("创建前：");
+                console.log(this.$data); */
+            },
+            created() {
+                console.log("创建完成：");
+                console.log(this.$data);
+            },
+            beforeMount() {
+                /* console.log("挂载前：");
+                console.log(this.$data); */
+            },
+            mounted() {
+
+                // $("body").resize();
+                // console.log(this.$data);
+
+            },
+
+            updated() {
+                console.log("==更新成功==");
+                console.log(this.$data);
+            },
+
+            //事件
+            methods: {
+                Login() {
+                    /*   let h=`<div class="lodin"><img src="assets/images/wifi-2.gif"></div>`; */
+
+                    if (2 == this.$data.value3) {
+                        let h = `<div class="lodin">进入 2号版本 系统，请稍后</div>`;
+                        toast.$message({
+                            message: "进入 2号 版本 系统，请稍后。。。",
+                            type: 'success',
+                            duration: 4200
+                        });
+                        setTimeout(() => {
+                            window.location.href = "index.html";
+                        }, 3000);
+
+                    } else {
+                        // let h = `<div class="lodin">进入 系统，请稍后</div>`;
+                        toast.$message({
+                            message: "进入系统中，请稍后。。。",
+                            type: 'success',
+                            duration: 2200
+                        });
+                        setTimeout(() => {
+                            window.location.href = "index.html";
+                        }, 1000);
+                    }
+
+
+
+                    /*   toast.$alert(h, '', {
+                          dangerouslyUseHTMLString: true,
+                          duration: 100000,
+                          showClose:false,
+                          showCancelButton:false,
+                          showConfirmButton:false, 
+                      }); */
+
+
+                    /*   setTimeout(()=>{
+                          window.location.href = "index.html";
+
+                     setTimeout(function () {
+                          window.location.href = "index.html";
+
+                      }, 3000); */
+
+                    $("#textuname").focus();
+                },
+                keyEnble(ev) {
+                    if (ev.keyCode == 13) {
+                        this.Login();
+                    }
+                }
+            },
+
+
+        });
+
+
+
+        particlesJS('particles-js', {
+            particles: {
+                color: '#fff',
+                shape: 'circle', // "circle", "edge" or "triangle"
+                opacity: 1,
+                size: 4,
+                size_random: true,
+                nb: 150,
+                line_linked: {
+                    enable_auto: true,
+                    distance: 100,
+                    color: '#fff',
+                    opacity: 1,
+                    width: 1,
+                    condensed_mode: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 600
+                    }
+                },
+                anim: {
+                    enable: true,
+                    speed: 1
+                }
+            },
+            interactivity: {
+                enable: true,
+                mouse: {
+                    distance: 300
+                },
+                detect_on: 'canvas', // "canvas" or "window"
+                mode: 'grab',
+                line_linked: {
+                    opacity: .5
+                },
+                events: {
+                    onclick: {
+                        enable: true,
+                        mode: 'push', // "push" or "remove"
+                        nb: 4
+                    }
+                }
+            },
+            /* Retina Display Support */
+            retina_detect: true
+        });
+    </script>
+
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 80%;
+            background: #000;
+        }
+
+        /* remove canvas default margin */
+        canvas {
+            display: block;
+            vertical-align: bottom;
+        }
+
+        .htmleaf-header {
+            color: #fff;
+        }
+
+        .el-message-box {
+            background: none;
+            border: none;
+        }
+    </style>
+</body>
+
+</html>

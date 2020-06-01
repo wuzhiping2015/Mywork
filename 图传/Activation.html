@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>management</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+    <link rel="stylesheet" href="assets/css/index.css?2019827">
+
+</head>
+<style>
+    .content-wrapper {
+        margin: 0px !important;
+    }
+
+    .sidebar-toggle {
+        display: none;
+    }
+
+    .el-message-box {
+        background: none;
+        box-shadow: none;
+    }
+
+    .el-message-box__header {
+        padding: 0px 15px 0px;
+    }
+
+    .el-message-box__content {
+        padding: 0px;
+    }
+
+    .col-search-s {
+        padding: 20px 0px 20px 0;
+    }
+</style>
+
+<body class="skin-black sidebar-open sidebar-mini">
+
+    <div class="wrapper">
+        <!-- 页头 -->
+        <div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+            <el-main-header :loguser="logUserName" :logUser="logUserName"></el-main-header>
+
+        </div>
+        <!-- 页头end -->
+
+        <!-- 侧边栏导航 -->
+        <div id="comp-sidebar">
+            <!--  <el-main-sidebar></el-main-sidebar> -->
+        </div>
+        <!-- 侧边栏导航 end -->
+
+        <!-- 内容区域 -->
+        <div class="content-wrapper" id="configuration">
+            <!-- 内容头部面包屑 -->
+            <section style="display: none">
+                <ol class="breadcrumb">
+                    <li>
+                        <a id="head1" href="#"></a>
+                    </li>
+                    <li id="head2" class="active"></li>
+                </ol>
+            </section>
+            <!-- 主要内容显示 -->
+            <section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+
+
+                <!-- system -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!--  MASTER设置向导 -->
+
+                        <div class="el-message-box" style="width:100%;">
+                            <div class="el-message-box__header">
+                                <div class="el-message-box__title">
+                                    <span>HBS Activation</span>
+                                    <span class="mes-tip warm mb15">
+                                        <i class=""></i>
+                                        <i class="el-icon-edit"></i>
+                                        请提交资料激活HBS ( <em class="star">*</em>所有栏目为必填项)
+                                    </span>
+                                </div>
+                                <!--   <button type="button" title="Close" class="el-message-box__headerbtn"
+                                    style="top:4px;font-size: 22px;"><i
+                                        class="el-message-box__close el-icon-close"></i></button> -->
+                            </div>
+                            <div class="el-message-box__content">
+                                <div class="el-message-box__message">
+                                    <div class="col-xs-12">
+                                        <ul class="timeline" style="width:100%;">
+                                            <li class="time-label">
+                                                <span class="bg-green">
+                                                    step 1
+                                                </span>
+                                               <!--  <div class="box-tools pull-right" style="margin-right: 20px;">
+                                                    <el-button type="primary" size="mini" @click="b1">Confirm
+                                                    </el-button>
+                                                    <el-button type="success" size="mini" @click="b1">Reset
+                                                    </el-button>
+                                                </div> -->
+                                            </li>
+
+                                            <li>
+                                                <div class="timeline-item" style="background: none">
+                                                    <div class="top-bar" style="background: none; padding: 0px;">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+
+                                                                <!--  楼层一 -->
+                                                                <div>
+                                                                    <h3 class="h3-style1">
+                                                                        <div class="action">
+                                                                            <a href="javascript:void(0)"
+                                                                                class="txt-blued">
+                                                                                <i
+                                                                                    class="icon-w26   iconfont icon-queren"></i>
+                                                                                Confirm
+                                                                            </a>
+                                                                            <a href="javascript:void(0)"
+                                                                                class="txt-blued">
+                                                                                <i
+                                                                                    class="icon-w26  iconfont icon-qingkong"></i>
+                                                                                Reset
+                                                                            </a>
+                                                                        </div>
+                                                                        <i class="icon-arrow white-b"></i><strong
+                                                                            class="sub">HBS Activation Wizard</strong>
+                                                                    </h3>
+                                                                    <ul class="col-grid-s-9font col-search-s"
+                                                                        style="background: #fff; margin-bottom: 20px;">
+                                                                        <li>
+                                                                            <label class="label-text-vm"> <em
+                                                                                    class="star">*</em>sector
+                                                                                ID</label>
+                                                                            <div class="div-text-demo">
+                                                                                <el-input placeholder="sector ID"
+                                                                                    size="mini">
+                                                                                </el-input>
+
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <label class="label-text-vm"> <em
+                                                                                    class="star">*</em>
+                                                                                sector
+                                                                                name</label>
+                                                                            <div class="div-text-demo">
+                                                                                <el-input placeholder="sector name"
+                                                                                    size="mini">
+                                                                                </el-input>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <label class="label-text-vm"> <em
+                                                                                    class="star">*</em>location</label>
+                                                                            <div class="div-text-demo">
+                                                                                <el-input placeholder="location"
+                                                                                    size="mini">
+                                                                                </el-input>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <label class="label-text-vm"> <em
+                                                                                    class="star">*</em>link
+                                                                                password</label>
+                                                                            <div class="div-text-demo">
+                                                                                <el-input placeholder="link password"
+                                                                                    size="mini">
+                                                                                </el-input>
+                                                                            </div>
+                                                                        </li>
+
+
+
+                                                                    </ul>
+                                                                </div>
+                                                                <!--  楼层一 end -->
+
+
+                                                                <!--  楼层二  -->
+                                                                <div>
+                                                                    <h3 class="h3-style1">
+                                                                        <div class="action">
+                                                                            <a href="javascript:void(0)"
+                                                                                class="txt-blued">
+                                                                                <i
+                                                                                    class="icon-w26   iconfont icon-queren"></i>
+                                                                                Confirm
+                                                                            </a>
+                                                                            <a href="javascript:void(0)"
+                                                                                class="txt-blued">
+                                                                                <i
+                                                                                    class="icon-w26  iconfont icon-qingkong"></i>
+                                                                                Reset
+                                                                            </a>
+                                                                        </div>
+                                                                        <i class="icon-arrow white-b"></i><strong
+                                                                            class="sub">Coordinates</strong>
+                                                                    </h3>
+                                                                    <ul class="col-grid-s-9font col-search-s"
+                                                                        style="background: #fff;">
+
+                                                                        <li class="w100of" style="margin-bottom: 10px;">
+                                                                            <label class="label-text-vm"> IP Version
+                                                                            </label>
+                                                                            <div class="div-text-demo"
+                                                                                style="width: 610px;">
+                                                                                <div class="area-list-radio">
+                                                                                    <el-radio-group v-model="value3">
+                                                                                        <el-radio label="1">decimal
+                                                                                            degrees
+                                                                                        </el-radio>
+                                                                                        <el-radio label="2">degrees
+                                                                                            minutes seconds
+                                                                                        </el-radio>
+
+                                                                                    </el-radio-group>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+
+
+
+                                                                        <li>
+                                                                            <label class="label-text-vm"> <em
+                                                                                    class="star">*</em>latutude</label>
+                                                                            <div class="div-text-demo">
+                                                                                <el-input
+                                                                                    placeholder="latutude (-89 to +89)"
+                                                                                    size="mini"></el-input>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <label class="label-text-vm"> <em
+                                                                                    class="star">*</em>longitude
+                                                                            </label>
+                                                                            <div class="div-text-demo">
+                                                                                <el-input
+                                                                                    placeholder="longitude (-180 to +89)"
+                                                                                    size="mini"></el-input>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <label class="label-text-vm"> <em
+                                                                                    class="star">*</em>azimuth</label>
+                                                                            <div class="div-text-demo">
+                                                                                <el-input
+                                                                                    placeholder="azimuth (0 to 360)"
+                                                                                    size="mini">
+                                                                                </el-input>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <label class="label-text-vm"> <em
+                                                                                    class="star">*</em>beamwidth</label>
+                                                                            <div class="div-text-demo">
+                                                                                <el-input
+                                                                                    placeholder="beamwidth  (0 to 360)"
+                                                                                    size="mini"></el-input>
+                                                                            </div>
+                                                                        </li>
+
+
+                                                                    </ul>
+
+                                                                </div>
+                                                                <!--  楼层二 end -->
+
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </li>
+
+                                            <li class="time-label">
+                                                <span class="bg-green">
+                                                    step 2
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <div class="timeline-item" style="background: none">
+                                                    <div class="top-bar" style="background: none; padding: 0px;">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+
+                                                                <!--  楼层二  -->
+                                                                <div>
+                                                                    <h3 class="h3-style1">
+                                                                        <div class="action">
+                                                                            <a href="javascript:void(0)"
+                                                                                class="txt-blued">
+                                                                                <i
+                                                                                    class="icon-w26   iconfont icon-queren"></i>
+                                                                                Confirm
+                                                                            </a>
+                                                                            <a href="javascript:void(0)"
+                                                                                class="txt-blued">
+                                                                                <i
+                                                                                    class="icon-w26  iconfont icon-qingkong"></i>
+                                                                                Reset
+                                                                            </a>
+                                                                        </div>
+                                                                        <i class="icon-arrow white-b"></i><strong
+                                                                            class="sub">Input IP information</strong>
+                                                                    </h3>
+
+                                                                    <div class="box">
+                                                                        <div class="box-footer" v-show="cur==0">
+
+                                                                            <ul
+                                                                                class="col-grid-s-12font  pr0 all-li-pb10">
+                                                                                <li class="w100of">
+                                                                                    <label class="label-text-vm"> IP
+                                                                                        Version </label>
+                                                                                    <div class="div-text-demo"
+                                                                                        style="width: 610px;">
+                                                                                        <div class="area-list-radio">
+                                                                                            <el-radio-group
+                                                                                                v-model="ipshow_tab">
+                                                                                                <el-radio label="1">IPv4
+                                                                                                    Only
+                                                                                                </el-radio>
+                                                                                                <el-radio label="2">IPv6
+                                                                                                    Only
+                                                                                                </el-radio>
+                                                                                                <el-radio label="3">IPv4
+                                                                                                    + IPv6
+                                                                                                </el-radio>
+                                                                                            </el-radio-group>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+
+
+                                                                            <div class="row">
+                                                                                <div class="col-xs-5"
+                                                                                    v-show="ipshow_tab==1 || ipshow_tab==3">
+                                                                                    <ul
+                                                                                        class="col-grid-s-12font pr0 all-li-pb10">
+
+                                                                                        <li>
+                                                                                            <label
+                                                                                                class="label-text-vm"><em
+                                                                                                    class="star">*</em>IP
+                                                                                                Address</label>
+                                                                                            <div class="div-text-demo">
+                                                                                                <el-input
+                                                                                                    placeholder="IP Address"
+                                                                                                    size="mini">
+                                                                                                </el-input>
+                                                                                            </div>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <label
+                                                                                                class="label-text-vm"><em
+                                                                                                    class="star">*</em>Subnet
+                                                                                                Mask</label>
+                                                                                            <div class="div-text-demo">
+                                                                                                <el-input
+                                                                                                    placeholder="Subnet Mask"
+                                                                                                    size="mini">
+                                                                                                </el-input>
+                                                                                            </div>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <label
+                                                                                                class="label-text-vm"><em
+                                                                                                    class="star">*</em>Default
+                                                                                                Gateway</label>
+                                                                                            <div class="div-text-demo">
+                                                                                                <el-input
+                                                                                                    placeholder="Default Gateway"
+                                                                                                    size="mini">
+                                                                                                </el-input>
+                                                                                            </div>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+
+                                                                                <div class="col-xs-5"
+                                                                                    v-show="ipshow_tab==2  || ipshow_tab==3"
+                                                                                    style="display: none">
+                                                                                    <ul
+                                                                                        class="col-grid-s-12font  pr0 all-li-pb10">
+
+                                                                                        <li>
+                                                                                            <label
+                                                                                                class="label-text-vm"><em
+                                                                                                    class="star">*</em>IPv6
+                                                                                                Address</label>
+                                                                                            <div class="div-text-demo">
+                                                                                                <el-input
+                                                                                                    placeholder="IP Address"
+                                                                                                    size="mini">
+                                                                                                </el-input>
+                                                                                            </div>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <label
+                                                                                                class="label-text-vm"><em
+                                                                                                    class="star">*</em>Subnet
+                                                                                                prefix
+                                                                                                length</label>
+                                                                                            <div class="div-text-demo">
+                                                                                                <el-input
+                                                                                                    placeholder="Subnet Mask"
+                                                                                                    size="mini">
+                                                                                                </el-input>
+                                                                                            </div>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <label
+                                                                                                class="label-text-vm"><em
+                                                                                                    class="star">*</em>Default
+                                                                                                Gateway</label>
+                                                                                            <div class="div-text-demo">
+                                                                                                <el-input
+                                                                                                    placeholder="Default Gateway"
+                                                                                                    size="mini">
+                                                                                                </el-input>
+                                                                                            </div>
+                                                                                        </li>
+                                                                                    </ul>
+
+
+                                                                                </div>
+
+                                                                                <div class="col-xs-10">
+                                                                                    <ul
+                                                                                        class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+                                                                                        <li class="btneare"
+                                                                                            style="padding-top:5px;">
+                                                                                            <label
+                                                                                                class="label-text-vm">
+                                                                                            </label>
+                                                                                            <div class="div-text-demo"
+                                                                                                style="padding-left: 156px;">
+                                                                                                <el-button
+                                                                                                    type="primary"
+                                                                                                    size="mini"
+                                                                                                    @click="b1">Confirm
+                                                                                                </el-button>
+                                                                                                <el-button
+                                                                                                    type="success"
+                                                                                                    size="mini"
+                                                                                                    @click="b1">Reset
+                                                                                                </el-button>
+                                                                                            </div>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                        <div class="box-footer" v-show="cur==1"
+                                                                            style="display: none">
+
+                                                                            <ul
+                                                                                class="col-grid-s-12font  pr0 all-li-pb10">
+                                                                                <li class="w100of">
+                                                                                    <label class="label-text-vm">Syslog
+                                                                                        server IP Address</label>
+                                                                                    <div class="div-text-demo"
+                                                                                        style="width: 410px;">
+                                                                                        <el-input
+                                                                                            placeholder="Syslog server IP Address"
+                                                                                            size="mini"></el-input>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <label class="label-text-vm">VLAN
+                                                                                        ID</label>
+                                                                                    <div class="div-text-demo">
+                                                                                        <el-input placeholder="VLAN ID"
+                                                                                            size="mini"></el-input>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li class="w100of">
+                                                                                    <label class="label-text-vm">VLAN
+                                                                                        Priority</label>
+                                                                                    <div class="div-text-demo"
+                                                                                        style="width: 410px;">
+                                                                                        <el-input
+                                                                                            placeholder="VLAN Priority"
+                                                                                            size="mini"></el-input>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <label
+                                                                                        class="label-text-vm">SNMP</label>
+                                                                                    <div class="div-text-demo">
+                                                                                        <div class="area-list-radio">
+                                                                                            <el-switch v-model="value1">
+                                                                                            </el-switch>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <label
+                                                                                        class="label-text-vm">Telnet</label>
+                                                                                    <div class="div-text-demo">
+                                                                                        <div class="area-list-radio">
+                                                                                            <el-switch
+                                                                                                v-model="coordshow">
+                                                                                            </el-switch>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <label class="label-text-vm">Web
+                                                                                        Interface</label>
+                                                                                    <div class="div-text-demo">
+                                                                                        <div class="area-list-radio">
+                                                                                            <el-switch v-model="value1">
+                                                                                            </el-switch>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <label
+                                                                                        class="label-text-vm">Protocol</label>
+                                                                                    <div class="div-text-demo">
+                                                                                        <div class="area-list-radio">
+                                                                                            <el-radio v-model="radio"
+                                                                                                label="1">V1</el-radio>
+                                                                                            <el-radio v-model="radio"
+                                                                                                label="2">V3</el-radio>
+                                                                                            <el-radio v-model="radio"
+                                                                                                label="2">V1 and V3
+                                                                                            </el-radio>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+
+                                                                            <div class="col-xs-10">
+                                                                                <ul
+                                                                                    class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+                                                                                    <li class="btneare"
+                                                                                        style="padding-top:5px;">
+                                                                                        <label class="label-text-vm">
+                                                                                        </label>
+                                                                                        <div class="div-text-demo"
+                                                                                            style="padding-left: 140px;">
+                                                                                            <el-button type="primary"
+                                                                                                size="mini" @click="b1">
+                                                                                                Confirm
+                                                                                            </el-button>
+                                                                                            <el-button type="success"
+                                                                                                size="mini" @click="b1">
+                                                                                                Reset
+                                                                                            </el-button>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--  楼层二 end -->
+
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </li>
+
+
+                                            <li>
+                                                <!--  <i class="fa icon iconfont icon-wifi">END</i> -->
+                                                <i class="fa">END</i>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!--   <div class="el-message-box__btns">
+                                    <el-button type="primary" size="mini" @click="close">关闭</el-button>
+                                </div> -->
+                        </div>
+
+
+                        <!--  MASTER设置向导  end-->
+
+                    </div>
+
+
+
+                </div>
+                <!-- system end -->
+
+
+            </section>
+        </div>
+        <!-- 内容区域 -->
+
+    </div>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vue.js"></script>
+    <script type="text/javascript" src="assets/js/index.js"></script>
+    <script type="text/javascript" src="assets/js/comment.js"></script>
+
+
+
+    <script>
+        let data = {
+            value1: true,
+            coordshow: false,
+            thar: "",
+            configure: false, //编辑弹出
+            radio: "1",
+            value3: "1",
+            cur: 0,
+            ipshow_tab: "1",
+            checkList: ['5.740', '5.755']
+        };
+        var Helios = new Vue({
+            el: "#configuration",
+            data: data,
+            beforeCreate() {
+                /*console.log("创建前：");
+                console.log(this.$data); */
+            },
+            created() {
+                //  console.log("创建完成：");
+                // console.log(this.$data);
+
+
+
+            },
+            beforeMount() {
+                /* console.log("挂载前：");
+                console.log(this.$data); */
+
+            },
+            mounted() {
+                /* console.log("时时监控数据变化,并随之更新");*/
+                console.log(this.$data);
+                $("body").resize();
+
+            },
+
+            updated() {
+                // console.log("==更新成功==");
+                console.log(this.$data);
+            },
+            //事件
+            methods: {
+                b1() {
+                    toast.$notify({
+                        title: '成功',
+                        message: '数据请求成功',
+                        type: 'success',
+                        duration: 1000
+                    });
+                },
+
+            },
+
+
+        });
+    </script>
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ethernet</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+    <link rel="stylesheet" href="assets/css/index.css?2019827">
+
+</head>
+<style>
+    .box .box-footer {
+        border-top: 0px;
+    }
+
+    .el-checkbox {
+        margin: 3px 14px;
+    }
+
+    .label {
+        font-size: 100%;
+    }
+
+    .el-dialog {
+        width: 30%;
+    }
+
+    td span small {
+        cursor: pointer;
+    }
+</style>
+
+<body class="skin-black sidebar-open sidebar-mini">
+
+    <div class="wrapper">
+        <!-- 页头 -->
+        <div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+            <el-main-header :loguser="logUserName" :logUser="logUserName"></el-main-header>
+
+        </div>
+        <!-- 页头end -->
+
+        <!-- 侧边栏导航 -->
+        <div id="comp-sidebar">
+            <el-main-sidebar></el-main-sidebar>
+        </div>
+        <!-- 侧边栏导航 end -->
+
+        <!-- 内容区域 -->
+        <div class="content-wrapper" id="content-wrapper">
+            <!-- 内容头部面包屑 -->
+            <section style="display: none">
+                <ol class="breadcrumb">
+                    <li>
+                        <a id="head1" href="#"></a>
+                    </li>
+                    <li id="head2" class="active"></li>
+                </ol>
+            </section>
+            <!-- 主要内容显示 -->
+            <section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+
+
+
+
+
+
+                <!-- system -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="nav-tabs-custom">
+                            <div class="box">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">HBS Configuration Lab Sector</h3>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+                                                <li>
+                                                    <label class="label-text-vm">Broadcast</label>
+                                                    <div class="div-text-demo">
+                                                        <div class="area-list-radio">
+                                                            <el-switch v-model="value1"></el-switch>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <label class="label-text-vm">DHCP Relay Agent</label>
+                                                    <div class="div-text-demo">
+                                                        <div class="area-list-radio">
+                                                            <el-switch v-model="configure"></el-switch>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <label class="label-text-vm">Aging Time </label>
+                                                    <div class="div-text-demo">
+                                                        <el-input placeholder="Aging Time" size="mini"></el-input>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <label class="label-text-vm">Circuit-ID source</label>
+                                                    <div class="div-text-demo">
+                                                        <el-select v-model="value3" placeholder="Format" size="mini"
+                                                            style="width: 100%">
+                                                            <el-option key="1" label="HBS MAC Address" value="1">
+                                                            </el-option>
+                                                            <el-option key="2" label="HBS MAC Address1" value="2">
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <label class="label-text-vm">Remote-ID source</label>
+                                                    <div class="div-text-demo">
+                                                        <el-select v-model="value3" placeholder="Format" size="mini"
+                                                            style="width: 100%">
+                                                            <el-option key="1" label="HBS MAC Address" value="1">
+                                                            </el-option>
+                                                            <el-option key="2" label="HBS MAC Address1" value="2">
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </li>
+
+
+
+                                            </ul>
+                                        </div>
+
+
+                                        <div class="col-xs-10">
+                                            <ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+                                                <li class="btneare" style="padding-top:5px;">
+                                                    <label class="label-text-vm"> </label>
+                                                    <div class="div-text-demo" style="padding-left: 156px;">
+                                                        <el-button type="primary" size="mini" @click="b1">Confirm
+                                                        </el-button>
+                                                        <el-button type="success" size="mini" @click="b1">Reset
+                                                        </el-button>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+
+
+
+                </div>
+                <!-- system end -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="nav-tabs-custom">
+                            <div class="box">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">QoS Configuration</h3>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="row">
+
+                                        <ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+                                            <li>
+                                                <label class="label-text-vm">Voice Over IP</label>
+                                                <div class="div-text-demo">
+                                                    <div class="area-list-radio">
+                                                        <el-switch v-model="value1">
+                                                        </el-switch>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="w100of">
+                                                <label class="label-text-vm">Mode</label>
+                                                <div class="div-text-demo" style="width:360px;">
+                                                    <el-select v-model="value3" placeholder="Format" size="mini">
+
+                                                        <el-option key="1" label="VLAN" value="1">
+                                                        </el-option>
+                                                        <el-option key="2" label="VLAN" value="2">
+                                                        </el-option>
+                                                    </el-select>
+                                                </div>
+                                            </li>
+
+                                            <li style="width:200px;">
+                                                <label class="label-text-vm">Voice over IP</label>
+                                                <div class="div-text-demo">
+                                                    <div class="area-list-radio">
+                                                        <el-checkbox v-model="value1">6-7</el-checkbox>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li style="width:200px;">
+                                                <label class="label-text-vm">Near Real Time</label>
+                                                <div class="div-text-demo">
+                                                    <div class="area-list-radio">
+                                                        <el-checkbox v-model="value1">4-5</el-checkbox>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li style="width:200px;">
+                                                <label class="label-text-vm">Controlled Load</label>
+                                                <div class="div-text-demo">
+                                                    <div class="area-list-radio">
+                                                        <el-checkbox v-model="value1">2-3</el-checkbox>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li style="width:200px;">
+                                                <label class="label-text-vm">Best Effort</label>
+                                                <div class="div-text-demo">
+                                                    <div class="area-list-radio">
+                                                        <el-checkbox v-model="value1">0-1</el-checkbox>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+
+
+                                            <li class="btneare" style="padding-top:5px;">
+                                                <label class="label-text-vm"> </label>
+                                                <div class="div-text-demo" style="padding-left: 156px;">
+                                                    <el-button type="primary" size="mini" @click="b1">Confirm
+                                                    </el-button>
+                                                    <el-button type="success" size="mini" @click="b1">Reset
+                                                    </el-button>
+                                                </div>
+                                            </li>
+
+
+                                        </ul>
+
+
+
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+
+
+
+                </div>
+            </section>
+        </div>
+        <!-- 内容区域 -->
+
+    </div>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vue.js"></script>
+    <script type="text/javascript" src="assets/js/index.js"></script>
+    <script type="text/javascript" src="assets/js/comment.js"></script>
+    <script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+    <script>
+        let data = {
+            coordshow: false,
+            value1: true,
+            thar: "",
+            configure: false, //编辑弹出
+            radio: "1",
+            value3: "",
+            cur: 0,
+            ipshow_tab: "1",
+            checkList: ['5.740', '5.755']
+        };
+        var Helios = new Vue({
+            el: "#MainContext",
+            data: data,
+            beforeCreate() {
+                /*console.log("创建前：");
+                console.log(this.$data); */
+            },
+            created() {
+                //  console.log("创建完成：");
+                // console.log(this.$data);
+
+            },
+            beforeMount() {
+                /* console.log("挂载前：");
+                console.log(this.$data); */
+
+            },
+            mounted() {
+                /* console.log("时时监控数据变化,并随之更新");*/
+                console.log(this.$data);
+                $("body").resize();
+
+            },
+
+            updated() {
+                // console.log("==更新成功==");
+                console.log(this.$data);
+            },
+            //事件
+            methods: {
+                b1() {
+                    toast.$notify({
+                        title: '成功',
+                        message: '数据请求成功',
+                        type: 'success',
+                        duration: 1000
+                    });
+                },
+                Btnoperation(x) {
+                    this.$data.configure = true;
+                    this.$data.thar = x;
+                }
+
+            },
+
+
+        });
+    </script>
+
+
+</body>
+
+
+</html>
