@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Helios </title>
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+	</head>
+	<style>
+		.viswCard span {
+		color: #fff;
+		margin-right: 0px;
+	}
+
+	.el-input {
+		vertical-align: middle;
+	}
+
+	.label-text-vm {
+		text-align: left;
+	}
+	.box-header{
+		padding: 10px 0px;
+	}
+</style>
+
+	<body class="skin-black sidebar-open sidebar-mini">
+		<!-- hold-transition skin-blue-light sidebar-mini sidebar-collapse -->
+		<div class="wrapper">
+			<!-- 页头 -->
+			<div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+				<el-main-header :loguser="logUserName"></el-main-header>
+			</div>
+			<!-- 页头end -->
+
+			<!-- 侧边栏导航 -->
+			<div id="comp-sidebar">
+				<el-main-sidebar></el-main-sidebar>
+			</div>
+			<!-- 侧边栏导航 end -->
+
+			<!-- 内容区域 -->
+			<div class="content-wrapper" id="content-wrapper">
+
+				<!-- 内容头部面包屑 -->
+				<section class="" style="display: none">
+					<ol class="breadcrumb">
+						<li>
+							<a id="head1" href="#"></a>
+						</li>
+						<li id="head2" class="active"></li>
+					</ol>
+				</section>
+				<!-- 主要内容显示 -->
+				<section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+
+					<div class="row">
+						<!-- LEFT START -->
+						<div class="col-xs-12">
+							<div class="box-header">
+								<div class="box-title">
+									<el-input v-model="tableDataName" placeholder="请输入用户" style="width:240px">
+									</el-input>
+									<el-button type="primary" @click="doFilter">搜索</el-button>
+								</div>
+
+								<div class="viswCard">
+									<el-button type="primary" @click="Addfirm">添加用户</el-button>
+									<el-button type="success" @click="openData">数据同步</el-button>
+								</div>
+							</div>
+							<div class="box">
+
+								<div class="box-body table-responsive no-padding" id="dataajax">
+
+									<el-table :data="tableDataEnd" style="width: 100%" ref="tableDataEnd" prop="tableDataEnd" :key="DataEndkey">
+										<el-table-column prop="siteName" label="用户名称" :formatter="substr_name">
+										</el-table-column>
+										<el-table-column prop="mac" label="用户密码">
+										</el-table-column>
+										<el-table-column prop="sn" label="sn">
+										</el-table-column>
+
+										<el-table-column prop="ip" label="ip">
+										</el-table-column>
+
+										<el-table-column prop="switch" label="switch">
+											<template slot-scope="{row}">
+												<span v-if="row.switch==true" style="color:#409EFF;"> <i class="fa fa-fw fa-link"></i>在线</span>
+												<span v-if="row.switch==false" style="color:#ff851b;"> <i class="fa fa-fw  fa-unlink "></i>掉线</span>
+											</template>
+										</el-table-column>
+
+
+
+										<el-table-column prop="type" label="type">
+											<template slot-scope="{row}">
+
+												<span v-if="row.type==1" style="color:#409EFF;"> <i class="fa fa-fw fa-link"></i>Master</span>
+												<span v-if="row.type==2" style="color:#ff851b;"> <i class="fa fa-fw  fa-unlink "></i>Slave</span>
+											</template>
+										</el-table-column>
+
+
+										<el-table-column label="操作" width="400">
+											<!--  <template slot-scope="{row}">
+											  <el-button  icon="el-icon-edit" type="primary"
+												@click.native.prevent="getBaseInfoData(row,tableDataEnd)">查看设备
+											</el-button> -->
+											<!-- 	<el-button size="mini" icon="el-icon-setting" type="primary"
+												@click.native.prevent="setmax(row,tableDataEnd)">配
+												置</el-button>
+											<el-button size="mini" icon="el-icon-receiving" type="primary"
+												@click.native.prevent="backup(row,row.data2)">备
+												份
+											</el-button>
+											<el-button size="mini" icon="el-icon-delete" type="danger"
+												@click.native.prevent="delerow(row,tableDataEnd)">删除</el-button>
+										</template> -->
+
+											<template slot-scope="scope">
+												<el-button @click.stop.prevent="getBaseInfoData(scope.row , tableDataEnd)" type="primary">编辑</el-button>
+
+												<el-button icon="el-icon-delete" type="danger" @click.native.prevent="delerow(scope.row , tableDataEnd)">删除</el-button>
+
+											</template>
+										</el-table-column>
+									</el-table>
+									<div style="text-align: center;">
+										<el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage"
+										 :page-sizes="[5, 24, 30]" :page-size="pageSize" layout="total, sizes, prev, pager, next" :total="totalItems">
+										</el-pagination>
+									</div>
+
+								</div>
+
+							</div>
+							<!-- events log  end-->
+						</div>
+
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+					<!-- 添加设备 -->
+					<el-dialog title="添加设备" :visible.sync="Addfirmware" width="40%">
+						<div>
+
+							<el-form label-width="120px" ref="equipmentdata" :model="equipmentdata">
+
+								<el-form-item label="站点名称" prop="siteName">
+									<el-input v-model="equipmentdata.siteName" required="required"></el-input>
+								</el-form-item>
+								<el-form-item label="MAC">
+									<el-input v-model="equipmentdata.mac" required="required"></el-input>
+								</el-form-item>
+								<el-form-item label="SN">
+									<el-input v-model="equipmentdata.sn" required="required"></el-input>
+								</el-form-item>
+								<el-form-item label="IP">
+									<el-input v-model="equipmentdata.ip" required="required"></el-input>
+								</el-form-item>
+								<el-form-item label="设备类型" style="margin-top:12px;">
+									<el-radio-group v-model="equipmentdata.type" size="medium">
+										<el-radio label="master" value="1"></el-radio>
+										<el-radio label="slave" value="2"></el-radio>
+									</el-radio-group>
+								</el-form-item>
+
+								<el-form-item label="Switch">
+									<el-switch v-model="equipmentdata.switch"></el-switch>
+								</el-form-item>
+
+								<el-form-item v-if="show==true">
+									<div style="color:rgb(245, 108, 108)">{{isnull}}</div>
+								</el-form-item>
+
+							</el-form>
+						</div>
+						<div class="dialog-footer tl" style=" margin-left: 120px; padding: 20px 0px;">
+							<el-button type="primary" @click="Addequipment(1,this)" size="medium">确 定</el-button>
+							<el-button type="success" @click="Addequipment(2)" size="medium">取 消</el-button>
+						</div>
+					</el-dialog>
+					<!-- 添加设备 -->
+
+
+
+
+
+					<!-- 设备基本信息 -->
+					<el-dialog title="设备管理--SN:123" :visible.sync="tabshowBox" width="80%">
+						<div>
+							<div class="nav-tabs-custom">
+								<ul class="nav nav-tabs">
+									<li :class="{active:tabshow==0}" @click="tabshow=0"><a href="javascript:void(0);">
+											基本信息</a> </li>
+									<li :class="{active:tabshow==1}" @click="tabshow=1"><a href="javascript:void(0);">
+											设备配置</a>
+									</li>
+								</ul>
+								<div v-show="tabshow==0">
+									<div class="box-footer">
+										{{configuration.ip}}
+										<el-form label-width="120px" ref="equipmentdata" :model="equipmentdata">
+											<el-row :gutter="20">
+												<el-col :span="6" v-for="(v,i) in getBaseInfo">
+													<el-form-item :label="v.EN" :prop="v.EN" v-if="v.EN=='mac'">
+														{{v.value}}
+													</el-form-item>
+													<el-form-item :label="v.EN" :prop="v.EN" v-if="v.EN=='sn'">
+														{{v.value}}
+													</el-form-item>
+
+													<el-form-item :label="v.EN" :prop="v.EN" v-if="v.EN=='type'">
+														<el-radio-group v-model="v.value " size="medium">
+															<el-radio label="master" value="1"></el-radio>
+															<el-radio label="slave" value="2"></el-radio>
+														</el-radio-group>
+													</el-form-item>
+
+													<el-form-item :label="v.EN" :prop="v.EN" v-if="v.EN=='devSwitch'">
+														<el-switch v-model="v.value"></el-switch>
+													</el-form-item>
+
+													<el-form-item :label="v.EN" :prop="v.EN" v-if="v.EN!='devSwitch'  &&  v.EN!='type' &&  v.EN!='sn'  &&  v.EN!='mac'">
+														<input type="text" autocomplete="off" v-model="v.value" class="el-input__inner">
+													</el-form-item>
+												</el-col>
+											</el-row>
+										</el-form>
+										<div class="dialog-footer tl" style=" margin-left: 120px; padding: 20px 0px;">
+											<el-button type="primary" @click="readBaseInfoData(1)" size="medium">确 定
+											</el-button>
+											<el-button type="success" @click="readBaseInfoData(2)" size="medium">取 消
+											</el-button>
+										</div>
+									</div>
+								</div>
+								<div v-show="tabshow==1">2222</div>
+							</div>
+
+
+
+						</div>
+
+					</el-dialog>
+					<!-- 设备基本信息 -->
+
+
+
+				</section>
+			</div>
+
+		</div>
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+		<script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+		<script type="text/javascript">
+			var helios;
+			let data = {
+				token: sessionStorage.getItem("$token"),
+
+				//表单验证
+				isnull: "--",
+				show: true,
+
+				Addfirmware: false, //添加设备
+				tabshow: 0, // Tab
+				tabshowBox: false, //设备管理 
+				DataEndkey: "", //临时变量
+				dataIndex: "",
+				datavalue: "",
+
+				//添加设备
+				equipmentdata: {
+					siteName: "",
+					mac: "",
+					sn: "",
+					ip: "",
+					type: "master",
+					switch: true,
+				},
+
+				//设备配置
+				configuration: {},
+				//设备基本信息
+				getBaseInfo: [],
+
+				//分页
+				tableDataBegin: [],
+				currentPage: 1,
+				pageSize: 5,
+				totalItems: 0,
+				flag: false,
+				tableDataName: "",
+				tableDataEnd: [],
+				filterTableDataEnd: [],
+
+
+			};
+			helios = new Vue({
+				el: "#content-wrapper",
+				data: data,
+				mounted() {
+					$("body").resize();
+					//this.getuquilist();
+				},
+				beforeMount() {
+					this.getuquilist();
+				},
+
+				methods: {
+					//初始获取数据
+					getuquilist() {
+						var token = sessionStorage.getItem("$token");
+						var obj = {
+							token: token
+						} //请求传参
+
+						let dataajax = []; //请求接数据
+
+						//获取ajax data
+						/* 	util.getattrajax(SNMPAPI.getList, obj, function (data) { */
+						/* 	let getdata = data.list; */
+
+						let getdata = [{
+								antennaType: null,
+								band: null,
+								channelBw: null,
+								createDate: null,
+								devSwitch: false,
+								frequency: null,
+								id: null,
+								ip: "3 3 3 3 3 3 33333333",
+								location: null,
+								mac: "23 23 23 ",
+								masterMac: null,
+								productName: null,
+								remarks: "",
+								resourceAllocation: null,
+								sectorId: null,
+								siteName: "88  ",
+								sn: "23 23",
+								subnetMask: null,
+								txRatio: null,
+								type: 1,
+								updateDate: null,
+								updater: null,
+								workMode: null,
+							},
+							{
+								antennaType: null,
+								band: null,
+								channelBw: null,
+								createDate: null,
+								devSwitch: false,
+								frequency: null,
+								id: null,
+								ip: "3 3 3 3 3 3 33333333",
+								location: null,
+								mac: "23 23 23 ",
+								masterMac: null,
+								productName: null,
+								remarks: "",
+								resourceAllocation: null,
+								sectorId: null,
+								siteName: "77 ",
+								sn: "23 23",
+								subnetMask: null,
+								txRatio: null,
+								type: 1,
+								updateDate: null,
+								updater: null,
+								workMode: null,
+							},
+							{
+								antennaType: null,
+								band: null,
+								channelBw: null,
+								createDate: null,
+								devSwitch: false,
+								frequency: null,
+								id: null,
+								ip: "3 3 3 3 3 3 33333333",
+								location: null,
+								mac: "23 23 23 ",
+								masterMac: null,
+								productName: null,
+								remarks: "",
+								resourceAllocation: null,
+								sectorId: null,
+								siteName: "66 ",
+								sn: "23 23",
+								subnetMask: null,
+								txRatio: null,
+								type: 1,
+								updateDate: null,
+								updater: null,
+								workMode: null,
+							},
+							{
+								antennaType: null,
+								band: null,
+								channelBw: null,
+								createDate: null,
+								devSwitch: false,
+								frequency: null,
+								id: null,
+								ip: "3 3 3 3 3 3 33333333",
+								location: null,
+								mac: "23 23 23 ",
+								masterMac: null,
+								productName: null,
+								remarks: "",
+								resourceAllocation: null,
+								sectorId: null,
+								siteName: "55 ",
+								sn: "23 23",
+								subnetMask: null,
+								txRatio: null,
+								type: 1,
+								updateDate: null,
+								updater: null,
+								workMode: null,
+							},
+							{
+								antennaType: null,
+								band: null,
+								channelBw: null,
+								createDate: null,
+								devSwitch: false,
+								frequency: null,
+								id: null,
+								ip: "3 3 3 3 3 3 33333333",
+								location: null,
+								mac: "23 23 23 ",
+								masterMac: null,
+								productName: null,
+								remarks: "",
+								resourceAllocation: null,
+								sectorId: null,
+								siteName: "44 ",
+								sn: "23 23",
+								subnetMask: null,
+								txRatio: null,
+								type: 1,
+								updateDate: null,
+								updater: null,
+								workMode: null,
+							},
+							{
+								antennaType: null,
+								band: null,
+								channelBw: null,
+								createDate: null,
+								devSwitch: false,
+								frequency: null,
+								id: null,
+								ip: "3 3 3 3 3 3 33333333",
+								location: null,
+								mac: "23 23 23 ",
+								masterMac: null,
+								productName: null,
+								remarks: "",
+								resourceAllocation: null,
+								sectorId: null,
+								siteName: "33  ",
+								sn: "23 23",
+								subnetMask: null,
+								txRatio: null,
+								type: 1,
+								updateDate: null,
+								updater: null,
+								workMode: null,
+							},
+							{
+								antennaType: null,
+								band: null,
+								channelBw: null,
+								createDate: null,
+								devSwitch: false,
+								frequency: null,
+								id: null,
+								ip: "3 3 3 3 3 3 33333333",
+								location: null,
+								mac: "23 23 23 ",
+								masterMac: null,
+								productName: null,
+								remarks: "",
+								resourceAllocation: null,
+								sectorId: null,
+								siteName: "22 ",
+								sn: "23 23",
+								subnetMask: null,
+								txRatio: null,
+								type: 1,
+								updateDate: null,
+								updater: null,
+								workMode: null,
+							},
+						]
+
+						var obj1 = {
+							siteName: "",
+							mac: "",
+							sn: "",
+							ip: "",
+							type: "",
+							switch: "",
+						}
+						for (var index in getdata) {
+							var obj1 = {
+								siteName: getdata[index].siteName,
+								mac: getdata[index].mac,
+								sn: getdata[index].sn,
+								ip: getdata[index].ip,
+								type: getdata[index].type,
+								switch: getdata[index].devSwitch, //开关
+							}
+							dataajax.push(obj1);
+						}
+						//第一次存入,修改的时候需要
+						sessionStorage.setItem("dataajax", JSON.stringify(dataajax));
+						//console.log(dataajax);
+
+						//处理   el-table  数据
+						this.totalItems = this.length; //分页
+						if (this.totalItems > this.pageSize) {
+							for (let index = 0; index < this.pageSize; index++) {
+								this.tableDataEnd.push({
+									siteName: dataajax[index].siteName,
+									mac: dataajax[index].mac,
+									sn: dataajax[index].sn,
+									ip: dataajax[index].ip,
+									type: dataajax[index].type,
+									switch: dataajax[index].switch,
+								});
+								this.DataEndkey = Math.random();
+							}
+						} else {
+							this.DataEndkey = Math.random();
+							this.tableDataEnd = dataajax;
+						}
+
+
+						//AJAX得到数据
+						dataajax.forEach((value, index) => {
+							this.tableDataBegin.push({
+								siteName: value.siteName,
+								mac: value.mac,
+								sn: value.sn,
+								ip: value.ip,
+								type: value.type,
+								switch: value.switch,
+							});
+						})
+
+						/* }) */
+					},
+
+
+					//组件自带监控当前页码  start**************
+					//前端搜索功能需要区分是否检索,因为对应的字段的索引不同
+					//用两个变量接收currentChangePage函数的参数
+					handleSizeChange(val) {
+						console.log(`每页 ${val} 条`);
+						this.pageSize = val;
+						this.handleCurrentChange(1);
+					},
+					handleCurrentChange(val) {
+						//console.log(`当前页: ${val}`);
+						this.currentPage = val;
+						//需要判断是否检索
+						if (!this.flag) {
+							this.currentChangePage(this.tableDataBegin);
+							console.log(this.tableDataEnd);
+						} else {
+							this.currentChangePage(this.filterTableDataEnd);
+							console.log(this.tableDataEnd);
+						}
+					},
+					//全局数据联动查询 方法**********************
+					currentChangePage(list) {
+						let from = (this.currentPage - 1) * this.pageSize;
+						let to = this.currentPage * this.pageSize;
+						this.tableDataEnd = [];
+						for (; from < to; from++) {
+							if (list[from]) {
+								this.tableDataEnd.push(list[from]);
+							}
+						}
+					},
+
+					//组件自带监控当前页码   end**************
+
+					//搜索 **********************
+					doFilter() {
+						if (this.tableDataName == "") {
+							this.$message.warning("查询条件不能为空！");
+							return;
+						}
+						this.tableDataEnd = []
+						//每次手动将数据置空,因为会出现多次点击搜索情况
+						this.filterTableDataEnd = []
+						this.tableDataBegin.forEach((value, index) => {
+							if (value.siteName) {
+								if (value.siteName.indexOf(this.tableDataName) >= 0) {
+									this.filterTableDataEnd.push(value)
+								}
+							}
+						});
+						//页面数据改变重新统计数据数量和当前页
+						this.currentPage = 1
+						this.totalItems = this.filterTableDataEnd.length
+						//渲染表格,根据值
+						this.currentChangePage(this.filterTableDataEnd)
+						//页面初始化数据需要判断是否检索过
+						this.flag = true
+					},
+
+
+					//删除**********************
+					delerow: function(index, rows) {
+						toast.$confirm("此操作将永久删除该数据，是否继续", "提示", {
+							confirmButtonText: "确定",
+							cancelButtonText: '取消',
+							type: "warning"
+						}).then(() => {
+							this.tableDataEnd.splice(index, 1)
+							//	rows.splice(index, 1);
+							/* toast.$notify({
+								title: '成功',
+								message: '删除成功',
+								type: 'success',
+								duration: 1000
+							}); */
+							this.$message.success("删除成功");
+						});
+					},
+					//设备备份
+					backup: function(index, rows) {
+						toast.$confirm("备份 【  " + rows + " 】 是否继续", "提示", {
+							confirmButtonText: "确定",
+							cancelButtonText: '取消',
+							type: "warning"
+						}).then(() => {
+							this.$message.success(rows + " 备份 成功");
+						});
+					},
+
+					//	EL-TABLE PROP 
+					substr_name(row, column, cellValue, index) {
+						let val = "";
+						//val = cellValue.substring(0, 6) + "...";
+						val = cellValue;
+						return val;
+						//console.log(cellValue)
+					},
+
+
+					//设置设备
+					setmax(index) {
+						//window.location.href = 'configuration.html';
+						sessionStorage.setItem("setmax", index);
+						console.log(index);
+					},
+
+
+
+					//数据同步**********************
+					openData() {
+						this.tableDataName = "";
+						//this.tableDataEnd = this.tableDataBegin;
+						//每次手动将数据置空,因为会出现多次点击搜索情况
+						util.success("数据同步成功");
+						this.filterTableDataEnd = []
+						this.tableDataBegin.forEach((value, index) => {
+							this.filterTableDataEnd.push(value);
+						});
+						this.currentPage = 1;
+						this.totalItems = this.filterTableDataEnd.length;
+						this.currentChangePage(this.filterTableDataEnd);
+						this.flag = true;
+					},
+
+					//设备状态***********
+					selcome_swit(row, column, cellValue, index) {
+						if (cellValue === 1) {
+							return "正常";
+						} else {
+							return "失效";
+						}
+					},
+
+
+					//添加设备 弹窗
+					Addfirm() {
+						this.Addfirmware = true;
+					},
+
+					//新添加设备
+					Addequipment() {
+						var $this = arguments[0];
+						if ($this == 2) {
+							helios.Addfirmware = false;
+							helios.equipmentdata = {
+								siteName: "",
+								mac: "",
+								sn: "",
+								ip: "",
+								type: "",
+								switch: true,
+							}
+							helios.isnull = "";
+							helios.show = false;
+						} else {
+							var token = sessionStorage.getItem("$token");
+							/* 	isnull:"--",
+								show:true, */
+							if (!helios.equipmentdata.siteName) {
+								helios.isnull = "站点名称不能为空";
+								helios.show = true;
+							} else if (!helios.equipmentdata.mac) {
+								helios.isnull = "MAC不能为空";
+								helios.show = true;
+							} else if (!helios.equipmentdata.sn) {
+								helios.isnull = "SN不能为空";
+								helios.show = true;
+							} else if (!helios.equipmentdata.ip) {
+								helios.isnull = "IP不能为空";
+								helios.show = true;
+							} else {
+								helios.isnull = "";
+								helios.show = false;
+
+								var obj = {
+									siteName: helios.equipmentdata.siteName,
+									mac: helios.equipmentdata.mac,
+									sn: helios.equipmentdata.sn,
+									ip: helios.equipmentdata.ip,
+									devSwitch: helios.equipmentdata.switch == true,
+									type: helios.equipmentdata.type == "master" ? 1 : 2,
+								}
+								//不刷新,插入
+								var arr = Object.values(helios.tableDataEnd);
+								arr.unshift(obj);
+								helios.tableDataEnd.unshift(obj);
+								//sessionStorage.setItem("equipment", JSON.stringify(arr));
+
+								helios.equipmentdata = {
+									siteName: "",
+									mac: "",
+									sn: "",
+									ip: "",
+									type: "",
+									switch: 0,
+								}
+								console.log(obj);
+
+								//请求
+								util.postattrajax(SNMPAPI.putBaseInfo, obj, function(data) {
+									toast.$message({
+										message: data,
+										type: 'success',
+										showClose: true,
+										offset: 80
+									});
+								});
+							}
+
+						}
+
+					},
+					//新添加设备 end
+
+
+					//获取设备基本信息
+					getBaseInfoData(index, value) {
+
+						helios.dataIndex = index;
+						helios.datavalue = value;
+						var obj = {
+							token: helios.token,
+							mac: index.mac,
+							sn: index.sn,
+							type: index.type,
+						}
+						//AJAX
+						util.getattrajax(SNMPAPI.getBaseInfo, obj, function(data) {
+							helios.tabshowBox = true;
+							var arr = Object.values(data); // 数据VALUE
+							var key = Object.keys(data.data); //数据KEY
+							/*console.log(key[0]);*/
+							console.log(data);
+							//便利构造一个新的对象数据组
+							let Getdata = [];
+							key.forEach(keys => {
+								switch (keys) {
+									case "mac":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "mac",
+												value: helios.Valueisnull(data.data.mac),
+											}
+											Getdata[0] = ($obj);
+											break;
+										}
+									case "sn":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "sn",
+												value: helios.Valueisnull(data.data.sn),
+											}
+											Getdata[1] = ($obj);
+											break;
+										}
+									case "type":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "type",
+												value: helios.Valueisnull(data.data.type) == 1 ? "master" : "slave",
+											}
+											Getdata[2] = ($obj);
+											break;
+										}
+									case "devSwitch":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "devSwitch",
+												value: (data.data.devSwitch)
+											}
+											Getdata[3] = ($obj);
+											break;
+										}
+									case "antennaType":
+										{
+											var $obj = {
+												zh: "IP地址",
+												EN: "antennaType",
+												value: helios.Valueisnull(data.data.antennaType),
+											}
+											Getdata.push($obj);
+											break;
+										}
+									case "band":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "band",
+												value: helios.Valueisnull(data.data.band),
+											}
+											Getdata.push($obj);
+											break;
+										}
+									case "channelBw":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "channelBw",
+												value: helios.Valueisnull(data.data.channelBw),
+											}
+											Getdata.push($obj);
+											break;
+										}
+									case "createDate":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "createDate",
+												value: helios.Valueisnull(data.data.createDate),
+											}
+											Getdata.push($obj);
+											break;
+										}
+
+									case "frequency":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "frequency",
+												value: helios.Valueisnull(data.data.frequency),
+											}
+											Getdata.push($obj);
+											break;
+										}
+									case "id":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "id",
+												value: helios.Valueisnull(data.data.id),
+											}
+											Getdata.push($obj);
+											break;
+										}
+									case "ip":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "ip",
+												value: helios.Valueisnull(data.data.ip),
+											}
+											Getdata.push($obj);
+											break;
+										}
+									case "location":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "location",
+												value: helios.Valueisnull(data.data.location),
+											}
+											Getdata.push($obj);
+											break;
+										}
+
+									case "masterMac":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "masterMac",
+												value: helios.Valueisnull(data.data.masterMac),
+											}
+											Getdata.push($obj);
+											break;
+										}
+									case "productName":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "productName",
+												value: helios.Valueisnull(data.data.productName),
+											}
+											Getdata.push($obj);
+											break;
+										}
+									case "remarks":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "remarks",
+												value: helios.Valueisnull(data.data.remarks),
+											}
+											Getdata.push($obj);
+											break;
+										}
+									case "resourceAllocation":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "resourceAllocation",
+												value: helios.Valueisnull(data.data.resourceAllocation),
+											}
+											Getdata.push($obj);
+											break;
+										}
+									case "sectorId":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "sectorId",
+												value: helios.Valueisnull(data.data.sectorId),
+											}
+											Getdata.push($obj);
+											break;
+										}
+									case "siteName":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "siteName",
+												value: helios.Valueisnull(data.data.siteName),
+											}
+											Getdata.push($obj);
+											break;
+										}
+
+									case "subnetMask":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "subnetMask",
+												value: helios.Valueisnull(data.data.subnetMask),
+											}
+											Getdata.push($obj);
+											break;
+										}
+									case "txRatio":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "txRatio",
+												value: helios.Valueisnull(data.data.txRatio),
+											}
+											Getdata.push($obj);
+											break;
+										}
+
+									case "updateDate":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "updateDate",
+												value: helios.Valueisnull(data.data.updateDate),
+											}
+											Getdata.push($obj);
+											break;
+										}
+									case "updater":
+										{
+											var $obj = {
+												zh: "更新人",
+												EN: "updater",
+												value: helios.Valueisnull(data.data.updater),
+											}
+											Getdata.push($obj);
+											break;
+										}
+									case "workMode":
+										{
+											var $obj = {
+												zh: "--",
+												EN: "workMode",
+												value: helios.Valueisnull(data.data.workMode),
+											}
+											Getdata.push($obj);
+											break;
+										}
+								}
+							});
+							//存入做为取消 时候使用
+							sessionStorage.setItem("BaseInfo", JSON.stringify(Getdata));
+
+							console.log(Getdata);
+
+							helios.getBaseInfo = Getdata;
+						});
+
+					},
+
+					//取消 & 修改,  设备信息
+					readBaseInfoData() {
+						var that = this;
+						let key = arguments[0];
+						if (2 == key) {
+							//取消
+							let BaseInfoData = sessionStorage.getItem("BaseInfo");
+							helios.getBaseInfo = JSON.parse(BaseInfoData);
+							helios.tabshowBox = false;
+						} else {
+							//修改
+							var arr = Object.values(helios.getBaseInfo); //遍历数据 关键词
+							let postBaseInfoData = [];
+							let $obj = {}; //存入需要修改的数据
+							arr.forEach(keys => {
+								switch (keys.EN) {
+									case "mac":
+										{
+											$obj.mac = keys.value;
+											break;
+										}
+									case "sn":
+										{
+											$obj.sn = keys.value;
+											break;
+										}
+									case "ip":
+										{
+											$obj.ip = keys.value;
+											break;
+										}
+									case "siteName":
+										{
+											$obj.siteName = keys.value;
+											break;
+										}
+										/* case "channelBw": {
+											$obj.channelBw = keys.value;
+											break;
+										} */
+									case "devSwitch":
+										{
+											$obj.devSwitch = keys.value;
+											break;
+										}
+									case "type":
+										{
+											$obj.type = keys.value == "master" ? 1 : 2;
+											break;
+										}
+
+								}
+							});
+
+							$obj.token = sessionStorage.getItem("$token");
+							//	console.log(key);
+							//不刷新,插入
+							//var arr = Object.values(helios.tableDataEnd);
+							//	arr.unshift($obj);
+							//	helios.tableDataEnd.unshift(obj);
+
+							//修改请求 
+
+
+							//console.log($obj); return false;
+
+							util.postattrajax(SNMPAPI.putBaseInfo, $obj, function(data) {
+								//	that.$set(helios.tableDataEnd, helios.dataIndex, helios.datavalue);
+								//	helios.tableDataEnd = helios.dataIndex;
+								//	sessionStorage.setItem("dataajax", JSON.stringify(dataajax));
+
+								helios.tableDataEnd = [$obj];
+								console.log(helios.tableDataEnd);
+								console.log($obj);
+								window.location.reload();
+								//	helios.tabshowBox = false;
+
+
+
+
+
+								/* 	console.log(helios.filterTableDataEnd);
+								     console.log(helios.tableDataBegin); */
+								/*	helios.getuquilist(); */
+								/* helios.tableDataEnd.length = 0; */
+
+								/* setTimeout(function () {
+								let dataajax = sessionStorage.getItem("dataajax");
+								console.log(JSON.parse(dataajax));
+								console.log(JSON.parse(dataajax).slice(0, 5));
+								helios.tableDataEnd = (JSON.parse(dataajax).slice(0, helios.pageSize));
+							}, 1500);
+ */
+
+
+								/* toast.$message({
+									message: data,
+									type: 'success',
+									showClose: true,
+									offset: 80
+								}); */
+							});
+
+
+
+						}
+					}
+
+
+					//特殊处理
+					//是否为空
+					,
+					Valueisnull(value) {
+						//console.log(value);
+						if ("" == value || undefined == value || null == value) {
+							return "";
+						} else {
+							return value
+						}
+					},
+
+				},
+				filters: {
+					typeof: function(value) {
+						if (value == 1) {
+							return "master"
+						} else if (value == 2) {
+							return "slave"
+						} else {
+							return "master"
+						}
+					}
+				}
+				/* 	filters: {
+						eeq: function (value) {
+							console.log(value);
+							if ("" == value || undefined == value || null == value) {
+								return "";
+							} else {
+								return value;
+							}
+						}
+					} */
+
+			});
+		</script>
+	</body>
+
+</html>

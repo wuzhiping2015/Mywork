@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+	</head>
+	<body>
+		<style>
+			.viswCard span {
+	color: #fff;
+	margin-right: 0px;
+	}
+	.box-header .el-button--mini, .el-button--mini.is-round {
+		padding: 1px 3px;
+		color: #fff;
+	   vertical-align: middle;
+	}
+	.el-input{
+		vertical-align: middle;
+	}
+	.label-text-vm {
+	    text-align: left;
+	}
+	.box-header.with-border {
+	    padding-bottom: 14px;
+	}
+	.col-md-12{ padding: 0px !important;}
+		
+	.col-xs-2 {
+	    padding: 0px !important;
+	    width:20% !important;
+	}
+	.no-padding .col-xs-2:nth-child(2)  .table-bordered, .no-padding .col-xs-2:nth-child(4)  .table-bordered{
+		background: #f0f9eb !important;
+	} 
+	 .clear{
+	 	 overflow: auto;
+	 	  zoom: 1;
+	 	  background: #fff;
+	 }
+	 .no-padding  .el-checkbox-group{
+		 margin-right: 10px;
+	}
+	.dataTable td{
+		height: 49px;
+	}
+</style>
+		<div id="configuration">
+
+			<div id="content" class="wrapper">
+
+
+				<div class="col-md-12" style="background: rgb(255, 255, 255);">
+
+					<div class="box-body table-responsive no-padding">
+						<div class="col-xs-2" style="float:left">
+							<table class="table res table-bordered  dataTable">
+								<tbody>
+									<tr>
+										<td style="height: 49px;"></td>
+									</tr>
+									<tr>
+										<td> </td>
+									</tr>
+									<tr style="height: 38px;">
+										<td>链接密码</td>
+									</tr>
+									<tr style="height: 37px;">
+										<td>天线类型 </td>
+									</tr>
+									<tr style="height: 45px;">
+										<td>最大固定发射功率 </td>
+									</tr>
+									<tr style="height: 45px;">
+										<td>工作频段</td>
+									</tr>
+									<tr style="height: 45px;">
+										<td>工作频率(起始频点)</td>
+									</tr>
+									<tr style="height: 45px;">
+										<td>工作频率(终止频点)</td>
+									</tr>
+									<tr style="height: 45px;">
+										<td>工作频率((频点1)</td>
+									</tr>
+									<tr style="height: 45px;">
+										<td>工作带宽</td>
+									</tr>
+									<tr style="height: 45px;">
+										<td>时隙参数</td>
+									</tr>
+									<tr style="height: 45px;">
+										<td>选频模式</td>
+									</tr>
+								</tbody>
+								<tbody></tbody>
+							</table>
+						</div>
+
+
+
+						<div class="col-xs-2">
+							<table class="table res table-bordered  dataTable">
+								<tbody>
+									<tr>
+										<td style=" text-align: center;padding: 7px;">
+											<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
+											&nbsp;&nbsp;&nbsp;
+											<el-button size="small">Read</el-button>
+										</td>
+									</tr>
+									<tr>
+										<td>Modem A</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="siso" value="0"></el-option>
+												<el-option label="mimo" value="1"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="5.8g B频段使能" value="0"></el-option>
+												<el-option label="5.8g A频段使能" value="1"></el-option>
+
+												<el-option label="1.8g频段" value="2"></el-option>
+
+												<el-option label="2.4g频段" value="3"></el-option>
+												<el-option label="1.4g频段" value="4"></el-option>
+												<el-option label="500M，600M频段" value="5"></el-option>
+												<el-option label="800M频段" value="6"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="1.4M" value="0"></el-option>
+												<el-option label="3M" value="1"></el-option>
+												<el-option label="5M" value="2"></el-option>
+												<el-option label="10M" value="3"></el-option>
+												<el-option label="15M" value="4"></el-option>
+												<el-option label="20M" value="5"></el-option>
+												<el-option label="auto" value="6"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="1D4U" value="3"></el-option>
+												<el-option label="2D3U" value="0"></el-option>
+												<el-option label="3D2U" value="1"></el-option>
+												<el-option label="4D1U" value="2"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="自动选屏" value="0"></el-option>
+												<el-option label="手动选屏" value="1"></el-option>
+											</el-select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						
+						
+						<div class="col-xs-2">
+							<table class="table res table-bordered  dataTable">
+								<tbody>
+									<tr>
+										<td style=" text-align: center;padding: 7px;">
+											<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
+											&nbsp;&nbsp;&nbsp;
+											<el-button size="small">Read</el-button>
+										</td>
+									</tr>
+									<tr>
+										<td>Modem B</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="siso" value="0"></el-option>
+												<el-option label="mimo" value="1"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+						
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="5.8g B频段使能" value="0"></el-option>
+												<el-option label="5.8g A频段使能" value="1"></el-option>
+						
+												<el-option label="1.8g频段" value="2"></el-option>
+						
+												<el-option label="2.4g频段" value="3"></el-option>
+												<el-option label="1.4g频段" value="4"></el-option>
+												<el-option label="500M，600M频段" value="5"></el-option>
+												<el-option label="800M频段" value="6"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="1.4M" value="0"></el-option>
+												<el-option label="3M" value="1"></el-option>
+												<el-option label="5M" value="2"></el-option>
+												<el-option label="10M" value="3"></el-option>
+												<el-option label="15M" value="4"></el-option>
+												<el-option label="20M" value="5"></el-option>
+												<el-option label="auto" value="6"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="1D4U" value="3"></el-option>
+												<el-option label="2D3U" value="0"></el-option>
+												<el-option label="3D2U" value="1"></el-option>
+												<el-option label="4D1U" value="2"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="自动选屏" value="0"></el-option>
+												<el-option label="手动选屏" value="1"></el-option>
+											</el-select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+<div class="col-xs-2">
+							<table class="table res table-bordered  dataTable">
+								<tbody>
+									<tr>
+										<td style=" text-align: center;padding: 7px;">
+											<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
+											&nbsp;&nbsp;&nbsp;
+											<el-button size="small">Read</el-button>
+										</td>
+									</tr>
+									<tr>
+										<td>Modem C</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="siso" value="0"></el-option>
+												<el-option label="mimo" value="1"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="5.8g B频段使能" value="0"></el-option>
+												<el-option label="5.8g A频段使能" value="1"></el-option>
+
+												<el-option label="1.8g频段" value="2"></el-option>
+
+												<el-option label="2.4g频段" value="3"></el-option>
+												<el-option label="1.4g频段" value="4"></el-option>
+												<el-option label="500M，600M频段" value="5"></el-option>
+												<el-option label="800M频段" value="6"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="1.4M" value="0"></el-option>
+												<el-option label="3M" value="1"></el-option>
+												<el-option label="5M" value="2"></el-option>
+												<el-option label="10M" value="3"></el-option>
+												<el-option label="15M" value="4"></el-option>
+												<el-option label="20M" value="5"></el-option>
+												<el-option label="auto" value="6"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="1D4U" value="3"></el-option>
+												<el-option label="2D3U" value="0"></el-option>
+												<el-option label="3D2U" value="1"></el-option>
+												<el-option label="4D1U" value="2"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="自动选屏" value="0"></el-option>
+												<el-option label="手动选屏" value="1"></el-option>
+											</el-select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						
+						
+						
+						<div class="col-xs-2">
+							<table class="table res table-bordered  dataTable">
+								<tbody>
+									<tr>
+										<td style=" text-align: center;padding: 7px;">
+											<el-button type="primary" @click="onSubmit" size="small">Set</el-button>
+											&nbsp;&nbsp;&nbsp;
+											<el-button size="small">Read</el-button>
+										</td>
+									</tr>
+									<tr>
+										<td>Modem D</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="siso" value="0"></el-option>
+												<el-option label="mimo" value="1"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+						
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="5.8g B频段使能" value="0"></el-option>
+												<el-option label="5.8g A频段使能" value="1"></el-option>
+						
+												<el-option label="1.8g频段" value="2"></el-option>
+						
+												<el-option label="2.4g频段" value="3"></el-option>
+												<el-option label="1.4g频段" value="4"></el-option>
+												<el-option label="500M，600M频段" value="5"></el-option>
+												<el-option label="800M频段" value="6"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-input v-model="form.tag" size="small"></el-input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="1.4M" value="0"></el-option>
+												<el-option label="3M" value="1"></el-option>
+												<el-option label="5M" value="2"></el-option>
+												<el-option label="10M" value="3"></el-option>
+												<el-option label="15M" value="4"></el-option>
+												<el-option label="20M" value="5"></el-option>
+												<el-option label="auto" value="6"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="1D4U" value="3"></el-option>
+												<el-option label="2D3U" value="0"></el-option>
+												<el-option label="3D2U" value="1"></el-option>
+												<el-option label="4D1U" value="2"></el-option>
+											</el-select>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<el-select v-model="form.name1" size="small">
+												<el-option label="自动选屏" value="0"></el-option>
+												<el-option label="手动选屏" value="1"></el-option>
+											</el-select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+
+
+			</div>
+
+
+		</div>
+		<script>
+			let helios;
+			let data = {
+
+				form: {
+					name1: "",
+					tag: "",
+					name: '',
+					resource: 'Master模式',
+				},
+			}
+			helios = new Vue({
+				el: "#configuration",
+				data: data,
+				//事件
+				methods: {
+					b1() {
+						toast.$notify({
+							title: '成功',
+							message: '数据请求成功',
+							type: 'success',
+							duration: 1000
+						});
+					},
+					onSubmit() {
+
+					}
+				},
+			});
+		</script>
+	</body>
+</html>
