@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>inventory</title>
+
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+
+	</head>
+	<style>
+		.span-text {
+        color: #409EFF !important;
+      }
+    .maplist i {
+        display: block
+    }
+	.info-box{
+		 box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+	}
+	.info-box-content{
+		padding-top: 15px;
+	}
+	.info-box-icon{
+	line-height: 67px;
+	}
+</style>
+
+	<body class="skin-black sidebar-open sidebar-mini">
+
+		<div class="wrapper">
+			<!-- 页头 -->
+			<div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+				<el-main-header :loguser="logUserName" :logUser="logUserName"></el-main-header>
+
+			</div>
+			<!-- 页头end -->
+
+			<!-- 侧边栏导航 -->
+			<div id="comp-sidebar">
+				<el-main-sidebar></el-main-sidebar>
+			</div>
+			<!-- 侧边栏导航 end -->
+
+			<!-- 内容区域 -->
+			<div class="content-wrapper" id="content-wrapper">
+				<!-- 内容头部面包屑 -->
+				<section style="display: none">
+					<ol class="breadcrumb">
+						<li>
+							<a id="head1" href="#"></a>
+						</li>
+						<li id="head2" class="active"></li>
+					</ol>
+				</section>
+				<!-- 主要内容显示 -->
+				<section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+
+					<!-- Personal center -->
+					<div class="row">
+						<div class="col-xs-12">
+
+
+							<!--  PERFORMANCE -->
+							<div class="box">
+								<div class="box-header with-border">
+									<h3 class="box-title">设备详情</h3>
+									<div class="box-tools pull-right"></div>
+								</div>
+
+								<div class="box-body table-responsive" style="padding-top: 20px;">
+
+
+									<el-form ref="form" :model="form" label-width="170px" size="small">
+										<el-col :span="20">
+											<el-col :span="8">
+												<el-form-item label="设备型号">
+													<el-input v-model="form.value"></el-input>
+												</el-form-item>
+											</el-col>
+											<el-col :span="8">
+												<el-form-item label="产品名称">
+													<el-input v-model="form.value"></el-input>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="8">
+												<el-form-item label="硬件版本号">
+													<el-input v-model="form.value"></el-input>
+												</el-form-item>
+											</el-col>
+
+
+											<el-col :span="8">
+												<el-form-item label="Bootloader版本">
+													<el-input v-model="form.value"></el-input>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="8">
+												<el-form-item label="固件的版本说明">
+													<el-input v-model="form.value"></el-input>
+												</el-form-item>
+											</el-col>
+
+
+											<el-col :span="8">
+												<el-form-item label="MAC地址">
+													<el-input v-model="form.value"></el-input>
+												</el-form-item>
+											</el-col>
+
+
+											<el-col :span="8">
+												<el-form-item label="序列号">
+													<el-input v-model="form.value"></el-input>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="8">
+												<el-form-item label="设备最大容量">
+													<el-input v-model="form.value"></el-input>
+												</el-form-item>
+											</el-col>
+											<el-col :span="24">
+												<el-form-item>
+													<el-button type="primary" @click="b1">确定</el-button>
+													<el-button>取消</el-button>
+												</el-form-item>
+											</el-col>
+										</el-col>
+
+									</el-form>
+
+
+
+								</div>
+
+
+
+							</div>
+						</div>
+
+				</section>
+			</div>
+			<!-- 内容区域 -->
+
+		</div>
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+		<script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+
+		<script>
+			let data = {
+				form: {
+					value: ""
+				},
+			};
+			var Helios = new Vue({
+				el: "#MainContext",
+				data: data,
+				//事件
+				methods: {
+					b1() {
+						toast.$notify({
+							title: '成功',
+							message: '数据请求成功',
+							type: 'success',
+							duration: 1000
+						});
+					},
+					//快捷操作
+					Coordinates_isshow() {
+						if (this.$data.coordshow) {
+							this.$data.coordshow = false;
+						} else {
+							this.$data.coordshow = true;
+						}
+
+					},
+
+				},
+
+
+			});
+		</script>
+
+
+	</body>
+
+
+</html>

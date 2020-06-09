@@ -20,17 +20,14 @@
 .viswCard {
     position: absolute;
     right: 5px;
-    top: 9px;
+	top: 5px;
 }
 
 .viswCard span {
     display: inline-block;
     cursor: pointer;
-
-    padding: 5px;
     margin-right: 15px;
     border-radius: 50%;
-    color: #7279a0;
     font-size: 14px;
 }
 

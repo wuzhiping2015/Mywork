@@ -963,16 +963,8 @@ a.txt-blued:hover {
 	color: #f4a831;
 }
 
-.mes-tip {
-	position: relative;
-	padding-left: 25px;
-	line-height: 18px;
-}
 
-span.mes-tip {
-	display: inline-block;
-}
-
+ 
 .mes-tip .icon-tip {
 	position: absolute;
 	left: 5px;
@@ -986,6 +978,8 @@ span.mes-tip {
 	text-transform: uppercase;
 	color: rgba(18, 21, 78, .7);
 	font-weight: 700;
+	font-size: 14px;
+	padding: 20px 10px;
 }
 
 .mes-tip.warm .icon-tip {
@@ -995,10 +989,11 @@ span.mes-tip {
 .mes-tip.quest {
 	color: #f99534;
 }
-
+ 
 .mes-tip.quest .icon-tip {
-	width: 16px;
-	height: 16px;
+	position: relative;
+	padding-left: 25px;
+	line-height: 18px;
 	text-align: center;
 	background-position: 0 -120px;
 }
@@ -1910,7 +1905,7 @@ button[class*="btn-"] {
 
 .label-text-vm {
 	float: left;
-	font-size: 12px;
+	font-size: 14px;
 	vertical-align: top;
 	text-align: right;
 	color: #666;
@@ -2126,7 +2121,7 @@ button[class*="btn-"] {
 	float: left;
 	width: 100%;
 	min-height: 28px;
-	font-size: 12px;
+	font-size: 14px;
 	color: #777;
 }
 

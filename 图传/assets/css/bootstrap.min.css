@@ -2980,7 +2980,6 @@ th {
 .table>thead>tr>th {
     padding: 8px;
     line-height: 1.42857143;
-    vertical-align: top;
     border-top: 1px solid #ddd
 }
 
@@ -4954,9 +4953,11 @@ textarea.input-group-sm>.input-group-btn>.btn {
 }
 
 .nav {
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none
+      padding-left: 0;
+      margin-bottom: 0;
+      position: relative;
+      list-style: none;
+     
 }
 
 .nav>li {
@@ -4968,6 +4969,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
     position: relative;
     display: block;
     padding: 11px 25px;
+    font-size: 16px;
 }
 
 .navbar-custom-menu .nav>li>a {
@@ -4976,7 +4978,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
 
 .nav>li>a:hover {
     text-decoration: none;
-    background-color: #00c0ef;
+
 }
 
 .nav>li.disabled>a {
@@ -5085,16 +5087,8 @@ textarea.input-group-sm>.input-group-btn>.btn {
     margin-left: 2px
 }
 
-.nav-pills>li.active>a,
-.nav-pills>li.active>a:focus,
-.nav-pills>li.active>a:hover {
-    color: #fff;
-    background-color: #337ab7
-}
 
-.nav-stacked>li {
-    float: none
-}
+
 
 .nav-stacked>li+li {
     margin-top: 2px;
