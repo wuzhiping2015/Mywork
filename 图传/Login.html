@@ -5,22 +5,22 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Helios Login</title>
-		<link rel="stylesheet" href="assets/css/Helios_Login1.css">
+		<link rel="stylesheet" href="master/assets/css/Helios_Login.css">
 		<link rel="stylesheet" href="assets/css/Elementui_index.css">
 
-		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
-		<link rel="shortcut icon" href="assets/images/helios.ico">
-		<script type="text/javascript" src="assets/js/jquery-3.4.1.min.js"></script>
-		<script type="text/javascript" src="assets/js/vue.js"></script>
-		<script type="text/javascript" src="assets/js/index.js"></script>
-		<script type="text/javascript" src="assets/js/particles.js"></script>
+		<link rel="stylesheet" href="master/assets/css/font-awesome.min.css?2019827" />
+		<link rel="shortcut icon" href="master/assets/images/helios.ico">
+		<script type="text/javascript" src="master/assets/js/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="master/assets/js/vue.js"></script>
+		<script type="text/javascript" src="master/assets/js/index.js"></script>
+		<script type="text/javascript" src="master/assets/js/particles.js"></script>
 
 	</head>
 	<body>
 
-		<div id="login11">
+		<div id="login">
 			<div class="login-box" id="particles-js">
-				<canvas width="1848" height="925" style="width: 100%; height: 100%;"></canvas>
+			<!-- 	<canvas width="1848" height="925" style="width: 100%; height: 100%;"></canvas> -->
 				<div class="login-con">
 					<span class="login-text"></span>
 					<!--  <div style="color: #7ccdc8; padding-bottom: 6px; letter-spacing: 2px;"> -欢迎使用智能图传系统-</div> -->
@@ -28,20 +28,12 @@
 						<ul class="login-form">
 							<div class="item">
 								<i class="icon iconfont iconxingmingyonghumingnicheng"></i>
-								<el-input placeholder="Username"  size="mini" v-model="name"></el-input>
+								<el-input placeholder="Username" size="mini" v-model="name"></el-input>
 							</div>
 							<div class="item">
 								<i class="icon iconfont iconmima"></i>
-								<el-input type="password" placeholder="Password" size="mini"  v-model="password"></el-input>
+					<el-input type="password" placeholder="Password" size="mini" v-model="password"></el-input>
 							</div>
-							<!-- <div class="item">
-                            <i class="icon iconfont icon-yonghuleixing"  style="font-size: 20px; left: 2px;"></i>
-                            <el-select v-model="value3" placeholder="请选择用户类型" size="mini">
-                                <el-option v-for="item in options" :key="item.value" :label="item.label"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div> -->
 							<li>
 								<button type="button" class="btn btn-primary" id="loginBtn" @click="Login()">登录</button>
 								<p class="btn-bottom"> </p>
@@ -60,9 +52,7 @@
 			var toast = new Vue({
 				el: ''
 			}); //引入VUE 对象方法
-
 			let data = {
-				 
 				options: [{
 					value: '1',
 					label: 'Operator'
@@ -76,89 +66,21 @@
 				name: '11',
 				password: '11',
 			};
-			 
 
 			var Helios = new Vue({
-				el: "#login11",
+				el: "#login",
 				data: data,
-				beforeCreate() {
-					/*console.log("创建前：");
-					console.log(this.$data); */
-				},
-				created() {
-					console.log("创建完成：");
-					console.log(this.$data);
-				},
-				beforeMount() {
-					/* console.log("挂载前：");
-					console.log(this.$data); */
-				},
-				mounted() {
-
-					// $("body").resize();
-					// console.log(this.$data);
-
-				},
-
-				updated() {
-					console.log("==更新成功==");
-					console.log(this.$data);
-				},
-
 				//事件
 				methods: {
 					Login() {
-						/*   let h=`<div class="lodin"><img src="assets/images/wifi-2.gif"></div>`; */
-
-						/* if (2 == this.$data.value3) {
-							let h = `<div class="lodin">进入 2号版本 系统，请稍后</div>`;
-							toast.$message({
-								message: "进入 2号 版本 系统，请稍后。。。",
-								type: 'success',
-								duration: 4200
-							});
-							setTimeout(() => {
-								window.location.href = "index.html";
-							}, 3000);
-
-						} else {
-							// let h = `<div class="lodin">进入 系统，请稍后</div>`;
-							toast.$message({
-								message: "进入系统中，请稍后。。。",
-								type: 'success',
-								duration: 2200
-							});
-							setTimeout(() => {
-								window.location.href = "index.html";
-							}, 1000);
-						} */
-
 						setTimeout(() => {
-							window.location.href = "index.html";
+							window.location.href = "master/index.html";
 						}, 1000);
 						$("#loginBtn").attr("disabled", "disabled").css({
 							"cursor": "no-drop",
 							"background": "#3c6485",
 							"color": "#fff"
 						}).html('<i class="el-icon-loading"></i>进入系统中...');
-
-						/*   toast.$alert(h, '', {
-						      dangerouslyUseHTMLString: true,
-						      duration: 100000,
-						      showClose:false,
-						      showCancelButton:false,
-						      showConfirmButton:false, 
-						  }); */
-
-
-						/*   setTimeout(()=>{
-						      window.location.href = "index.html";
-
-						 setTimeout(function () {
-						      window.location.href = "index.html";
-
-						  }, 3000); */
-
 						$("#textuname").focus();
 					},
 					keyEnble(ev) {
@@ -167,12 +89,7 @@
 						}
 					}
 				},
-
-
 			});
-
-
-
 			particlesJS('particles-js', {
 				particles: {
 					color: '#fff',
@@ -220,8 +137,6 @@
 				retina_detect: true
 			});
 		</script>
-
-
 		<style>
 			html,
 			body {
@@ -229,8 +144,6 @@
 				height: 80%;
 				background: #000;
 			}
-
-			/* remove canvas default margin */
 			canvas {
 				display: block;
 				vertical-align: bottom;

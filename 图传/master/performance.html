@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Performance</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+    <link rel="stylesheet" href="assets/css/index.css?2019827">
+
+</head>
+<style>
+    .span-text {
+        color: #409EFF !important;
+
+    }
+
+    .maplist i {
+        display: block
+    }
+</style>
+
+<body class="skin-black sidebar-open sidebar-mini">
+
+    <div class="wrapper">
+        <!-- 页头 -->
+        <div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+            <el-main-header :loguser="logUserName" :logUser="logUserName"></el-main-header>
+
+        </div>
+        <!-- 页头end -->
+
+        <!-- 侧边栏导航 -->
+        <div id="comp-sidebar">
+            <el-main-sidebar></el-main-sidebar>
+        </div>
+        <!-- 侧边栏导航 end -->
+
+        <!-- 内容区域 -->
+        <div class="content-wrapper" id="content-wrapper">
+            <!-- 内容头部面包屑 -->
+            <section style="display: none">
+                <ol class="breadcrumb">
+                    <li>
+                        <a id="head1" href="#"></a>
+                    </li>
+                    <li id="head2" class="active"></li>
+                </ol>
+            </section>
+            <!-- 主要内容显示 -->
+            <section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+
+                <!-- Personal center -->
+                <div class="row">
+                    <div class="col-xs-12">
+
+
+                        <!-- shortcuts -->
+                        <div class="box ">
+                            <!--   <div class="box collapsed-box"> -->
+                            <div class="box-header with-border">
+                                <h3 class="box-title">operation</h3>
+                                <div class="box-tools pull-right">
+                                    <!--  <span data-toggle="tooltip" title="" class="badge progress-bar-info"
+                    data-original-title="3 New Messages">11</span> 
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class=" fa fa-plus"></i>
+                                    </button>-->
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="box-body maplist">
+                                    <a href="index.html" class="btn btn-app">
+                                        <i class=" iconfont icon-wifi"></i> whelios
+                                    </a>
+                                    <a href="index-2.html" class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a>
+                                    <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a> <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a> <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a> <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a> <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a> <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a> <a class="btn btn-app">
+                                        <i class=" iconfont icon-xinhaojieshouqi"></i> whelios
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 快捷操作 end -->
+
+                        <!--  PERFORMANCE -->
+                        <div class="box">
+                            <div class="box-header">
+
+                                <!--  <span class=" icon iconfont icon-xinhao3 text-teal "></span> -->
+                                <h3 class="box-title">PERFORMANCE</h3>
+                                <!--   <div class="box-tools">
+                                            <div class="input-group input-group-sm" style="width: 150px;"><input type="text"
+                                                    name="table_search" placeholder="Search" class="form-control pull-right">
+                                                <div class="input-group-btn"><button type="submit" class="btn btn-default"><i
+                                                            class="fa fa-search"></i></button></div>
+                                            </div>
+                                        </div> -->
+                            </div>
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width:60px">Number</th>
+                                            <th>Integrity</th>
+                                            <th>Date&Time</th>
+                                            <th style="width:90px">USA</th>
+                                            <th>ES</th>
+                                            <th>SES</th>
+                                            <th>BBE</th>
+                                            <th>Rx Mbytes</th>
+                                            <th>Tx Mbytes</th>
+                                            <th>Active Seconds</th>
+                                            <th>Abouve Traffic Thresh(100.0Mbps)</th>
+                                        </tr>
+                                        <tr>
+                                            <td> <a href="#">0001</a> </td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td><span class="label label-success">Intermal</span></td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td> <a href="#">0001</a> </td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td><span class="label label-success">Intermal</span></td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                        </tr>
+                                        <tr>
+                                            <td> <a href="#">0001</a> </td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td><span class="label label-success">Intermal</span></td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                        </tr>
+                                        <tr>
+                                            <td> <a href="#">0001</a> </td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td><span class="label label-success">Intermal</span></td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                            <td>数据加载中...</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--  PERFORMANCE -->
+
+
+
+
+                        <!-- 
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Performance</h3>
+                            </div>
+                            <div class="box-footer">
+
+                                <ul class="col-grid-m-12font col-search-s pr0 all-li-pb10">
+
+                                    <li>
+                                        <label class="label-text-vm">thresholds configuration</label>
+                                        <div class="div-textarea">
+                                            <span class="span-text">数据加载中...</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label class="label-text-vm">valid data flag</label>
+                                        <div class="div-text-demo">
+                                            <span class="span-text">数据加载中...</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label class="label-text-vm">time stamp</label>
+                                        <div class="div-text-demo">
+                                            <span class="span-text">数据加载中...</span>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <label class="label-text-vm">unavailable seconds</label>
+                                        <div class="div-text-demo">
+                                            <span class="span-text">数据加载中...</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label class="label-text-vm">errored seconds</label>
+                                        <div class="div-text-demo">
+                                            <span class="span-text">数据加载中...</span>
+                                        </div>
+                                    </li>
+
+
+                                    <li>
+                                        <label class="label-text-vm"> severe errored seconds</label>
+                                        <div class="div-text-demo">
+                                            <span class="span-text">数据加载中...</span>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <label class="label-text-vm"> background block error</label>
+                                        <div class="div-text-demo">
+                                            <span class="span-text">数据加载中...</span>
+                                        </div>
+                                    </li>
+
+
+                                    <li>
+                                        <label class="label-text-vm"> received Mbytes</label>
+                                        <div class="div-text-demo">
+                                            <span class="span-text">数据加载中...</span>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <label class="label-text-vm">transmitted Mbytes</label>
+                                        <div class="div-text-demo">
+                                            <span class="span-text">数据加载中...</span>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <label class="label-text-vm">above traffic thresh</label>
+                                        <div class="div-text-demo">
+                                            <span class="span-text">数据加载中...</span>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <label class="label-text-vm">active seconds</label>
+                                        <div class="div-text-demo">
+                                            <span class="span-text">数据加载中...</span>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+
+                        </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+
+
+
+                </div>
+
+            </section>
+        </div>
+        <!-- 内容区域 -->
+
+    </div>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vue.js"></script>
+    <script type="text/javascript" src="assets/js/adminlte.js"></script>
+    <script type="text/javascript" src="assets/js/comment.js"></script>
+    
+
+    <script>
+        let data = {
+            coordshow: false,
+            radio: "",
+            value3: "",
+            cur: 0,
+            value1: "",
+            checkList: ['5.740', '5.755']
+        };
+        var Helios = new Vue({
+            el: "#MainContext",
+            data: data,
+            beforeCreate() {
+                /*console.log("创建前：");
+                console.log(this.$data); */
+            },
+            created() {
+                //  console.log("创建完成：");
+                // console.log(this.$data);
+
+            },
+            beforeMount() {
+                /* console.log("挂载前：");
+                console.log(this.$data); */
+
+            },
+            mounted() {
+                /* console.log("时时监控数据变化,并随之更新");*/
+                $("body").resize();
+
+            },
+
+            updated() {
+                // console.log("==更新成功==");
+                //  console.log(this.$data);
+
+
+            },
+            //事件
+            methods: {
+                b1() {
+                    toast.$notify({
+                        title: '成功',
+                        message: '数据请求成功',
+                        type: 'success',
+                        duration: 1000
+                    });
+                },
+                //快捷操作
+                Coordinates_isshow() {
+                    if (this.$data.coordshow) {
+                        this.$data.coordshow = false;
+                    } else {
+                        this.$data.coordshow = true;
+                    }
+
+                },
+                b2() {
+                    /*   toast.$confirm(' This process takes several seconds and followed by a device reset',
+                          'Restore to Factory Defaults', {
+                              confirmButtonText: '确定',
+                              cancelButtonText: '取消',
+                              type: 'warning',
+                              showCanceButton: true,
+                          }).then(() => {
+                          this.$message({
+                              type: 'success',
+                              message: 'The update is successful!'
+                          });
+                      }).catch(() => {
+                          this.$message({
+                              type: 'info',
+                              message: 'To cancel'
+                          });
+                      }); */
+
+                    //  var bbbb="Default IP Address"+(this.$data.cur);
+                    // var IP="Default IP Address";
+                    //  console.log(IP);
+
+                    const h = this.$createElement;
+                    this.$msgbox({
+                        title: 'Restore to Factory Defaults',
+                        message: h('p', null, [
+                            h('span', null,
+                                'This process takes several seconds and followed by a device reset IP Address '
+                            ),
+                            h('em', {
+                                style: 'color: teal'
+                            }, " (198.168.12)")
+                        ]),
+                        showCancelButton: true,
+                        confirmButtonText: 'Confirm',
+                        cancelButtonText: 'Reset',
+
+
+                        beforeClose: (action, instance, done) => {
+                            if (action === 'confirm') {
+                                instance.confirmButtonLoading = true;
+                                instance.confirmButtonText = 'The execution of...';
+                                setTimeout(() => {
+                                    done();
+                                    setTimeout(() => {
+                                        instance.confirmButtonLoading = false;
+                                    }, 300);
+                                }, 5000);
+                            } else {
+                                done();
+                            }
+                        }
+                    }).then(action => {
+                        this.$message({
+                            type: 'success',
+                            message: "The update is successful"
+                        });
+                    });
+
+
+
+
+
+
+
+                }
+            },
+
+
+        });
+    </script>
+
+
+</body>
+
+
+</html>

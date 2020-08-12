@@ -1,0 +1,534 @@
+/*
+   作者：福建京奥通信技术有限公司 研发中心
+ * 时间：2019-8-16	
+ * 描述: 图传 登录
+*/
+*,
+body,
+html {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.login-box {
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    position: fixed;
+    display: table;
+    width: 100%;
+    background: url(../images/login-bg-0.jpg) center no-repeat;
+    background-size: 100%;
+}
+
+.login-box .login-con {
+    vertical-align: middle;
+    text-align: center;
+    position: fixed;
+    right: 2%;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    padding: 50px 60px;
+    height: 100vh;
+}
+
+.login-box .login-text {
+    width: 182px;
+    height: 60px;
+    background: url(../images/login.png) no-repeat;
+    display: inline-block;
+    padding-bottom: 24px
+}
+
+.login-con .login-form {
+    width: 320px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 60px
+}
+
+.login-form li {
+    margin-bottom: 12px
+}
+
+.login-form li .inp {
+    height: 48px;
+    outline: 0;
+    border: none
+}
+
+.login-form .warn {
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    background: rgba(0, 0, 0, .75);
+    position: absolute;
+    top: 117px;
+    width: 295px;
+    left: 12px;
+    border-radius: 5px;
+    padding: 12px;
+    box-sizing: border-box;
+    z-index: 10
+}
+
+.login-form .warn:after {
+    content: "";
+    width: 13px;
+    height: 6px;
+    background: url(../images/login-arrow.png) no-repeat;
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    right: 50%
+}
+
+.login-form .btn-primary {
+    height: 48px;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 12px
+}
+
+.login-form .btn-bottom {
+    margin-top: 8px
+}
+
+.login-form .checkbox>.icon:after {
+    color: #fff
+}
+
+.login-form .checkbox.active .icon:after {
+    color: #008dff
+}
+
+.login-form .checkbox>em {
+    color: #fff
+}
+
+.login-form .rpassword {
+    color: #fff;
+    text-decoration: none
+}
+
+
+.login {
+    position: relative;
+    min-width: 1100px;
+    min-height: 780px;
+    height: 100%;
+    background-color: #f8f8f8
+}
+
+.login-banner {
+    position: relative;
+    padding-top: 28px;
+    height: 342px;
+    background: #4779c7 url(../images/login-banner.jpg) top center no-repeat;
+    color: #9ac2ff;
+    font-size: 16px
+}
+
+.login-banner .logo {
+    float: left;
+    margin-left: 8px
+}
+
+.login-banner .line,
+.login-banner .title {
+    float: left
+}
+
+.login-banner .line {
+    margin: 7px 12px 0 14px;
+    width: 1px;
+    height: 14px;
+    border-right: 1px solid #5d89cf;
+    background-color: #3361a6
+}
+
+.login-banner .title {
+    margin-top: 2px
+}
+
+.login-body {
+    padding: 60px 0 0;
+    background-color: #f8f8f8
+}
+
+.login-form {
+    margin: 0 auto;
+    width: 380px
+}
+
+.login-form .item {
+    position: relative;
+    margin-bottom: 10px;
+    height: 40px;
+    border-radius: 2px;
+}
+
+.login-form .item .iconfont {
+    display: inline-block;
+    position: absolute;
+    color: #28a7d7;
+    z-index: 9;
+    top: 11px;
+    left: 8px;
+    font-size: 16px;
+}
+
+.login-form .item .lab {
+    float: left;
+    width: 48px;
+    height: 40px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    background-color: #a6b5cb
+}
+
+.login-form .item .lab i {
+    float: left;
+    margin: 8px 0 0 13px;
+    width: 22px;
+    height: 24px;
+    background: url(../images/login-ui.png) no-repeat
+}
+
+.login-form .item .lab .icon-user {
+    background-position: 0 -119px
+}
+
+.login-form .item .lab .icon-user:before {
+    content: ''
+}
+
+.login-form .item .lab .icon-psw {
+    background-position: 1px -145px
+}
+
+.login-form .item input {
+    padding: 0 10px 0 28px;
+    width: 280px;
+    height: 38px;
+    color: #505b65;
+    font-size: 12px;
+    line-height: 38px;
+}
+
+.login-form .item .clear {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: url(../images/login-ui.png) 0 -80px no-repeat;
+    cursor: pointer
+}
+
+.login-form .item .clear:hover {
+    background-position: 0 -100px
+}
+
+.login-form .item .msg-box {
+    position: absolute;
+    top: 10px;
+    left: 400px;
+    color: #505b65;
+    font-size: 12px
+}
+
+.login-form .msg-box .error {
+    display: none;
+    white-space: nowrap
+}
+
+.login-form .msg-box .error i {
+    float: left;
+    margin-right: 5px;
+    width: 16px;
+    height: 16px;
+    background: url(../images/login-ui.png) no-repeat
+}
+
+.login-form .msg-box .success i {
+    float: left;
+    margin-right: 5px;
+    width: 16px;
+    height: 16px;
+    background: url(../images/login-ui.png) 0 -18px no-repeat
+}
+
+.login-form .msg-box .link {
+    color: #5d89cf
+}
+
+.login-form .item-error {
+    border-color: #ef6b48
+}
+
+.login-form .item-focus {
+    border-color: #497ac4
+}
+
+.login-form .item-code {
+    margin-bottom: 20px;
+    padding: 0;
+    border: 0 none;
+    background: 0 0;
+    white-space: nowrap
+}
+
+.login-form .item-code>input {
+    padding: 0 10px 0 28px;
+    width: 200px;
+    height: 40px;
+    border: 1px solid #d9e1ed;
+    border-radius: 2px;
+    color: #505b65;
+    font-size: 16px;
+    line-height: 40px
+}
+
+.login-form .item-code img {
+    margin: 0 10px;
+    cursor: pointer
+}
+
+.login-form .item-code .change-code {
+    margin-right: 10px;
+    color: #4779c7;
+    cursor: pointer
+}
+
+.login-form .item-code .msg-box {
+    position: static;
+    display: inline-block;
+    *display: inline;
+    color: #505b65;
+    font-size: 12px;
+    zoom: 1
+}
+
+
+button,
+input,
+optgroup,
+option,
+select,
+textarea {
+    background: #fff;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    margin: 0;
+    color: inherit;
+    font: inherit;
+}
+
+.login-form .item-code.item-error>input {
+    border-color: #ef6b48
+}
+
+.login-form .item-code.item-focus>input {
+    border-color: #497ac4
+}
+
+.login-form .actions {
+    padding: 8px 0 12px
+}
+
+.login-form .actions .checkbox {
+    margin: 0 3px 0 0;
+    padding: 0;
+    outline: #6d6d6d none 0;
+    vertical-align: middle\9;
+    vertical-align: -2px
+}
+
+.login-form .actions .checkbox>em {
+    height: 20px;
+    color: #505b65;
+    line-height: 20px
+}
+
+.login-form .actions .checkbox.active .icon {
+    background-position: 0 -58px
+}
+
+.login-form .fgpsd {
+    float: right;
+    color: #4779c7
+}
+
+.login-form .btn-info {
+    padding: 10px 15px;
+    width: 100%;
+    font-size: 16px
+}
+
+.findPsw-footer,
+.login-footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 42px;
+    background-color: #f0f0f0;
+    color: #4d4d4d;
+    text-align: center;
+    font-size: 12px;
+    line-height: 42px
+}
+
+.findPsw {
+    position: relative;
+    min-width: 435px;
+    min-height: 760px;
+    height: 100%;
+    background-color: #f8f8f8
+}
+
+.findPsw-header {
+    padding: 14px 0 15px;
+    height: 31px;
+    background-color: #fff;
+    font-size: 16px
+}
+
+.login-form .btn-primary {
+    height: 48px;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 12px;
+}
+
+button.btn {
+    *padding: 3px 15px;
+}
+
+
+.btn {
+    display: inline-block;
+    *display: inline;
+    margin-bottom: 0;
+    padding: 5px 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-image: none;
+    vertical-align: middle;
+    text-align: center;
+    white-space: nowrap;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.42857143;
+    cursor: pointer;
+    zoom: 1;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+button,
+input,
+optgroup,
+option,
+select,
+textarea {
+    background: #fff;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+button,
+html input[type=button],
+input[type=reset],
+input[type=submit] {
+    cursor: pointer;
+    -webkit-appearance: button;
+}
+
+button,
+select {
+    text-transform: none;
+}
+
+input,
+textarea:focus {
+
+    outline: none;
+
+}
+
+input:focus {
+    outline-offset: -2px;
+}
+
+user agent stylesheet:focus {
+    outline: -webkit-focus-ring-color auto 1px;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    margin: 0;
+    color: inherit;
+    font: inherit;
+}
+
+input,
+select,
+textarea {
+    font-size: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    border: none;
+    font-size: 100%;
+}
+
+img,
+input {
+    vertical-align: middle;
+}
+
+li {
+    list-style: none;
+}
+
+.btn-primary:active,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.btn-primary:focus,
+.btn-primary:hover {
+    border-color: #05c9fa !important;
+    background-color: #05c9fa !important;
+    color: #fff;
+}
+
+.btn-primary {
+    border-color: #28a7d7 !important;
+    background-color: #28a7d7 !important;
+    color: #fff;
+}

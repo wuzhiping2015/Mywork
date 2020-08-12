@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>management</title>
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+	<link rel="stylesheet" href="assets/css/global.css?2019827" />
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+	<!-- Theme style -->
+	<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+	<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+	<link rel="stylesheet" href="assets/css/index.css?2019827">
+</head>
+<style>
+	[class*="col-grid-s"]>li {
+		width: 410px;
+	}
+
+	.box .box-footer {
+		border-top: 0px;
+	}
+
+	.el-checkbox {
+		margin: 10px 30px;
+	}
+
+	.label {
+		font-size: 100%;
+	}
+
+	.el-dialog {
+		width: 30%;
+	}
+
+	td span small {
+		cursor: pointer;
+	}
+</style>
+
+<body class="skin-black sidebar-open sidebar-mini">
+
+	<div class="wrapper">
+		<!-- 页头 -->
+		<div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+			<el-main-header :loguser="logUserName"></el-main-header>
+
+		</div>
+		<!-- 页头end -->
+
+		<!-- 侧边栏导航 -->
+		<div id="comp-sidebar">
+			<el-main-sidebar></el-main-sidebar>
+		</div>
+		<!-- 侧边栏导航 end -->
+
+		<!-- 内容区域 -->
+		<div class="content-wrapper" id="content-wrapper">
+			<!-- 内容头部面包屑 -->
+			<section style="display: none">
+				<ol class="breadcrumb">
+					<li>
+						<a id="head1" href="#"></a>
+					</li>
+					<li id="head2" class="active"></li>
+				</ol>
+			</section>
+			<!-- 主要内容显示 -->
+			<section class="content container-fluid" id="MainContext">
+
+
+				<!-- system -->
+				<div class="row">
+
+					<el-col :span="23" style="height: 60px;
+    line-height: 60px; font-size: 20px;  padding-left: 10%;    background: #fff;  margin-bottom: 10px; margin-left: 15px; font-weight: bold;">
+						<el-col :span="4">
+							<el-radio v-model="data22" label="1">Modem A</el-radio>
+						</el-col>
+						<el-col :span="4">
+							<el-radio v-model="data22" label="2">Modem B</el-radio>
+						</el-col>
+						<el-col :span="4">
+							<el-radio v-model="data22" label="3">Modem C</el-radio>
+						</el-col>
+						<el-col :span="4">
+							<el-radio v-model="data22" label="4">Modem D</el-radio>
+						</el-col>
+						<el-col :span="8">
+						</el-col>
+					</el-col>
+
+					<div class="col-xs-12">
+
+						<div class="nav-tabs-custom">
+							<ul class="nav nav-tabs">
+								<li :class="{active:cur==2}" @click="cur=2">
+									<a href="javascript:void(0);">
+										Modem参数
+									</a>
+								</li>
+								<li :class="{active:cur==0}" @click="cur=0">
+									<a href="javascript:void(0);">
+										模块管理</a>
+								</li>
+								<li :class="{active:cur==1}" @click="cur=1">
+									<a href="javascript:void(0);"> 网络连接配置
+									</a>
+								</li>
+
+								<li :class="{active:cur==3}" @click="cur=3">
+									<a href="javascript:void(0);">
+										天线配置
+									</a>
+								</li>
+								<li :class="{active:cur==4}" @click="cur=4">
+									<a href="javascript:void(0);">
+										空口相关参数
+									</a>
+								</li>
+							</ul>
+							<div class="box" style="padding-top: 10px;">
+								<div class="box-footer" v-show="cur==0">
+									<div class="col-xs-10">
+
+										<el-form ref="form" :model="form" label-width="180px" size="small">
+
+											<el-col :span="10">
+												<el-form-item label="产品名称">
+													<el-input placeholder=""></el-input>
+												</el-form-item>
+											</el-col>
+											<el-col :span="10">
+												<el-form-item label="扇区ID">
+													<el-select>
+														<el-option label="1" value="1"></el-option>
+														<el-option label="2" value="2"></el-option>
+														<el-option label="3" value="3"></el-option>
+														<el-option label="4" value="4"></el-option>
+														<el-option label="5" value="5"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+
+
+											<el-col :span="10">
+												<el-col :span="20">
+													<el-form-item label="站点id">
+														<el-input placeholder=""></el-input>
+													</el-form-item>
+												</el-col>
+												<el-col :span="4" style="margin-top: 10px;">
+													0~83
+												</el-col>
+											</el-col>
+
+
+											<el-col :span="10">
+												<el-form-item label="工作模式">
+													<el-select>
+														<el-option label="自动模式" value="1"></el-option>
+														<el-option label="master" value="2"></el-option>
+														<el-option label="slave" value="3"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="10">
+												<el-form-item label="Cp传输加密算法">
+													<el-select>
+														<el-option label="不加密" value="1"></el-option>
+														<el-option label="snow3g" value="2"></el-option>
+														<el-option label="aes256" value="3"></el-option>
+														<el-option label="zuc" value="3"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="10">
+												<el-form-item label="Slave接入master密码">
+													<el-input placeholder=""></el-input>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="10">
+												<el-form-item label="Modem型号">
+													<el-select>
+														<el-option label="modem A型" value="1"></el-option>
+														<el-option label="modem B型" value="2"></el-option>
+														<el-option label="modem C型" value="3"></el-option>
+														<el-option label="modem D型" value="3"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="10">
+												<el-form-item label="Modem的温度校准">
+													<el-input placeholder=""></el-input>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="10">
+												<el-form-item label="白名单">
+													<el-input placeholder=""></el-input>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="10">
+												<el-form-item label="白名单列表">
+													<el-input placeholder=""></el-input>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="10">
+												<el-form-item label="Modem ftp配置">
+													<el-input placeholder=""></el-input>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="20">
+												<el-form-item label="黑白名单开关">
+													<el-switch v-model="value1"> </el-switch>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="10">
+												<el-form-item label="设备还原">
+													<el-radio-group v-model="form.data">
+														<el-radio label="不还原" value="1"></el-radio>·
+														<el-radio label="设备还原" value="2"></el-radio>
+													</el-radio-group>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="20">
+												<el-form-item label="设备还原ip地址">
+													<el-radio-group v-model="form.data">
+														<el-radio label="ip地址不还原" value="1"></el-radio>·
+														<el-radio label="ip地址一起还原" value="2"></el-radio>
+													</el-radio-group>
+												</el-form-item>
+											</el-col>
+											<el-col :span="10">
+												<el-form-item label="内部备份">
+													<el-radio-group v-model="form.data">
+														<el-radio label="不备份" value="1"></el-radio>·
+														<el-radio label="执行参数备份" value="2"></el-radio>
+													</el-radio-group>
+												</el-form-item>
+											</el-col>
+											<el-col :span="24">
+												<el-form-item>
+													<el-button type="primary" @click="b1">确定</el-button>
+													<el-button>取消</el-button>
+												</el-form-item>
+											</el-col>
+										</el-form>
+
+									</div>
+
+
+								</div>
+
+								<div class="box-footer" v-show="cur==1" style="display: none">
+
+									<el-col :span="10">
+										<el-form ref="form" :model="form" label-width="160px" size="small">
+											<el-col :span="24">
+												<el-form-item label="IP地址类型">
+													<el-radio-group v-model="form.iptype">
+														<el-radio label="ipv4" value="ipv4"></el-radio>
+														<el-radio label="ipv6" value="ipv6"></el-radio>
+														<el-radio label="ipv4&ipv6" value="ipv4&ipv6"></el-radio>
+													</el-radio-group>
+												</el-form-item>
+											</el-col>
+											<el-col :span="24" v-if="form.iptype=='ipv4' ">
+												<el-col :span="24">
+													<el-form-item label="Ipv4地址">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+												<el-col :span="24">
+													<el-form-item label="Ipv4子网掩码">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+												<el-col :span="24">
+													<el-form-item label="Ipv4网关">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+												<el-col :span="24">
+													<el-form-item>
+														<el-button type="primary" @click="b1">确定</el-button>
+														<el-button>取消</el-button>
+													</el-form-item>
+												</el-col>
+											</el-col>
+
+
+											<el-col :span="24" v-if="form.iptype=='ipv6'">
+												<el-col :span="24">
+													<el-form-item label="Ipv6地址">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+												<el-col :span="24">
+													<el-form-item label="Ipv6子网掩码">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+												<el-col :span="24">
+													<el-form-item label="Ipv6网关">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+												<el-col :span="24">
+													<el-form-item>
+														<el-button type="primary" @click="b1">确定</el-button>
+														<el-button>取消</el-button>
+													</el-form-item>
+												</el-col>
+											</el-col>
+
+
+
+											<el-col :span="24" v-if="form.iptype=='ipv4&ipv6'">
+												<el-col :span="12">
+													<el-col :span="24">
+														<el-form-item label="Ipv4地址">
+															<el-input v-model="form.name"></el-input>
+														</el-form-item>
+													</el-col>
+													<el-col :span="24">
+														<el-form-item label="Ipv4子网掩码">
+															<el-input v-model="form.name"></el-input>
+														</el-form-item>
+													</el-col>
+													<el-col :span="24">
+														<el-form-item label="Ipv4网关">
+															<el-input v-model="form.name"></el-input>
+														</el-form-item>
+													</el-col>
+
+												</el-col>
+												<el-col :span="12">
+													<el-col :span="24">
+														<el-form-item label="Ipv6地址">
+															<el-input v-model="form.name"></el-input>
+														</el-form-item>
+													</el-col>
+													<el-col :span="24">
+														<el-form-item label="Ipv6子网掩码">
+															<el-input v-model="form.name"></el-input>
+														</el-form-item>
+													</el-col>
+													<el-col :span="24">
+														<el-form-item label="Ipv6网关">
+															<el-input v-model="form.name"></el-input>
+														</el-form-item>
+													</el-col>
+												</el-col>
+												<el-col :span="24">
+													<el-form-item>
+														<el-button type="primary" @click="b1">确定</el-button>
+														<el-button>取消</el-button>
+													</el-form-item>
+												</el-col>
+											</el-col>
+										</el-form>
+									</el-col>
+
+								</div>
+
+								<div class="box-footer" v-show="cur==2" style="display: none">
+
+
+									<el-row :gutter="20">
+
+										<el-form ref="form" :model="form" label-width="220px" size="small">
+											<el-col :span="8">
+												<el-form-item label="Modem标识 MAC">
+													数据..
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="8">
+												<el-form-item label="Modem当前温度">
+													数据..
+												</el-form-item>
+											</el-col>
+											<el-col :span="8">
+												<el-form-item label="模块序列号">
+													数据..
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="8">
+												<el-form-item label="硬件版本">
+													数据..
+												</el-form-item>
+											</el-col>
+											<el-col :span="8">
+												<el-form-item label="系统版本">
+													数据..
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="8">
+												<el-form-item label="Ap版本">
+													数据..
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="8">
+												<el-form-item label="Cp高层版本">
+													数据..
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="8">
+												<el-form-item label="Cp底层版本">
+													数据..
+												</el-form-item>
+											</el-col>
+											<el-col :span="8">
+												<el-form-item label="ap路由表更新时间">
+													数据..
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="8">
+												<el-form-item label="Eth口接收到的数据量(1S)">
+													数据..
+												</el-form-item>
+											</el-col>
+											<el-col :span="8">
+												<el-form-item label="Eth口发送的数据量(1S)">
+													数据..
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="8">
+												<el-form-item label="自上次开机依赖的下行吞吐量">
+													数据..
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="8">
+												<el-form-item label="自上次开机依赖的上行吞吐量">
+													数据..
+												</el-form-item>
+											</el-col>
+											<el-col :span="8">
+												<el-form-item label="Master_rf">
+													数据..
+												</el-form-item>
+											</el-col>
+											<el-col :span="8">
+												<el-form-item label="Slave_table">
+													数据..
+												</el-form-item>
+											</el-col>
+
+
+
+										</el-form>
+									</el-row>
+
+								</div>
+
+
+								<div class="box-footer" v-show="cur==3">
+									<el-form ref="form" :model="form" label-width="180px" size="small">
+
+										<el-col :span="8">
+											<el-col :span="24">
+												<el-form-item label="天线连接类型">
+													<el-radio-group>
+														<el-radio label="内置" value="1"></el-radio>·
+														<el-radio label="外置" value="2"></el-radio>
+													</el-radio-group>
+												</el-form-item>
+											</el-col>
+											<el-col :span="24">
+												<el-form-item label="天线类型">
+													<el-radio-group>
+														<el-radio label="siso" value="1"></el-radio>·
+														<el-radio label="mimo" value="2"></el-radio>
+													</el-radio-group>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="24">
+												<el-form-item label="Tx的eirp">
+													<el-input placeholder="" display="display"></el-input>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="24">
+												<el-form-item label="天线增益">
+													<el-input placeholder=""></el-input>
+												</el-form-item>
+											</el-col>
+											<el-col :span="24">
+												<el-form-item label="线损">
+													<el-input placeholder=""></el-input>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="24">
+												<el-form-item label="主端最大固定发射功率">
+													<el-input placeholder=""></el-input>
+												</el-form-item>
+											</el-col>
+											<el-col :span="24">
+												<el-form-item label="最大发射功率门限值">
+													<el-input placeholder=""></el-input>
+												</el-form-item>
+											</el-col>
+										</el-col>
+
+										<el-col :span="24">
+											<el-form-item>
+												<el-button type="primary" @click="b1">确定</el-button>
+												<el-button>取消</el-button>
+											</el-form-item>
+										</el-col>
+									</el-form>
+								</div>
+
+
+
+								<div class="box-footer" v-show="cur==4">
+									<el-form ref="form" :model="form" label-width="180px" size="small">
+										<el-col :span="20">
+
+											<el-col :span="10">
+												<el-form-item label="选频模式">
+													<el-radio-group>
+														<el-radio label="自动选频"></el-radio>
+														<el-radio label="手动选频"></el-radio>
+													</el-radio-group>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="10">
+												<el-form-item label="Master之间的同步开关">
+													<el-switch v-model="value1"> </el-switch>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="10">
+												<el-form-item label="同步信号源选择">
+													<el-select>
+														<el-option label="gps" value="1"></el-option>
+														<el-option label="master输出的同步信号" value="2"></el-option>
+														<el-option label="无线空口同步" value="3"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="10">
+												<el-form-item label="最大传输带宽">
+													<el-input placeholder=""></el-input>
+												</el-form-item>
+											</el-col>
+											<el-col :span="10">
+												<el-form-item label="频率 起始频点">
+													<el-input placeholder=""></el-input>
+												</el-form-item>
+											</el-col>
+											<el-col :span="10">
+												<el-form-item label="频率 终止频点">
+													<el-input placeholder=""></el-input>
+												</el-form-item>
+											</el-col>
+											<el-col :span="10">
+												<el-form-item label="频率 Band">
+													<el-input placeholder=""></el-input>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="10">
+												<el-form-item label="工作频段">
+													<el-select size="small">
+														<el-option label="5.8g B频段使能" value="0"></el-option>
+														<el-option label="5.8g A频段使能" value="1"></el-option>
+														<el-option label="1.8g频段" value="2"></el-option>
+														<el-option label="2.4g频段" value="3"></el-option>
+														<el-option label="1.4g频段" value="4"></el-option>
+														<el-option label="500M，600M频段" value="5"></el-option>
+														<el-option label="800M频段" value="6"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+											<el-col :span="10">
+												<el-form-item label="工作带宽">
+													<el-select size="small">
+														<el-option label="1.4M" value="0"></el-option>
+														<el-option label="3M" value="1"></el-option>
+														<el-option label="5M" value="2"></el-option>
+														<el-option label="10M" value="3"></el-option>
+														<el-option label="15M" value="4"></el-option>
+														<el-option label="20M" value="5"></el-option>
+														<el-option label="auto" value="6"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+											<el-col :span="10">
+												<el-form-item label="时隙参数配置">
+													<el-select size="small">
+														<el-option label="2D3U" value="0"></el-option>
+														<el-option label="3D2U" value="1"></el-option>
+														<el-option label="4D1U" value="2"></el-option>
+														<el-option label="1D4U" value="3"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+											<el-col :span="10">
+												<el-form-item label="射频参数">
+													<el-radio-group>
+														<el-radio label="无动作" value="0"></el-radio>
+														<el-radio label="更新射频设置" value="1"></el-radio>
+													</el-radio-group>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="24">
+												<el-form-item>
+													<el-button type="primary" @click="b1">确定</el-button>
+													<el-button>取消</el-button>
+												</el-form-item>
+											</el-col>
+									</el-form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- system end -->
+
+				<!--   Trap Destinations -->
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="box">
+							<div class="box-header with-border">
+								<h3 class="box-title">Band列表</h3>
+								<div class="viswCard">
+									<el-button type="success" icon="el-icon-setting" @click="modeladd">添加
+									</el-button>
+								</div>
+							</div>
+							<div class="box-body table-responsive no-padding">
+								<table class="table table-hover">
+									<tbody>
+										<tr>
+											<th style="width: 250px;">Band 名称</th>
+											<th style="width: 250px;">宽带</th>
+											<th style="width: 250px;">频率</th>
+											<th style="width: 250px;">频点</th>
+											<th>操作</th>
+										</tr>
+										<tr>
+											<td>
+												<a href="#">0001</a>
+											</td>
+											<td>数据...</td>
+											<td>数据...</td>
+											<td>数据...</td>
+											<td>
+												<el-button size="mini" icon="el-icon-edit" type="primary" @click="modeladd">编 辑</el-button>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<a href="#">0001</a>
+											</td>
+											<td>数据...</td>
+											<td>数据...</td>
+											<td>数据...</td>
+											<td>
+												<el-button size="mini" icon="el-icon-edit" type="primary" @click="modeladd">编 辑</el-button>
+											</td>
+										</tr>
+
+
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+					</div>
+
+
+				</div>
+
+				<!-- moden -->
+				<el-dialog :visible.sync="usershow" width="40%">
+					<div style="padding-top: 20px;">
+						<el-form ref="updateform" :model="form" label-width="80px" size="small">
+							<el-form-item label="宽带">
+								<el-input v-model="form.data"></el-input>
+							</el-form-item>
+
+							<el-form-item label="频点列表">
+								<el-select v-model="form.data">
+									<el-option label="频点列表1" value="1"></el-option>
+									<el-option label="频点列表2" value="2"></el-option>
+									<el-option label="频点列表3" value="3"></el-option>
+								</el-select>
+							</el-form-item>
+						</el-form>
+					</div>
+					<div class="dialog-footer tl" style=" margin-left: 81px;">
+						<el-button type="primary" @click="usershow = false" size="medium">设 置</el-button>
+						<el-button type="success" @click="usershow = false" size="medium">取 消</el-button>
+					</div>
+				</el-dialog>
+				<!-- moden -->
+
+				<!--   Trap Destinations-->
+			</section>
+		</div>
+		<!-- 内容区域 -->
+
+
+	</div>
+	<script type="text/javascript" src="assets/js/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/vue.js"></script>
+	<script type="text/javascript" src="assets/js/index.js"></script>
+	<script type="text/javascript" src="assets/js/comment.js"></script>
+	<script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+	<script>
+		let Helios;
+		let data = {
+			cur: 2,
+			data22: "1",
+			coordshow: false,
+			value1: true,
+
+			thar: "",
+			configure: false, //编辑弹出
+			radio: "1",
+			value3: "",
+			ipshow_tab: "1",
+			checkList: ['5.740', '5.755'],
+
+
+
+			usershow: false,
+			form: {
+				iptype: "ipv4",
+				name: '',
+				data: 1,
+				name1: true,
+				resource: 'Master模式',
+			},
+		};
+		Helios = new Vue({
+			el: "#MainContext",
+			data: data,
+			mounted() {
+				console.log(this.$data);
+				$("body").resize();
+
+			},
+			updated() {
+				console.log(this.$data);
+			},
+			//事件
+			methods: {
+				b1() {
+					toast.$notify({
+						title: '成功',
+						message: '数据请求成功',
+						type: 'success',
+						duration: 1000
+					});
+				},
+				Btnoperation(x) {
+					this.$data.configure = true;
+					this.$data.thar = x;
+				},
+				modeladd() {
+					this.usershow = true;
+				}
+
+			},
+
+
+		});
+	</script>
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,136 @@
+@charset "utf-8";
+/*
+ 	作者：福建京奥通信技术有限公司 研发中心
+ 	时间：2019 -8-15
+ 	描述: 图传
+*/
+
+/* reset */
+
+* html {
+	filter: expression(document.exefcCommand("BackgroundImageCache", false, true));
+	-ms-text-size-adjust: 100%;
+}
+
+* body {
+	height: 100%;
+}
+
+html {
+	/* color: #000; */
+	/* -webkit-text-size-adjust: 100%; */
+	-ms-text-size-adjust: 100%;
+}
+
+/*固定*/
+
+/* HEADER START */
+
+.el-col-24 h5 {
+	color: #fff;
+}
+
+.commenter {
+	background: #fff;
+	padding: 20px;
+}
+
+.el-header,
+.el-footer {
+	background-color: #fff;
+	text-align: center;
+}
+
+.el-aside {
+	background-color: #32323a;
+	text-align: center;
+}
+
+.el-menu {
+	background-color: #32323a !important;
+	text-align: left !important;
+}
+
+.el-submenu__title {
+	color: #ebedf0 !important;
+}
+
+.el-menu-item:focus,
+.el-menu-item:hover,
+.el-submenu__title:hover {
+	outline: 0;
+	color: #ebedf0 !important;
+	background-color: #28282e !important;
+}
+
+.el-main {
+	color: #2c343d !important;
+}
+
+.el-main {
+	background-color: #f1f2f7;
+	color: #2c343d;
+	text-align: center;
+}
+
+body>.el-container {
+	margin-bottom: 40px;
+}
+
+.el-container:nth-child(5) .el-aside,
+.el-container:nth-child(6) .el-aside {
+	line-height: 260px;
+}
+
+.el-container:nth-child(7) .el-aside {
+	line-height: 320px;
+}
+
+.el-container {
+	position: absolute;
+	width: 100%;
+	top: 0px;
+	left: 0;
+	bottom: 0;
+}
+
+.el-header {
+	padding: 0;
+	z-index: 1000;
+}
+
+/* // header菜单需要靠右的添加.fr即可(如：<el-menu-item class="fr" index="3">消息中心</el-menu-item>) */
+
+.el-header .fr {
+	float: right;
+}
+
+.el-header .el-menu {
+	border-bottom: none;
+}
+
+.el-col-24 h5 {
+	height: 35px;
+	line-height: 45px;
+}
+
+.el-aside .el-menu {
+	border-right: none;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+
+#app {
+	height: 100%;
+}
+
+/*header end*/

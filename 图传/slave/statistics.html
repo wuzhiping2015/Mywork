@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Performance</title>
+
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+
+	</head>
+	<style>
+		.span-text {
+        color: #409EFF !important;
+      }
+    .maplist i {
+        display: block
+    }
+	.info-box{
+		 box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+	}
+	.info-box-content{
+		padding-top: 15px;
+	}
+	.info-box-icon{
+	line-height: 67px;
+	}
+</style>
+
+	<body class="skin-black sidebar-open sidebar-mini">
+
+		<div class="wrapper">
+			<!-- 页头 -->
+			<div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+				<el-main-header :loguser="logUserName" :logUser="logUserName"></el-main-header>
+
+			</div>
+			<!-- 页头end -->
+
+			<!-- 侧边栏导航 -->
+			<div id="comp-sidebar">
+				<el-main-sidebar></el-main-sidebar>
+			</div>
+			<!-- 侧边栏导航 end -->
+
+			<!-- 内容区域 -->
+			<div class="content-wrapper" id="content-wrapper">
+				<!-- 内容头部面包屑 -->
+				<section style="display: none">
+					<ol class="breadcrumb">
+						<li>
+							<a id="head1" href="#"></a>
+						</li>
+						<li id="head2" class="active"></li>
+					</ol>
+				</section>
+				<!-- 主要内容显示 -->
+				<section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+
+					<!-- Personal center -->
+					<div class="row">
+						<div class="col-xs-12">
+
+
+							<!--  PERFORMANCE -->
+							<div class="box">
+								<div class="box-header with-border">
+									<h3 class="box-title">统计信息</h3>
+									<div class="viswCard">
+										<el-button type="primary">确定</el-button>
+										&nbsp;
+										<el-button type="success">取消</el-button>
+									</div>
+								</div>
+
+								<div class="box-body table-responsive" style="padding-top: 20px;">
+
+									<el-row>
+										<el-form ref="form" :model="form" label-width="170px" size="small">
+											<el-col :span="6">
+												<el-form-item label="rssi低门值">
+													<el-select v-model="form.value" filterable>
+														<el-option label="1.4" value="0"></el-option>
+														<el-option label="1.4" value="0"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+											<el-col :span="6">
+												<el-form-item label="上行吞吐量低阈值门限">
+													<el-select v-model="form.value" filterable>
+														<el-option label="1.4" value="0"></el-option>
+														<el-option label="1.4" value="0"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+											<el-col :span="6">
+												<el-form-item label="上行吞吐量高阈值门限">
+													<el-select v-model="form.value" filterable>
+														<el-option label="1.4" value="0"></el-option>
+														<el-option label="1.4" value="0"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+											<el-col :span="6">
+												<el-form-item label="snr低值门限">
+													<el-select v-model="form.value" filterable>
+														<el-option label="1.4" value="0"></el-option>
+														<el-option label="1.4" value="0"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+											<el-col :span="24"></el-col>
+											<el-col :span="6">
+												<el-form-item label="rssi低门值">
+													<el-select v-model="form.value" filterable>
+														<el-option label="1.4" value="0"></el-option>
+														<el-option label="1.4" value="0"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+											<el-col :span="6">
+												<el-form-item label="rssi高门值">
+													<el-select v-model="form.value" filterable>
+														<el-option label="1.4" value="0"></el-option>
+														<el-option label="1.4" value="0"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+											<el-col :span="6">
+												<el-form-item label="下行吞吐量低阈值门限">
+													<el-select v-model="form.value" filterable>
+														<el-option label="1.4" value="0"></el-option>
+														<el-option label="1.4" value="0"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="15" style=" height: 60px; line-height: 60px; font-size: 16px;margin-left: 10%;">
+												<el-col :span="4">
+													<el-radio v-model="form.data" label="1">Modem A</el-radio>
+												</el-col>
+												<el-col :span="4">
+													<el-radio v-model="form.data" label="2">Modem B</el-radio>
+												</el-col>
+												<el-col :span="4">
+													<el-radio v-model="form.data" label="3">Modem C</el-radio>
+												</el-col>
+												<el-col :span="4">
+													<el-radio v-model="form.data" label="4">Modem D</el-radio>
+												</el-col>
+												<el-col :span="8">
+												</el-col>
+											</el-col>
+
+
+										</el-form>
+									</el-row>
+
+
+
+
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box">
+											<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">rssi低于门限值时间</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box"><span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">tx发射功率24小时最小值</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box"><span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">设定时间内误码率统计</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box"><span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">rssi高于门限值时间</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box"><span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">tx发射功率24小时最大值</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box"><span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">总误码率统计</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box"><span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">rssi最近24小时最低值</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box"><span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">上行吞吐量低于低阈值时间</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box"><span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">snr最近24小时内最小值</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box"><span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">下行吞吐量低于低阈值时间</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box"><span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">snr最近24小时内最大值
+												</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box"><span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">上行吞吐量统计</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box"><span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">上行吞吐量统计</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box"><span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">snr低于阈值时间</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class="info-box"><span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+											<div class="info-box-content">
+												<span class="info-box-text">下行吞吐量统计</span>
+												<span class="info-box-number">1,410</span>
+											</div>
+										</div>
+									</div>
+
+
+
+								</div>
+
+
+
+							</div>
+						</div>
+
+				</section>
+			</div>
+			<!-- 内容区域 -->
+
+		</div>
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+		<script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+
+		<script>
+			let data = {
+				form: {
+					value: ""
+				},
+			};
+			var Helios = new Vue({
+				el: "#MainContext",
+				data: data,
+				beforeCreate() {
+					/*console.log("创建前：");
+					console.log(this.$data); */
+				},
+				created() {
+					//  console.log("创建完成：");
+					// console.log(this.$data);
+
+				},
+				beforeMount() {
+					/* console.log("挂载前：");
+					console.log(this.$data); */
+
+				},
+				mounted() {
+					/* console.log("时时监控数据变化,并随之更新");*/
+					$("body").resize();
+
+				},
+
+				updated() {
+					// console.log("==更新成功==");
+					//  console.log(this.$data);
+
+
+				},
+				//事件
+				methods: {
+					b1() {
+						toast.$notify({
+							title: '成功',
+							message: '数据请求成功',
+							type: 'success',
+							duration: 1000
+						});
+					},
+					//快捷操作
+					Coordinates_isshow() {
+						if (this.$data.coordshow) {
+							this.$data.coordshow = false;
+						} else {
+							this.$data.coordshow = true;
+						}
+
+					},
+
+				},
+
+
+			});
+		</script>
+
+
+	</body>
+
+
+</html>

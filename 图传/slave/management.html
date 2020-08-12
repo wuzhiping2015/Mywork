@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>management</title>
+
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+	</head>
+	<style>
+		[class*="col-grid-s"]>li {
+        width: 410px;
+    }
+
+    .box .box-footer {
+        border-top: 0px;
+    }
+
+    .el-checkbox {
+        margin: 10px 30px;
+    }
+
+    .label {
+        font-size: 100%;
+    }
+
+    .el-dialog {
+        width: 30%;
+    }
+
+    td span small {
+        cursor: pointer;
+    } 
+
+</style>
+
+	<body class="skin-black sidebar-open sidebar-mini">
+
+		<div class="wrapper">
+			<!-- 页头 -->
+			<div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+				<el-main-header :loguser="logUserName"></el-main-header>
+
+			</div>
+			<!-- 页头end -->
+
+			<!-- 侧边栏导航 -->
+			<div id="comp-sidebar">
+				<el-main-sidebar></el-main-sidebar>
+			</div>
+			<!-- 侧边栏导航 end -->
+
+			<!-- 内容区域 -->
+			<div class="content-wrapper" id="content-wrapper">
+				<!-- 内容头部面包屑 -->
+				<section style="display: none">
+					<ol class="breadcrumb">
+						<li>
+							<a id="head1" href="#"></a>
+						</li>
+						<li id="head2" class="active"></li>
+					</ol>
+				</section>
+				<!-- 主要内容显示 -->
+				<section class="content container-fluid" id="MainContext">
+
+
+					<!-- system -->
+					<div class="row">
+						<div class="col-xs-12">
+
+							<div class="nav-tabs-custom">
+								<ul class="nav nav-tabs">
+									<li :class="{active:cur==2}" @click="cur=2"><a href="javascript:void(0);">
+											站点信息配置
+										</a>
+									</li>
+									<li :class="{active:cur==0}" @click="cur=0"><a href="javascript:void(0);">
+											SNMP 配置</a> </li>
+
+									<li :class="{active:cur==1}" @click="cur=1"><a href="javascript:void(0);"> GPS配置 &
+											时间配置
+										</a>
+									</li>
+								</ul>
+								<div class="box" style="padding-top: 10px;">
+									<div class="box-footer" v-show="cur==0">
+										<ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+
+
+											<li class="w100of" style="padding-bottom: 20px;">
+												<label class="label-text-vm">版本选择
+												</label>
+												<div class="div-text-demo" style="width: 610px;">
+													<div class="area-list-radio">
+														<el-radio-group v-model="ipshow_tab">
+															<el-radio label="1">V1+V2
+															</el-radio>
+
+															<el-radio label="3">V3
+															</el-radio>
+														</el-radio-group>
+													</div>
+												</div>
+											</li>
+										</ul>
+
+
+										<div class="row">
+											<div class="col-xs-5" v-show="ipshow_tab==1  ">
+												<ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+
+													<li>
+														<label class="label-text-vm">
+															团体名</label>
+														<div class="div-text-demo">
+															<el-input placeholder="" size="mini"></el-input>
+														</div>
+													</li>
+
+												</ul>
+												<div class="col-xs-10">
+													<ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+														<li class="btneare" style="padding-top:5px;">
+															<label class="label-text-vm"> </label>
+															<div class="div-text-demo" style="padding-left: 156px;">
+																<el-button type="primary" size="mini" @click="b1">确定
+																</el-button>
+																<el-button type="success" size="mini" @click="b1">取消
+																</el-button>
+															</div>
+														</li>
+													</ul>
+												</div>
+											</div>
+
+											<div class="col-xs-12" v-show="ipshow_tab==3">
+
+												<el-col :span="20">
+													<el-form ref="form" :model="form" label-width="160px" size="small">
+
+														<el-col :span="8">
+															<el-form-item label="用户名">
+																<el-input placeholder=""></el-input>
+															</el-form-item>
+														</el-col>
+
+														<el-col :span="8">
+															<el-form-item label="认证模式">
+																<el-radio label="md5"></el-radio>
+																<el-radio label="sha"></el-radio>
+															</el-form-item>
+														</el-col>
+
+
+														<el-col :span="8">
+															<el-form-item label="认证密码 首次输入">
+																<el-input placeholder=""></el-input>
+															</el-form-item>
+														</el-col>
+
+														<el-col :span="8">
+															<el-form-item label="认证密码 二次确认输入">
+																<el-input placeholder=""></el-input>
+															</el-form-item>
+														</el-col>
+
+														<el-col :span="8">
+															<el-form-item label="加密模式">
+																<el-radio label="aes128"></el-radio>
+																<el-radio label="des56"></el-radio>
+															</el-form-item>
+														</el-col>
+
+
+														<el-col :span="8">
+															<el-form-item label="加密密码 首次输入">
+																<el-input placeholder=""></el-input>
+															</el-form-item>
+														</el-col>
+
+														<el-col :span="8">
+															<el-form-item label="加密密码 二次确认输入">
+																<el-input placeholder=""></el-input>
+															</el-form-item>
+														</el-col>
+														<el-col :span="8">
+															<el-form-item label="安全级别">
+																<el-select v-model="form.region" placeholder="请选择活动区域">
+																	<el-option label="不认证不加密" value="1"></el-option>
+																	<el-option label="认证不加密" value="2"></el-option>
+																	<el-option label="认证并加密" value="3"></el-option>
+																</el-select>
+															</el-form-item>
+														</el-col>
+														<el-col :span="8">
+															<el-form-item label="超时时间">
+																<el-input placeholder=""></el-input>
+															</el-form-item>
+														</el-col>
+														<el-col :span="8">
+															<el-form-item label="最大尝试次数">
+																<el-input placeholder=""></el-input>
+															</el-form-item>
+														</el-col>
+														<el-col :span="24">
+															<el-form-item>
+																<el-button type="primary" @click="b1">确定</el-button>
+																<el-button>取消</el-button>
+															</el-form-item>
+														</el-col>
+														</form>
+												</el-col>
+											</div>
+
+
+											<!--   Trap设置列表 -->
+											<div class="row" style="padding: 5px;">
+
+												<div class="col-xs-11" style="margin-left: 1%;background: #dedede; padding:5px; width: 98%; margin-top: 30px;">
+													<div class="box" style="margin: 0px;">
+														<div class="box-header with-border">
+															<h3 class="box-title">Trap设置列表</h3>
+														</div>
+														<div class="box-body table-responsive no-padding">
+															<table class="table table-hover">
+																<tbody>
+																	<tr>
+																		<th style="width: 250px;">目标主机IP地址</th>
+																		<th style="width: 250px;">端口号（默认162）</th>
+																		<th style="width: 250px;">trap类型</th>
+																		<th style="width: 250px;">trap版本</th>
+																		<th>操作</th>
+																	</tr>
+																	<tr>
+																		<td><a href="#">0001</a></td>
+																		<td>192.168.222.141</td>
+																		<td>123</td>
+																		<td><span class="label bg-aqua">v2</span></td>
+																		<td>
+																			<span>
+																				<small class="label bg-green" @click="Btnoperation(1)">Edit
+																					Trap</small>
+																			</span>
+																		</td>
+																	</tr>
+																	<tr>
+																		<td><a href="#">0001</a></td>
+																		<td>192.168.222.141</td>
+																		<td>123</td>
+																		<td><span class="label bg-aqua">v1</span></td>
+																		<td>
+																			<span>
+																				<small class="label bg-green" @click="Btnoperation(1)">Edit
+																					Trap</small>
+																			</span>
+																		</td>
+																	</tr>
+
+																	<tr>
+																		<td><a href="#">0001</a></td>
+																		<td>192.168.222.141</td>
+																		<td>123</td>
+																		<td><span class="label bg-aqua">v3</span></td>
+																		<td>
+																			<span>
+																				<small class="label bg-green" @click="Btnoperation(1)">Edit
+																					Trap</small>
+																			</span>
+																		</td>
+																	</tr>
+
+
+																</tbody>
+															</table>
+														</div>
+													</div>
+
+												</div>
+
+
+											</div>
+											<!--   Trap设置列表-->
+
+										</div>
+
+
+									</div>
+									<div class="box-footer" v-show="cur==1" style="display: none">
+
+										<el-col :span="20">
+											<el-form ref="form" :model="form" label-width="160px" size="small">
+												<el-col :span="20">
+													<el-form-item label="gps同步状态">
+														<el-switch v-model="coordshow" readonly="true" disabled> </el-switch>
+													</el-form-item>
+												</el-col>
+
+												<el-col :span="6">
+													<el-form-item label="gps超时时间配置">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+												<el-col :span="2" style="margin-top: 9px;">(秒)</el-col>
+
+												<el-col :span="8">
+													<el-form-item label="gps经度">
+														<el-input placeholder=""></el-input>
+													</el-form-item>
+												</el-col>
+
+												<el-col :span="8">
+													<el-form-item label="gps纬度">
+														<el-input placeholder=""></el-input>
+													</el-form-item>
+												</el-col>
+												<el-col :span="8">
+													<el-form-item label="系统当前时间">
+														<el-input placeholder=""></el-input>
+													</el-form-item>
+												</el-col>
+
+
+												<el-col :span="8">
+													<el-form-item label="时间服务器URL">
+														<el-input placeholder=""></el-input>
+													</el-form-item>
+												</el-col>
+												<el-col :span="8">
+													<el-form-item label="时间服务器端口">
+														<el-input placeholder=""></el-input>
+													</el-form-item>
+												</el-col>
+												<el-col :span="8">
+													<el-form-item label="手动时间配置">
+														<el-input placeholder=""></el-input>
+													</el-form-item>
+												</el-col>
+
+
+												<el-col :span="8">
+													<el-form-item label="时区选择">
+														<el-input placeholder=""></el-input>
+													</el-form-item>
+												</el-col>
+												</form>
+												<el-col :span="24">
+													<el-form-item>
+														<el-button type="primary" @click="b1">确定</el-button>
+														<el-button>取消</el-button>
+													</el-form-item>
+												</el-col>
+										</el-col>
+
+									</div>
+
+
+									<div class="box-footer" v-show="cur==2" style="display: none">
+
+										<el-col :span="20">
+											<el-form ref="form" :model="form" label-width="160px" size="small">
+												<el-col :span="8">
+													<el-form-item label="工作模式">
+														<el-radio-group v-model="form.resource">
+															<el-radio label="Master模式"></el-radio>·
+															<el-radio label="Slave模式"></el-radio>
+														</el-radio-group>
+													</el-form-item>
+												</el-col>
+												<el-col :span="8">
+													<el-form-item label="buzzer开关">
+														<el-switch v-model="form.name1"> </el-switch>
+													</el-form-item>
+												</el-col>
+
+												<el-col :span="8">
+													<el-form-item label="蜂音器开关">
+														<el-switch v-model="form.name1"> </el-switch>
+													</el-form-item>
+												</el-col>
+
+
+
+												<el-col :span="8">
+													<el-form-item label="sector id">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+
+
+
+
+												<el-col :span="8">
+													<el-form-item label="设备名称">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+
+
+												<el-col :span="8">
+													<el-form-item label="设备位置">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+
+												<el-col :span="8">
+													<el-form-item label="管理者名称">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+
+
+												<el-col :span="8">
+													<el-form-item label="站点编号">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+
+												<el-col :span="8">
+													<el-form-item label="管理者名称">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+
+												<el-col :span="8">
+													<el-form-item label="管理者电话">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+
+
+												<el-col :span="8">
+													<el-form-item label="设备地址">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+
+												<el-col :span="8">
+													<el-form-item label="建站时间">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+
+
+												<el-col :span="6">
+													<el-form-item label="心跳周期">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+												<el-col :span="2" style="margin-top: 9px;">(秒)</el-col>
+
+
+												<el-col :span="8">
+													<el-form-item label="建站时间">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+
+												<el-col :span="8">
+													<el-form-item label="建站时间">
+														<el-input v-model="form.name"></el-input>
+													</el-form-item>
+												</el-col>
+
+												<el-col :span="8">
+
+													<el-form-item label="Slave的优先级配置">
+														<el-select v-model="form.region" placeholder="请选择活动区域">
+															<el-option label="1" value="1"></el-option>
+															<el-option label="2" value="2"></el-option>
+															<el-option label="3" value="3"></el-option>
+															<el-option label="4" value="4"></el-option>
+															<el-option label="5" value="5"></el-option>
+															<el-option label="6" value="6"></el-option>
+														</el-select>
+													</el-form-item>
+												</el-col>
+												<el-col :span="24">
+													<el-form-item>
+														<el-button type="primary" @click="b1">确定</el-button>
+														<el-button>取消</el-button>
+													</el-form-item>
+
+												</el-col>
+
+											</el-form>
+
+										</el-col>
+									</div>
+								</div>
+							</div>
+
+
+
+
+
+							<div class="box" style="margin: 0px;">
+								<div class="box-header with-border">
+									<h3 class="box-title">系统日志</h3>
+								</div>
+								<div class="box-body table-responsive no-padding">
+
+									<el-col :span="12" style="padding-top: 20px;">
+										<el-form ref="form" :model="form" label-width="160px" size="small">
+											<el-col :span="20">
+												<el-form-item label="日志开关">
+													<el-switch v-model="coordshow" readonly="true" disabled> </el-switch>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="12">
+												<el-form-item label="FTP用户名">
+													<el-input v-model="form.name"></el-input>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="12">
+												<el-form-item label="FTP密码">
+													<el-input v-model="form.name"></el-input>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="12">
+												<el-form-item label="FTP 的URL">
+													<el-input v-model="form.name"></el-input>
+												</el-form-item>
+											</el-col>
+											<el-col :span="12">
+												<el-form-item label="周期上报间隔">
+													<el-input v-model="form.name"></el-input>
+												</el-form-item>
+											</el-col>
+											<el-col :span="12">
+												<el-form-item label="日志上报开始时间">
+													<el-input v-model="form.name"></el-input>
+												</el-form-item>
+											</el-col>
+											<el-col :span="12">
+												<el-form-item label="日志等级">
+													<el-select v-model="form.region" placeholder="请选择活动区域">
+														<el-option label="1" value="1"></el-option>
+														<el-option label="2" value="2"></el-option>
+														<el-option label="3" value="3"></el-option>
+														<el-option label="4" value="4"></el-option>
+														<el-option label="5" value="5"></el-option>
+														<el-option label="6" value="6"></el-option>
+													</el-select>
+												</el-form-item>
+											</el-col>
+
+											<el-col :span="24">
+												<el-form-item>
+													<el-button type="primary" @click="b1">确定</el-button>
+													<el-button>取消</el-button>
+												</el-form-item>
+											</el-col>
+											</form>
+									</el-col>
+
+
+								</div>
+							</div>
+
+
+
+
+
+						</div>
+					</div>
+					<!-- system end -->
+
+
+				</section>
+			</div>
+			<!-- 内容区域 -->
+
+		</div>
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+		<script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+		<script>
+			let data = {
+
+				coordshow: false,
+				value1: true,
+				thar: "",
+				configure: false, //编辑弹出
+				radio: "1",
+				value3: "",
+				ipshow_tab: "1",
+				checkList: ['5.740', '5.755'],
+
+				cur: 2,
+				form: {
+					name: '',
+					name1: true,
+					resource: 'Master模式',
+				},
+			};
+			var Helios = new Vue({
+				el: "#MainContext",
+				data: data,
+				beforeCreate() {
+					/*console.log("创建前：");
+					console.log(this.$data); */
+				},
+				created() {
+					//  console.log("创建完成：");
+					// console.log(this.$data);
+
+				},
+				beforeMount() {
+					/* console.log("挂载前：");
+					console.log(this.$data); */
+
+				},
+				mounted() {
+					/* console.log("时时监控数据变化,并随之更新");*/
+					console.log(this.$data);
+					$("body").resize();
+
+				},
+
+				updated() {
+					// console.log("==更新成功==");
+					console.log(this.$data);
+				},
+				//事件
+				methods: {
+					b1() {
+						toast.$notify({
+							title: '成功',
+							message: '数据请求成功',
+							type: 'success',
+							duration: 1000
+						});
+					},
+					Btnoperation(x) {
+						this.$data.configure = true;
+						this.$data.thar = x;
+					}
+
+				},
+
+
+			});
+		</script>
+
+
+	</body>
+
+
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Helios index</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+    <link rel="stylesheet" href="assets/css/index.css?2019827">
+
+</head>
+<style>
+
+</style>
+
+<body class="skin-black sidebar-open sidebar-mini">
+
+    <div class="wrapper">
+        <!-- 页头 -->
+        <div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+            <el-main-header :loguser="logUserName" :logUser="logUserName"></el-main-header>
+
+        </div>
+        <!-- 页头end -->
+
+        <!-- 侧边栏导航 -->
+        <div id="comp-sidebar">
+            <el-main-sidebar></el-main-sidebar>
+        </div>
+        <!-- 侧边栏导航 end -->
+
+        <!-- 内容区域 -->
+        <div class="content-wrapper" id="content-wrapper">
+            <!-- 内容头部面包屑 -->
+            <section style="display: none">
+                <ol class="breadcrumb">
+                    <li>
+                        <a id="head1" href="#"></a>
+                    </li>
+                    <li id="head2" class="active"></li>
+                </ol>
+            </section>
+            <!-- 主要内容显示 -->
+            <section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+
+                            <div class="box-header with-border">
+                                <h3 class="box-title">HBS activation</h3>
+                            </div>
+                            <div class="box-footer">
+                                <div class="mes-tip warm mb15">
+                                    <i class="el-icon-edit"></i>
+                                    this is wizard is used for activation hbs in point multipoint system all the fields
+                                    are mandatory
+                                    ( <em class="star">*</em>all fields are required)
+                                </div>
+
+                                <ul class="col-grid-l-9font col-search-l pr0 all-li-pb10">
+                                    <li>
+                                        <label class="label-text-vm"><em class="star">*</em>Sector ID</label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Sector ID" size="mini"></el-input>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label class="label-text-vm"><em class="star">*</em>Sector Name</label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Sector Name" size="mini"></el-input>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label class="label-text-vm"><em class="star">*</em>Link Password</label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Link Password" size="mini" style="width: 70%">
+                                            </el-input>
+                                            <span class="label label-success" style="cursor: pointer"
+                                                @click="coordinates(1)">Change</span>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <label class="label-text-vm"><em class="star">*</em>Location</label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Location" size="mini" style=" width: 70%;">
+                                            </el-input>
+                                            <span class="label label-success" style="cursor: pointer"
+                                                @click="Coordinates_isshow()">Coordinates</span>
+                                        </div>
+                                    </li>
+
+                                    <li v-show="coordshow">
+                                        <label class="label-text-vm">Format</label>
+                                        <div class="div-text-demo">
+                                            <el-select v-model="value3" placeholder="Format" size="mini"
+                                                style="width: 100%">
+                                                <el-option key="1" label="decimal degrees" value="1"> </el-option>
+                                                <el-option key="2" label=" degrees minutes seconds" value="2">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </li>
+                                    <li v-show="coordshow">
+                                        <label class="label-text-vm"> <em class="star">*</em>Latutude</label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Latutude (-89 to +89)" size="mini"></el-input>
+                                        </div>
+                                    </li>
+                                    <li v-show="coordshow">
+                                        <label class="label-text-vm"> <em class="star">*</em>Longitude </label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Longitude (-180 to +89)" size="mini"></el-input>
+                                        </div>
+                                    </li>
+
+                                    <li v-show="coordshow">
+                                        <label class="label-text-vm"> <em class="star">*</em>Azimuth </label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Azimuth (0 to 360)" size="mini">
+                                            </el-input>
+                                        </div>
+                                    </li>
+
+                                    <li v-show="coordshow">
+                                        <label class="label-text-vm"> <em class="star">*</em>Beamwidth </label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Beamwidth (0 to 360)" size="mini"></el-input>
+                                        </div>
+                                    </li>
+
+
+                                    <li>
+                                        <div class="div-text-demo text-red">
+                                            you are using a smart antenna. it is recommended that you configure the
+                                            antenna azimth, click the coordinates button for azimuth configuration.
+                                        </div>
+                                    </li>
+                                    <!--   <li class="btneare">
+                                        <div class="col-lg-8" style="padding: 0px;">
+                                            <button type="button" class="btn  btn-info" @click="b1">Confirm</button>
+                                            <button type="button" class="btn  btn-default" @click="b1">Reset</button>
+                                        </div>
+                                    </li> -->
+
+                                    <li class="btneare" style="padding-top:5px;">
+                                        <label class="label-text-vm"> </label>
+                                        <div class="div-text-demo" style=" padding-left: 0px">
+                                            <el-button type="primary" size="mini" @click="b1">Confirm </el-button>
+                                            <el-button type="success" size="mini" @click="b1">Reset</el-button>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+            </section>
+        </div>
+        <!-- 内容区域 -->
+
+    </div>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vue.js"></script>
+    <script type="text/javascript" src="assets/js/index.js"></script>
+    <script type="text/javascript" src="assets/js/comment.js"></script>
+    <script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+    <script>
+        let data = {
+            coordshow: false,
+            value3: "",
+        };
+        var Helios = new Vue({
+            el: "#MainContext",
+            data: data,
+            beforeCreate() {
+                /*console.log("创建前：");
+                console.log(this.$data); */
+            },
+            created() {
+                //  console.log("创建完成：");
+                // console.log(this.$data);
+
+            },
+            beforeMount() {
+                /* console.log("挂载前：");
+                console.log(this.$data); */
+
+            },
+            mounted() {
+                /* console.log("时时监控数据变化,并随之更新");*/
+                $("body").resize();
+
+            },
+
+            updated() {
+                // console.log("==更新成功==");
+                //  console.log(this.$data);
+
+
+            },
+            //事件
+            methods: {
+                b1() {
+                    toast.$notify({
+                        title: '成功',
+                        message: '数据请求成功',
+                        type: 'success',
+                        duration: 1000
+                    });
+                },
+                //快捷操作
+                Coordinates_isshow() {
+                    if (this.$data.coordshow) {
+                        this.$data.coordshow = false;
+                    } else {
+                        this.$data.coordshow = true;
+                    }
+
+                }
+            },
+
+
+        });
+    </script>
+
+
+</body>
+
+
+</html>

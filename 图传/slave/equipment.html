@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>equipment</title>
+
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+
+	</head>
+	<style>
+		.span-text {
+	        color: #409EFF !important;
+	      }
+	    .maplist i {
+	        display: block
+	    }
+		.info-box{
+			 box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+		}
+		.info-box-content{
+			padding-top: 15px;
+		}
+		.info-box-icon{
+		line-height: 67px;
+		}
+		.info-box{
+			cursor: pointer;
+		}
+</style>
+
+	<body class="skin-black sidebar-open sidebar-mini">
+
+		<div class="wrapper">
+			<!-- 页头 -->
+			<div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+				<el-main-header :loguser="logUserName" :logUser="logUserName"></el-main-header>
+
+			</div>
+			<!-- 页头end -->
+
+			<!-- 侧边栏导航 -->
+			<div id="comp-sidebar">
+				<el-main-sidebar></el-main-sidebar>
+			</div>
+			<!-- 侧边栏导航 end -->
+
+			<!-- 内容区域 -->
+			<div class="content-wrapper" id="content-wrapper">
+				<!-- 内容头部面包屑 -->
+				<section style="display: none">
+					<ol class="breadcrumb">
+						<li>
+							<a id="head1" href="#"></a>
+						</li>
+						<li id="head2" class="active"></li>
+					</ol>
+				</section>
+				<!-- 主要内容显示 -->
+				<section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+
+					<!-- system -->
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="nav-tabs-custom">
+								<div class="box">
+									<div class="box-header with-border">
+										<h3 class="box-title">设备管理</h3>
+									</div>
+									<div class="box-footer">
+
+
+										<div class="box-body table-responsive" style="padding-top: 20px;">
+
+											<div class="col-md-3 col-sm-6 col-xs-12">
+												<div class="info-box">
+													<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+													<div class="info-box-content">
+														<span class="info-box-text">诊断工具 </span>
+														<span class="info-box-number">Ping</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-3 col-sm-6 col-xs-12">
+												<div class="info-box">
+													<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+													<div class="info-box-content">
+														<span class="info-box-text">诊断工具 </span>
+														<span class="info-box-number">Traceroute</span>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="col-md-3 col-sm-6 col-xs-12">
+												<div class="info-box">
+													<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+													<div class="info-box-content" style=" padding-top: 33px;">
+														<span class="info-box-number">重启</span>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="col-md-3 col-sm-6 col-xs-12">
+												<div class="info-box">
+													<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+													<div class="info-box-content">
+														<span class="info-box-text">备份 主控</span>
+														<span class="info-box-number">本机（默认）</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-3 col-sm-6 col-xs-12">
+												<div class="info-box">
+													<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+													<div class="info-box-content">
+														<span class="info-box-text">备份 主控</span>
+														<span class="info-box-number">PC（默认）</span>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="col-md-3 col-sm-6 col-xs-12">
+												<div class="info-box">
+													<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+													<div class="info-box-content">
+														<span class="info-box-text">备份 平台</span>
+														<span class="info-box-number">SNMP（默认）</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-3 col-sm-6 col-xs-12">
+												<div class="info-box">
+													<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+													<div class="info-box-content">
+														<span class="info-box-text">备份 平台</span>
+														<span class="info-box-number">本机</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-3 col-sm-6 col-xs-12">
+												<div class="info-box">
+													<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+													<div class="info-box-content">
+														<span class="info-box-text">配置还原 主控</span>
+														<span class="info-box-number">本机（默认）</span>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="col-md-3 col-sm-6 col-xs-12">
+												<div class="info-box">
+													<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+													<div class="info-box-content">
+														<span class="info-box-text">配置还原 主控</span>
+														<span class="info-box-number">PC</span>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="col-md-3 col-sm-6 col-xs-12">
+												<div class="info-box">
+													<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+													<div class="info-box-content">
+														<span class="info-box-text">配置还原 平台</span>
+														<span class="info-box-number">SNMP（默认）</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-3 col-sm-6 col-xs-12">
+												<div class="info-box">
+													<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+													<div class="info-box-content">
+														<span class="info-box-text">配置还原 平台</span>
+														<span class="info-box-number">本机（默认）</span>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="col-md-3 col-sm-6 col-xs-12">
+												<div class="info-box">
+													<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+													<div class="info-box-content" style=" padding-top: 33px;">
+														<span class="info-box-number">固件升级</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-3 col-sm-6 col-xs-12">
+												<div class="info-box">
+													<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+													<div class="info-box-content" style=" padding-top: 33px;">
+														<span class="info-box-number">完全出厂参数恢复</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-3 col-sm-6 col-xs-12">
+												<div class="info-box">
+													<span class="info-box-icon bg-green"><i class="iconfont icon-wifi"></i></span>
+													<div class="info-box-content" style=" padding-top: 23px;">
+														<span class="info-box-number">除了IP参数配置外其他参数恢复</span>
+													</div>
+												</div>
+											</div>
+
+
+										</div>
+
+
+									</div>
+
+								</div>
+							</div>
+
+
+
+
+						</div>
+
+
+
+					</div>
+
+				</section>
+			</div>
+			<!-- 内容区域 -->
+
+		</div>
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+		<script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+		<script>
+			let data = {
+				coordshow: false,
+				value1: true,
+				thar: "",
+				configure: false, //编辑弹出
+				radio: "1",
+				value3: "",
+				cur: 0,
+				ipshow_tab: "1",
+				checkList: ['5.740', '5.755']
+			};
+			var Helios = new Vue({
+				el: "#MainContext",
+				data: data,
+				beforeCreate() {
+					/*console.log("创建前：");
+					console.log(this.$data); */
+				},
+				created() {
+					//  console.log("创建完成：");
+					// console.log(this.$data);
+
+				},
+				beforeMount() {
+					/* console.log("挂载前：");
+					console.log(this.$data); */
+
+				},
+				mounted() {
+					/* console.log("时时监控数据变化,并随之更新");*/
+					console.log(this.$data);
+					$("body").resize();
+
+				},
+
+				updated() {
+					// console.log("==更新成功==");
+					console.log(this.$data);
+				},
+				//事件
+				methods: {
+					b1() {
+						toast.$notify({
+							title: '成功',
+							message: '数据请求成功',
+							type: 'success',
+							duration: 1000
+						});
+					},
+					Btnoperation(x) {
+						this.$data.configure = true;
+						this.$data.thar = x;
+					}
+
+				},
+
+
+			});
+		</script>
+
+
+	</body>
+
+
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configuration_TAB</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+    <link rel="stylesheet" href="assets/css/index.css?2019827">
+
+</head>
+<style>
+    [class*="col-grid-s"]>li {
+        width: 410px;
+    }
+
+    .box .box-footer {
+        border-top: 0px;
+    }
+
+    .el-checkbox {
+        margin: 10px 11px;
+    }
+</style>
+
+<body class="skin-black sidebar-open sidebar-mini">
+
+    <div class="wrapper">
+        <!-- 页头 -->
+        <div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+            <el-main-header :loguser="logUserName" :logUser="logUserName"></el-main-header>
+
+        </div>
+        <!-- 页头end -->
+
+        <!-- 侧边栏导航 -->
+        <div id="comp-sidebar">
+            <el-main-sidebar></el-main-sidebar>
+        </div>
+        <!-- 侧边栏导航 end -->
+
+        <!-- 内容区域 -->
+        <div class="content-wrapper" id="content-wrapper">
+            <!-- 内容头部面包屑 -->
+            <section style="display: none">
+                <ol class="breadcrumb">
+                    <li>
+                        <a id="head1" href="#"></a>
+                    </li>
+                    <li id="head2" class="active"></li>
+                </ol>
+            </section>
+            <!-- 主要内容显示 -->
+            <section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+
+                <!-- system -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <!-- <span
+                                    class="icon iconfont icon-jizhanleixing  text-teal"></span> -->
+                                <h3 class="box-title">System</h3>
+                            </div>
+                            <div class="box-footer">
+                                <div class="mes-tip warm mb15">
+                                    <i class="el-icon-edit"></i>
+                                    this is wizard is used for activation hbs in point multipoint system all the fields
+                                    are mandatory
+                                    ( <em class="star">*</em>all fields are required)
+                                </div>
+
+                                <ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+                                    <li>
+                                        <label class="label-text-vm"><em class="star">*</em>Sector ID</label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Sector ID" size="mini"></el-input>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label class="label-text-vm"><em class="star">*</em>Sector Name</label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Sector Name" size="mini"></el-input>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <label class="label-text-vm"><em class="star">*</em>Contact</label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Contact" size="mini"></el-input>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <label class="label-text-vm"><em class="star">*</em>Location</label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Location" size="mini" style=" width: 65%;">
+                                            </el-input>
+                                            <span class="label label-success" style="cursor: pointer"
+                                                @click="Coordinates_isshow()">Coordinates</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="col-grid-s-12font col-search-s pr0 all-li-pb10" v-show="coordshow"
+                                    style="display: none">
+
+                                    <li>
+                                        <label class="label-text-vm">Format</label>
+                                        <div class="div-text-demo">
+                                            <el-select v-model="value3" placeholder="Format" size="mini"
+                                                style="width: 100%">
+                                                <el-option key="1" label="decimal degrees" value="1"> </el-option>
+                                                <el-option key="2" label=" degrees minutes seconds" value="2">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label class="label-text-vm"> <em class="star">*</em>Latutude</label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Latutude (-89 to +89)" size="mini"></el-input>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label class="label-text-vm"> <em class="star">*</em>Longitude </label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Longitude (-180 to +89)" size="mini"></el-input>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <label class="label-text-vm"> <em class="star">*</em>Azimuth </label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Azimuth (0 to 360)" size="mini">
+                                            </el-input>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <label class="label-text-vm"> <em class="star">*</em>Beamwidth </label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Beamwidth (0 to 360)" size="mini"></el-input>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <!--    <li>
+                                        <label class="label-text-vm"><em class="star">*</em>Link Password</label>
+                                        <div class="div-text-demo">
+                                            <el-input placeholder="Link Password" size="mini" style="width: 70%">
+                                            </el-input>
+                                            <span class="label label-success" style="cursor: pointer"
+                                                @click="coordinates(1)">Change</span>
+                                        </div>
+                                    </li> -->
+                                <!--   <li>
+                                        <div class="div-text-demo text-red">
+                                            you are using a smart antenna. it is recommended that you configure the
+                                            antenna azimth, click the coordinates button for azimuth configuration.
+                                        </div>
+                                    </li> -->
+                                <ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+                                    <li class="btneare" style="padding-top:5px;">
+                                        <label class="label-text-vm"> </label>
+                                        <div class="div-text-demo" style="    padding-left: 157px;">
+                                            <el-button type="primary" size="mini" @click="b1">Confirm </el-button>
+                                            <el-button type="success" size="mini" @click="b1">Reset</el-button>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <!-- system end -->
+
+                <!--   configuration tab -->
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li :class="{active:cur==0}" @click="cur=0"><a href="javascript:void(0);">Air
+                                        Interface</a> </li>
+                                <li :class="{active:cur==1}" @click="cur=1"><a href="javascript:void(0);">Tx &
+                                        Antenna</a>
+                                </li>
+                            </ul>
+                            <div class="box">
+
+                                <!-- cur==0 -->
+                                <div class="box-footer" v-show="cur==0">
+
+                                    <ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+                                        <li><label class="label-text-vm">Sector ID</label>
+                                            <div class="div-text-demo">
+                                                <el-input placeholder="Sector ID" size="mini"></el-input>
+                                            </div>
+                                        </li>
+                                        <li><label class="label-text-vm">Channel Bandwidth</label>
+                                            <div class="div-text-demo">
+                                                <el-input placeholder="Channel Bandwidth[MHz]" size="mini"></el-input>
+                                            </div>
+                                        </li>
+                                        <li><label class="label-text-vm">Operating Channel</label>
+                                            <div class="div-text-demo">
+                                                <el-select v-model="value3" placeholder="Operating Channel[GHz]"
+                                                    size="mini" style="width: 100%">
+                                                    <el-option key="1" label="Other" value="1"> </el-option>
+                                                    <el-option key="2" label="Other1" value="2">
+                                                    </el-option>
+                                                </el-select>
+                                            </div>
+                                        </li>
+                                        <li><label class="label-text-vm">Transmission Ratio</label>
+                                            <div class="div-text-demo">
+                                                <el-select v-model="value3" placeholder="transmission ratio" size="mini"
+                                                    style="width: 100%">
+                                                    <el-option key="1" label="Other" value="1"> </el-option>
+                                                    <el-option key="2" label="Other1" value="2">
+                                                    </el-option>
+                                                </el-select>
+                                            </div>
+                                        </li>
+
+
+
+                                        <li style="width: 80%">
+                                            <div class="div-text-demo" style="padding-left: 152px; padding-top: 6px;">
+                                                <p class="text-yellow"><b>Automatic Channel Selection </b> </p>
+                                                <el-checkbox-group v-model="checkList">
+                                                    <el-checkbox label="5.740"></el-checkbox>
+                                                    <el-checkbox label="5.745"></el-checkbox>
+                                                    <el-checkbox label="5.750"></el-checkbox>
+                                                    <el-checkbox label="5.755"></el-checkbox>
+                                                    <el-checkbox label="5.760"></el-checkbox>
+                                                    <el-checkbox label="5.765"></el-checkbox>
+                                                    <el-checkbox label="5.770"></el-checkbox>
+                                                </el-checkbox-group>
+                                            </div>
+                                        </li>
+
+                                        <li class="btneare" style="padding-top:5px;">
+                                            <label class="label-text-vm"> </label>
+                                            <div class="div-text-demo" style="padding-left:157px;">
+                                                <el-button type="primary" size="mini" @click="b1">Confirm </el-button>
+                                                <el-button type="success" size="mini" @click="b1">Reset</el-button>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                <!-- cur==0  end-->
+
+                                <div class="box-footer" v-show="cur==1" style="display: none">
+
+                                    <ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+                                        <li><label class="label-text-vm">Connection Type</label>
+                                            <div class="div-text-demo">
+                                                <div class="area-list-radio">
+                                                    <el-radio v-model="radio" label="1">External</el-radio>
+                                                    <el-radio v-model="radio" label="2">Integrated</el-radio>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li><label class="label-text-vm">Antenna Type</label>
+                                            <div class="div-text-demo">
+                                                <el-select v-model="value3" placeholder="Antenna Type" size="mini"
+                                                    style="width: 100%">
+                                                    <el-option key="1" label="Dual" value="1"> </el-option>
+                                                    <el-option key="2" label="Dual2" value="2">
+                                                    </el-option>
+                                                </el-select>
+                                            </div>
+                                        </li>
+                                        <li><label class="label-text-vm">Antenna Gain</label>
+                                            <div class="div-text-demo">
+                                                <el-select v-model="value3" placeholder="Antenna Gain [dBi]" size="mini"
+                                                    style="width: 100%">
+                                                    <el-option key="1" label="15.0" value="1"> </el-option>
+                                                    <el-option key="2" label="16.0" value="2">
+                                                    </el-option>
+                                                </el-select>
+                                            </div>
+                                        </li>
+
+                                        <li><label class="label-text-vm">Cable Loss</label>
+                                            <div class="div-text-demo">
+                                                <el-select v-model="value3" placeholder="Antenna Gain [dB]" size="mini"
+                                                    style="width: 100%">
+                                                    <el-option key="1" label="15.0" value="1"> </el-option>
+                                                    <el-option key="2" label="16.0" value="2">
+                                                    </el-option>
+                                                </el-select>
+                                            </div>
+                                        </li>
+
+
+
+                                        <li><label class="label-text-vm">Channel Bandwidth</label>
+                                            <div class="div-text-demo">
+                                                <el-input placeholder="Channel Bandwidth[MHz]" size="mini"></el-input>
+                                            </div>
+                                        </li>
+                                        <li><label class="label-text-vm">Eirp</label>
+                                            <div class="div-text-demo">
+                                                <el-input placeholder="Eirp [dBm]" size="mini"></el-input>
+                                            </div>
+                                        </li>
+
+                                        <li><label class="label-text-vm">Tx Power(Per radio)</label>
+                                            <div class="div-text-demo">
+                                                <el-input placeholder="Tx Power [dBm]" size="mini"></el-input>
+                                            </div>
+                                        </li>
+                                        <li><label class="label-text-vm">Tx Power(Per System)</label>
+                                            <div class="div-text-demo">
+                                                <el-input placeholder="Tx Power [dBm]" size="mini"></el-input>
+                                            </div>
+                                        </li>
+
+
+
+                                        <li class="btneare" style="padding-top:5px;">
+                                            <label class="label-text-vm"> </label>
+                                            <div class="div-text-demo" style="padding-left:157px;">
+                                                <el-button type="primary" size="mini" @click="b1">Confirm </el-button>
+                                                <el-button type="success" size="mini" @click="b1">Reset</el-button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+                        <!--    <div class="mt15">
+                            <div class="tab-nav">
+                                <ul class="clearfix">
+                                    <li :class="{active:cur==0}" @click="cur=0">air interface</li>
+                                    <li :class="{active:cur==1}" @click="cur=1">tx&antenna</li>
+                                    <li :class="{active:cur==2}" @click="cur=2">management</li>
+                                    <li :class="{active:cur==3}" @click="cur=3">date&time</li>
+                                    <li :class="{active:cur==4}" @click="cur=4">ethernet</li>
+                                    <li :class="{active:cur==5}" @click="cur=5">名单管理</li>
+                                    <li :class="{active:cur==6}" @click="cur=6">operations</li>
+                                </ul>
+
+                            </div>
+                            <div class="box">
+                                <div class="box-footer">
+                                    asasas
+
+                                </div>
+
+                            </div>
+
+                        </div> -->
+
+                    </div>
+
+
+                </div>
+                <!--   configuration tab  end-->
+            </section>
+        </div>
+        <!-- 内容区域 -->
+
+    </div>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vue.js"></script>
+    <script type="text/javascript" src="assets/js/index.js"></script>
+    <script type="text/javascript" src="assets/js/comment.js"></script>
+    <script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+
+    <script>
+        let data = {
+            coordshow: false,
+            radio: "1",
+            value3: "",
+            cur: 0,
+            checkList: ['5.740', '5.755']
+        };
+        var Helios = new Vue({
+            el: "#MainContext",
+            data: data,
+            beforeCreate() {
+                /*console.log("创建前：");
+                console.log(this.$data); */
+            },
+            created() {
+                //  console.log("创建完成：");
+                // console.log(this.$data);
+
+            },
+            beforeMount() {
+                /* console.log("挂载前：");
+                console.log(this.$data); */
+
+            },
+            mounted() {
+                /* console.log("时时监控数据变化,并随之更新");*/
+                $("body").resize();
+
+            },
+
+            updated() {
+                // console.log("==更新成功==");
+                //  console.log(this.$data);
+
+
+            },
+            //事件
+            methods: {
+                b1() {
+                    toast.$notify({
+                        title: '成功',
+                        message: '数据请求成功',
+                        type: 'success',
+                        duration: 1000
+                    });
+                },
+                //快捷操作
+                Coordinates_isshow() {
+                    if (this.$data.coordshow) {
+                        this.$data.coordshow = false;
+                    } else {
+                        this.$data.coordshow = true;
+                    }
+
+                }
+            },
+
+
+        });
+    </script>
+
+
+</body>
+
+
+</html>

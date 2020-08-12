@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" href="assets/css/index.css?2019827">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+	<!-- Theme style -->
+	<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+	<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+	<link rel="stylesheet" href="assets/css/index.css?2019827">
+	<script type="text/javascript" src="assets/js/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/vue.js"></script>
+	<script type="text/javascript" src="assets/js/index.js"></script>
+	<script type="text/javascript" src="assets/js/comment.js"></script>
+</head>
+
+<body>
+
+	<style>
+		.clear {
+			overflow: auto;
+			zoom: 1;
+			background: #fff;
+		}
+
+		.box-header.with-border {
+			padding-bottom: 14px;
+		}
+
+		.el-form-item__content {
+			margin-bottom: 8px;
+		}
+
+		.timeline>li {
+			margin-bottom: 49px;
+		}
+
+		.timeline>li>.fa {
+			cursor: pointer;
+		}
+	</style>
+
+
+	<div class="wrapper" id="content" style="background:#f1f4f6; padding-top:25px;">
+		<div class="col-md-12">
+			<!-- The time line -->
+
+			<ul class="timeline">
+				<li>
+					<i class="fa fa-user bg-aqua" @click="checkVERSION(2)" title="V2">V2</i>
+					<div class="timeline-item" v-if="VERSION=='V2'">
+						<div class="col-md-6">
+							<div class="box">
+								<div class="box-header with-border">
+									<h3 class="box-title">桥模式</h3>
+									<!-- GRPS -->
+									<div class="box-tools pull-right" style="top: 9px;">
+
+										<el-button type="primary" :disabled="!Set" size="small">Set</el-button>
+										<el-button size="small" :disabled="!Read">Read
+										</el-button>
+
+									</div>
+								</div>
+								<div class="clear" style="padding-top: 10px;">
+									<div class="col-md-10">
+										<el-form ref="form" label-width="150px">
+											<el-form-item label="网络模式">
+												<el-select v-model="form.name">
+													<el-option label="桥模式" value="1"></el-option>
+													<el-option label="路由模式" value="2"></el-option>
+												</el-select>
+											</el-form-item>
+											<el-form-item label="IP地址">
+												<el-input v-model="form.name"></el-input>
+											</el-form-item>
+											<el-form-item label="子网掩码">
+												<el-input v-model="form.name"></el-input>
+											</el-form-item>
+
+											<el-form-item label="默认网关">
+												<el-input v-model="form.name"></el-input>
+											</el-form-item>
+											<el-form-item label="主DNS">
+												<el-input v-model="form.name"></el-input>
+											</el-form-item>
+											<el-form-item label="从DNS">
+												<el-input v-model="form.name"></el-input>
+											</el-form-item>
+										</el-form>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</li>
+
+				<li>
+					<i class="fa fa-comments bg-yellow" @click="checkVERSION(3)" title="V3">V3</i>
+					<div class="timeline-item" v-if="VERSION=='V3'">
+						<!-- Port1 START -->
+						<div class="col-md-6">
+							<div class="box">
+								<div class="box-header with-border">
+									<h3 class="box-title">路由模式</h3>
+									<div class="box-tools pull-right" style="top: 9px;">
+										<el-button type="primary" :disabled="!Set" size="small">Set</el-button>
+										<el-button size="small" :disabled="!Read">Read
+										</el-button>
+
+									</div>
+								</div>
+								<div class="col-md-10" style="padding-top: 10px;">
+									<el-form ref="form" label-width="150px">
+										<div class="col-md-10">
+											<el-form-item label="网络模式">
+												<el-select v-model="form.name">
+													<el-option label="桥模式" value="1"></el-option>
+													<el-option label="路由模式" value="2"></el-option>
+												</el-select>
+											</el-form-item>
+										</div>
+									</el-form>
+
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</li>
+				<li>
+					<i class="fa fa-clock-o bg-gray"></i>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<script>
+		let helios;
+		let data = {
+			VERSION: "V2",
+			Set: true,
+			Read: true,
+			form: {
+				name: '1',
+				name1: '',
+			},
+		}
+		helios = new Vue({
+			el: "#content",
+			data: data,
+
+			mounted: function () {
+
+			},
+			methods: {
+				checkVERSION(x) {
+					(x == 2) ? helios.VERSION = "V2": helios.VERSION = "V3"
+				},
+			}
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>inventory</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+    <link rel="stylesheet" href="assets/css/index.css?2019827">
+
+</head>
+<style>
+    [class*="col-grid-s"]>li {
+        width: 410px;
+    }
+
+    .box .box-footer {
+        border-top: 0px;
+    }
+
+    .el-checkbox {
+        margin: 10px 11px;
+    }
+
+    .span-text {
+        color: #409EFF !important
+    }
+</style>
+
+<body class="skin-black sidebar-open sidebar-mini">
+
+    <div class="wrapper">
+        <!-- 页头 -->
+        <div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+            <el-main-header :loguser="logUserName" :logUser="logUserName"></el-main-header>
+
+        </div>
+        <!-- 页头end -->
+
+        <!-- 侧边栏导航 -->
+        <div id="comp-sidebar">
+            <el-main-sidebar></el-main-sidebar>
+        </div>
+        <!-- 侧边栏导航 end -->
+
+        <!-- 内容区域 -->
+        <div class="content-wrapper" id="content-wrapper">
+            <!-- 内容头部面包屑 -->
+            <section style="display: none">
+                <ol class="breadcrumb">
+                    <li>
+                        <a id="head1" href="#"></a>
+                    </li>
+                    <li id="head2" class="active"></li>
+                </ol>
+            </section>
+            <!-- 主要内容显示 -->
+            <section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+
+                <!-- security -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <!-- <span
+                                    class="icon iconfont icon-jizhanleixing  text-teal"></span> -->
+                                <h3 class="box-title">security</h3>
+                            </div>
+                            <div class="box-footer">
+                                <div class="mes-tip warm mb15"><i class="el-icon-edit"></i>
+                                    Enter current Read-Write Community/SNMPV3 Password
+
+                                </div>
+                                <ul class="col-grid-s-12font col-search-s pr0 " style="padding-bottom: 20px;">
+                                    <li class="w100of">
+                                        <label class="label-text-vm"  style="width: 162px;">Enable aes 256 encryption </label>
+                                        <div class="div-text-demo" style="padding-left: 175px;">
+                                            <div class="area-list-radio">
+                                                <el-switch v-model="value1"></el-switch>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label class="label-text-vm"  style="width: 162px;">SNMPv3 Password</label>
+                                        <div class="div-text-demo" style="padding-left: 175px;">
+                                            <el-input placeholder="SNMPv3 Password" size="mini"></el-input>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <div class="col-xs-5">
+                                    <ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+                                        <li style="padding:0px;">
+                                            <div class="div-text-demo" style="min-height: 0px;">
+                                                <span class=" label bg-green">Read-Write Community/SNMPv3
+                                                    Password</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label class="label-text-vm"><em class="star">*</em>New</label>
+                                            <div class="div-text-demo">
+                                                <el-input placeholder="IP Address" size="mini"></el-input>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label class="label-text-vm"><em class="star">*</em>Confirm</label>
+                                            <div class="div-text-demo">
+                                                <el-input placeholder="Subnet Mask" size="mini"></el-input>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="col-xs-5">
+                                    <ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+                                        <li style="padding:0px;">
+                                            <div class="div-text-demo" style="min-height: 0px;">
+                                                <span class=" label bg-green">Read-Only Community/SNMPv3
+                                                    Password</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label class="label-text-vm"><em class="star">*</em>New</label>
+                                            <div class="div-text-demo">
+                                                <el-input placeholder="IP Address" size="mini"></el-input>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label class="label-text-vm"><em class="star">*</em>Confirm</label>
+                                            <div class="div-text-demo">
+                                                <el-input placeholder="Subnet Mask" size="mini"></el-input>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-xs-5" style="margin-top: 20px;">
+                                    <ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+                                        <li style="padding:0px;">
+                                            <div class="div-text-demo" style="min-height: 0px;">
+                                                <span class=" label  bg-aqua">Trap Community(SNMPv1 only)</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label class="label-text-vm"><em class="star">*</em>New</label>
+                                            <div class="div-text-demo">
+                                                <el-input placeholder="IP Address" size="mini"></el-input>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label class="label-text-vm"><em class="star">*</em>Confirm</label>
+                                            <div class="div-text-demo">
+                                                <el-input placeholder="Subnet Mask" size="mini"></el-input>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-xs-10">
+                                    <ul class="col-grid-s-12font col-search-s pr0 all-li-pb10">
+                                        <li class="btneare" style="padding-top:5px;">
+                                            <label class="label-text-vm"> </label>
+                                            <div class="div-text-demo" style="padding-left: 156px;">
+                                                <el-button type="primary" size="mini" @click="b1">Confirm
+                                                </el-button>
+                                                <el-button type="success" size="mini" @click="b1">Reset</el-button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- 内容区域 -->
+
+    </div>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vue.js"></script>
+    <script type="text/javascript" src="assets/js/index.js"></script>
+    <script type="text/javascript" src="assets/js/adminlte.js"></script>
+    <script type="text/javascript" src="assets/js/comment.js"></script>
+    <script>
+        let data = {
+            coordshow: false,
+            radio: "",
+            value3: "",
+            cur: 0,
+            value1: "",
+            checkList: ['5.740', '5.755']
+        };
+        var Helios = new Vue({
+            el: "#MainContext",
+            data: data,
+            beforeCreate() {
+                /*console.log("创建前：");
+                console.log(this.$data); */
+            },
+            created() {
+                //  console.log("创建完成：");
+                // console.log(this.$data);
+
+            },
+            beforeMount() {
+                /* console.log("挂载前：");
+                console.log(this.$data); */
+
+            },
+            mounted() {
+                /* console.log("时时监控数据变化,并随之更新");*/
+                $("body").resize();
+
+            },
+
+            updated() {
+                // console.log("==更新成功==");
+                //  console.log(this.$data);
+
+
+            },
+            //事件
+            methods: {
+                b1() {
+                    toast.$notify({
+                        title: '成功',
+                        message: '数据请求成功',
+                        type: 'success',
+                        duration: 1000
+                    });
+                },
+                //快捷操作
+                Coordinates_isshow() {
+                    if (this.$data.coordshow) {
+                        this.$data.coordshow = false;
+                    } else {
+                        this.$data.coordshow = true;
+                    }
+
+                }
+            },
+
+
+        });
+    </script>
+
+
+</body>
+
+
+</html>

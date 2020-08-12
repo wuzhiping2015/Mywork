@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>management</title>
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+	<link rel="stylesheet" href="assets/css/global.css?2019827" />
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+	<!-- Theme style -->
+	<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+	<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+	<link rel="stylesheet" href="assets/css/index.css?2019827">
+</head>
+<style>
+	.el-message-box {
+		background: none;
+		box-shadow: none;
+	}
+
+	.el-message-box__header {
+		padding: 0px 15px 0px;
+	}
+
+	.el-message-box__content {
+		padding: 0px;
+	}
+
+	.col-search-s {
+		padding: 20px 0px 20px 0;
+	}
+
+	html,
+	body {
+		overflow: hidden;
+	}
+</style>
+
+<body class="skin-black sidebar-open sidebar-mini">
+
+	<div class="wrapper">
+		<!-- 页头 -->
+		<div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+			<el-main-header :loguser="logUserName"></el-main-header>
+
+		</div>
+		<!-- 页头end -->
+
+		<!-- 侧边栏导航 -->
+		<div id="comp-sidebar">
+			<el-main-sidebar></el-main-sidebar>
+		</div>
+		<!-- 侧边栏导航 end -->
+
+		<!-- 内容区域 -->
+		<div class="content-wrapper" id="configuration">
+			<section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+				<zhujian1></zhujian1>
+				<div id="content" class="wrapper" style="background: rgb(241, 244, 246); margin-top: 10px;">
+					<div class="comfigBox">
+						<iframe id="iframe1" name="iframe1" scrolling="no" :src="tagurl" frameborder="0" border="none" style="width:100%;height:100%;"></iframe>
+					</div>
+				</div>
+				<!-- system end -->
+			</section>
+		</div>
+		<!-- 内容区域 -->
+	</div>
+	<script type="text/javascript" src="assets/js/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/vue.js"></script>
+	<script type="text/javascript" src="assets/js/index.js"></script>
+	<script type="text/javascript" src="assets/js/comment.js"></script>
+	<script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+	<script>
+		let Helios;
+		let data = {
+			tagurl: "step1.html",
+			actionurl: "",
+		};
+		Helios = new Vue({
+			el: "#MainContext",
+			data: data,
+			mounted() {
+				$("body").resize();
+
+				const oIframe = document.getElementById('iframe1');
+				const deviceWidth = document.documentElement.clientWidth;
+				const deviceHeight = document.documentElement.clientHeight;
+				oIframe.style.width = (Number(deviceWidth) - 230) + 'px'; //数字是页面布局宽度差值
+				oIframe.style.height = (Number(deviceHeight) - 120) + 'px'; //数字是页面布局高度差
+
+			},
+			updated() {
+				console.log(this.$data);
+			},
+			//事件
+			methods: {
+				b1() {
+					toast.$notify({
+						title: '成功',
+						message: '数据请求成功',
+						type: 'success',
+						duration: 1000
+					});
+				},
+				Btnoperation(x) {
+					this.$data.configure = true;
+					this.$data.thar = x;
+				},
+				modeladd() {
+					this.usershow = true;
+				}
+
+			},
+
+
+		});
+	</script>
+
+
+</body>
+
+
+</html>

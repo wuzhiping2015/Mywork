@@ -1,0 +1,123 @@
+.clear{
+	 	 overflow: auto;
+	 	  zoom: 1;
+	 	  background: #fff;
+	 }
+	 .box-header.with-border {
+	     padding-bottom: 14px;
+	 }
+	 .el-form-item__content{
+		 margin-bottom: 8px;
+	 }
+	 
+	 .slide-fade {
+	 	position: fixed;
+	 	left: 0;
+	 	right: 0;
+	 	width: 100%;
+	 	background-color: white;
+	 }
+	 
+	 .slide-fade-enter,
+	 .slide-fade-leave-to {
+	 	left: 0;
+	 	top: 0;
+	 	right: 0;
+	 	position: absolute;
+	 	transform: translateX(-500px) translateY(-500px) rotate(-150deg) scale(0.5);
+	 	opacity: 1;
+	 }
+	 
+	 .slide-fade-enter-active {
+	 	background-color: white;
+	 	transition: all 0.6s ease;
+	 }
+	 
+	 .slide-fade-leave-active {
+	 	transition: all 0.7s ease;
+	 	background-color: white;
+	 	transform: translateX(500px) translateY(500px) rotate(150deg) scale(1);
+	 	z-index: 100;
+	 }
+	 
+	 
+	 
+	 .el-upload__input {
+	 	position: absolute;
+	 	left: 0px;
+	 	top: 0px;
+	 	opacity: 0;
+	 	cursor: pointer;
+	 }
+	 
+	 .el-upload {
+	 	position: relative;
+	 }
+	 
+	 .viswCard span {
+	 	color: #fff;
+	 	margin-right: 0px;
+	 }
+	 
+	 .box-header .el-button--mini,
+	 .el-button--mini.is-round {
+	 	padding: 1px 3px;
+	 	color: #fff;
+	 	vertical-align: middle;
+	 }
+	 
+	 .el-input {
+	 	vertical-align: middle;
+	 }
+	 
+	 .label-text-vm {
+	 	text-align: left;
+	 }
+	 
+	 .col-sm-4 {
+	 	margin: 10px 0;
+	 }
+	 
+	 .row .label {
+	 	display: inline-block;
+	 	width: 18px;
+	 	height: 18px;
+	 	margin-top: 5px;
+	 }
+	 
+	 .description-block {
+	 	margin: 10px 0px;
+	 }
+	 
+	 .list-group {
+	 	margin-bottom: 0px;
+	 }
+	 
+	 .box-header.with-border {
+	 	padding-bottom: 14px;
+	 }
+	 
+	 .clear {
+	 	overflow: auto;
+	 	zoom: 1;
+	 	background: #fff;
+	 }
+	 
+	 .el-form-item {
+	 	margin-bottom: 6px !important;
+	 }
+	 
+	 .height {
+	 	height: 220px;
+	 }
+	 
+	 .canbox {
+	 	padding-left: 0px;
+	 	position: relative;
+	 }
+	 
+	 .cantips {
+	 	padding-top: 12px;
+	 	position: absolute;
+		right: 0px;
+	 }

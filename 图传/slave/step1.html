@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+	</head>
+	<body>
+
+		<div id="configuration">
+			
+			<div class="col-xs-5">
+				
+				<el-form ref="form" :model="form" label-width="160px" size="small">
+					<el-form-item label="工作模式">
+						<!-- <em class="star">*</em> -->
+						<el-radio-group v-model="form.resource">
+							<el-radio label="Master模式"></el-radio>·
+							<el-radio label="Slave模式"></el-radio>
+						</el-radio-group>
+					</el-form-item>
+
+
+					<el-form-item label="sector id">
+						<el-input v-model="form.name"></el-input>
+					</el-form-item>
+
+					<el-form-item label="设备名称">
+						<el-input v-model="form.name"></el-input>
+					</el-form-item>
+
+
+					<el-form-item label="设备位置">
+						<el-input v-model="form.name"></el-input>
+					</el-form-item>
+
+					<el-form-item label="管理者名称">
+						<el-input v-model="form.name"></el-input>
+					</el-form-item>
+
+
+					<el-form-item label="站点编号">
+						<el-input v-model="form.name"></el-input>
+					</el-form-item>
+
+					<el-form-item label="管理者名称">
+						<el-input v-model="form.name"></el-input>
+					</el-form-item>
+
+					<el-form-item label="管理者电话">
+						<el-input v-model="form.name"></el-input>
+					</el-form-item>
+
+
+					<el-form-item label="设备地址">
+						<el-input v-model="form.name"></el-input>
+					</el-form-item>
+
+					<el-form-item label="建站时间">
+						<el-input v-model="form.name"></el-input>
+					</el-form-item>
+
+					<el-form-item>
+						<el-button type="primary" @click="onSubmit">下一步</el-button>
+						<el-button>取消</el-button>
+					</el-form-item>
+				</el-form>
+
+			</div>
+
+		</div>
+		<script>
+			let helios;
+			let data = {
+				
+				thar: "",
+				configure: false, //编辑弹出
+				radio: "1",
+				value3: "1",
+				cur: 0,
+				ipshow_tab: "1",
+				checkList: ['5.740', '5.755'],
+				form: {
+					name: '',
+					resource: 'Master模式',
+				},
+			}
+			helios = new Vue({
+				el: "#configuration",
+				data: data,
+				//事件
+				methods: {
+					b1() {
+						toast.$notify({
+							title: '成功',
+							message: '数据请求成功',
+							type: 'success',
+							duration: 1000
+						});
+					},
+					onSubmit() {
+				
+					}
+				},
+			});
+		</script>
+	</body>
+</html>

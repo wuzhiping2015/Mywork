@@ -1,0 +1,688 @@
+{
+  "id": "1369841",
+  "name": "光纤",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1098025",
+      "name": "GPS",
+      "font_class": "GPS",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "5763364",
+      "name": "modifySnmp32",
+      "font_class": "modifySnmp32",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "8394905",
+      "name": "snmp",
+      "font_class": "snmp1",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "8713727",
+      "name": "modem",
+      "font_class": "modem",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "8988614",
+      "name": "VPN",
+      "font_class": "VPN",
+      "unicode": "e726",
+      "unicode_decimal": 59174
+    },
+    {
+      "icon_id": "10494211",
+      "name": "同步时间",
+      "font_class": "tongbushijian",
+      "unicode": "e677",
+      "unicode_decimal": 58999
+    },
+    {
+      "icon_id": "9024905",
+      "name": "网址",
+      "font_class": "wangzhi",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "11592279",
+      "name": "网址",
+      "font_class": "wangzhi1",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "1232238",
+      "name": "off",
+      "font_class": "off2",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "11901350",
+      "name": "off",
+      "font_class": "bianzu",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "845835",
+      "name": "off",
+      "font_class": "off",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "4629503",
+      "name": "on-off",
+      "font_class": "on-off",
+      "unicode": "e83e",
+      "unicode_decimal": 59454
+    },
+    {
+      "icon_id": "13241411",
+      "name": "off",
+      "font_class": "off1",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    },
+    {
+      "icon_id": "1027691",
+      "name": "主机",
+      "font_class": "zhuji",
+      "unicode": "e75c",
+      "unicode_decimal": 59228
+    },
+    {
+      "icon_id": "5057037",
+      "name": "主机",
+      "font_class": "zhuji1",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "5172505",
+      "name": "路由器",
+      "font_class": "luyouqi1",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "7551984",
+      "name": "主机",
+      "font_class": "zhuji2",
+      "unicode": "e6aa",
+      "unicode_decimal": 59050
+    },
+    {
+      "icon_id": "588339",
+      "name": "重启",
+      "font_class": "chongqi",
+      "unicode": "e6c9",
+      "unicode_decimal": 59081
+    },
+    {
+      "icon_id": "1121",
+      "name": "删除文件",
+      "font_class": "shanchuwenjian",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "6537208",
+      "name": "备份",
+      "font_class": "beifen1",
+      "unicode": "e678",
+      "unicode_decimal": 59000
+    },
+    {
+      "icon_id": "7761067",
+      "name": "恢复",
+      "font_class": "huifu",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "14542761",
+      "name": "数据导入",
+      "font_class": "shujudaoru",
+      "unicode": "e76b",
+      "unicode_decimal": 59243
+    },
+    {
+      "icon_id": "14542774",
+      "name": "数据导出",
+      "font_class": "shujudaochu",
+      "unicode": "e76c",
+      "unicode_decimal": 59244
+    },
+    {
+      "icon_id": "6510074",
+      "name": "备份",
+      "font_class": "beifen",
+      "unicode": "e82f",
+      "unicode_decimal": 59439
+    },
+    {
+      "icon_id": "7762175",
+      "name": "恢复出厂",
+      "font_class": "ziyuanxhdpi1",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "10789832",
+      "name": "导入数据_操作_jurassic",
+      "font_class": "jurassic_import-data",
+      "unicode": "e6ca",
+      "unicode_decimal": 59082
+    },
+    {
+      "icon_id": "3619511",
+      "name": "光纤",
+      "font_class": "guangxian",
+      "unicode": "e6f9",
+      "unicode_decimal": 59129
+    },
+    {
+      "icon_id": "4012022",
+      "name": "宽带光纤",
+      "font_class": "kuandaiguangxian",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "6826538",
+      "name": "功率",
+      "font_class": "gongshuai",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "7676245",
+      "name": "4-1光纤路由管理-01",
+      "font_class": "-guangxianluyouguanli-",
+      "unicode": "e679",
+      "unicode_decimal": 59001
+    },
+    {
+      "icon_id": "8090637",
+      "name": "光纤路由图",
+      "font_class": "guangxianluyoutu",
+      "unicode": "e656",
+      "unicode_decimal": 58966
+    },
+    {
+      "icon_id": "8090976",
+      "name": "光纤箱端子",
+      "font_class": "guangxianxiangduanzi",
+      "unicode": "e694",
+      "unicode_decimal": 59028
+    },
+    {
+      "icon_id": "8821338",
+      "name": "光纤交换机",
+      "font_class": "guangxianjiaohuanji",
+      "unicode": "e6d3",
+      "unicode_decimal": 59091
+    },
+    {
+      "icon_id": "10566224",
+      "name": "状态",
+      "font_class": "zhuangtai2",
+      "unicode": "e854",
+      "unicode_decimal": 59476
+    },
+    {
+      "icon_id": "11462037",
+      "name": "功率",
+      "font_class": "gongshuai1",
+      "unicode": "e7b4",
+      "unicode_decimal": 59316
+    },
+    {
+      "icon_id": "13175556",
+      "name": "状态",
+      "font_class": "zhuangtai3",
+      "unicode": "e8c9",
+      "unicode_decimal": 59593
+    },
+    {
+      "icon_id": "14588506",
+      "name": "配比库管理",
+      "font_class": "peibikuguanli",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
+      "icon_id": "1980865",
+      "name": "空数据_数据为空",
+      "font_class": "kongshuju_shujuweikong",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "4606108",
+      "name": "空数据",
+      "font_class": "kongshuju",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "6732104",
+      "name": "数据为空",
+      "font_class": "kong",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "10427562",
+      "name": "暂无数据",
+      "font_class": "status_nodata",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "3464328",
+      "name": "数据为空",
+      "font_class": "tubiaozhizuomoban",
+      "unicode": "e64e",
+      "unicode_decimal": 58958
+    },
+    {
+      "icon_id": "11043498",
+      "name": "开启状态",
+      "font_class": "kaiqi",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "11043529",
+      "name": "关闭状态",
+      "font_class": "guanbi",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "2902629",
+      "name": "设备",
+      "font_class": "shebei",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "9659093",
+      "name": "设备",
+      "font_class": "shebei1",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "14053580",
+      "name": "设备",
+      "font_class": "gateway-device",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "10766117",
+      "name": "告警",
+      "font_class": "gaojing2",
+      "unicode": "e6d4",
+      "unicode_decimal": 59092
+    },
+    {
+      "icon_id": "11694342",
+      "name": "告警",
+      "font_class": "gaojing3",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "571759",
+      "name": "SNMP",
+      "font_class": "snmp",
+      "unicode": "e6b2",
+      "unicode_decimal": 59058
+    },
+    {
+      "icon_id": "9950736",
+      "name": "SNMP",
+      "font_class": "SNMP",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "1159875",
+      "name": "控制",
+      "font_class": "kongzhi",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "6607672",
+      "name": "ico_设备管理_设备信息维护",
+      "font_class": "ico_shebeiguanli_shebeixinxiweihu",
+      "unicode": "e8f9",
+      "unicode_decimal": 59641
+    },
+    {
+      "icon_id": "7155364",
+      "name": "状态",
+      "font_class": "zhuangtai",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    },
+    {
+      "icon_id": "7682473",
+      "name": "状态",
+      "font_class": "zhuangtai1",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "11261655",
+      "name": "控制台",
+      "font_class": "kongzhitai",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "5178942",
+      "name": "温度",
+      "font_class": "wendu1",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "11121435",
+      "name": "编号",
+      "font_class": "bianhao",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "11761413",
+      "name": "温度",
+      "font_class": "wendu",
+      "unicode": "e71c",
+      "unicode_decimal": 59164
+    },
+    {
+      "icon_id": "1263281",
+      "name": "设置",
+      "font_class": "shezhi",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "10138528",
+      "name": "信息同步",
+      "font_class": "xinxitongbu",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "5243826",
+      "name": "接入节点",
+      "font_class": "jierujiedian",
+      "unicode": "e695",
+      "unicode_decimal": 59029
+    },
+    {
+      "icon_id": "5243831",
+      "name": "接入适配器类型",
+      "font_class": "jierushipeiqileixing",
+      "unicode": "e698",
+      "unicode_decimal": 59032
+    },
+    {
+      "icon_id": "8031817",
+      "name": "路由器",
+      "font_class": "luyouqi",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "10868445",
+      "name": "横向扩展",
+      "font_class": "hengxiangkuozhan",
+      "unicode": "e8a6",
+      "unicode_decimal": 59558
+    },
+    {
+      "icon_id": "424072",
+      "name": "状态监控",
+      "font_class": "zhuangtaijiankong",
+      "unicode": "e6d2",
+      "unicode_decimal": 59090
+    },
+    {
+      "icon_id": "2468127",
+      "name": "采集设备信息查询",
+      "font_class": "caijishebeixinxichaxun",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "5722342",
+      "name": "电子设备设置",
+      "font_class": "dianzishebeishezhi",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "6176562",
+      "name": "告警",
+      "font_class": "gaojing1",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "6241667",
+      "name": "设备告警",
+      "font_class": "shebeigaojing",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "15493",
+      "name": "加载中",
+      "font_class": "jiazaizhong",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    },
+    {
+      "icon_id": "5327589",
+      "name": "加载",
+      "font_class": "jiazai",
+      "unicode": "e721",
+      "unicode_decimal": 59169
+    },
+    {
+      "icon_id": "2069840",
+      "name": "用户类型",
+      "font_class": "yonghuleixing",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "7103362",
+      "name": "姓名 用户名 昵称",
+      "font_class": "xingmingyonghumingnicheng",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "8101671",
+      "name": "密码 (1)",
+      "font_class": "mima",
+      "unicode": "e6c8",
+      "unicode_decimal": 59080
+    },
+    {
+      "icon_id": "7489006",
+      "name": "清空",
+      "font_class": "qingkong",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    },
+    {
+      "icon_id": "9083481",
+      "name": "确认",
+      "font_class": "queren",
+      "unicode": "e806",
+      "unicode_decimal": 59398
+    },
+    {
+      "icon_id": "3912263",
+      "name": "通讯基站",
+      "font_class": "ziyuan",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "6864807",
+      "name": "winfo-icon-DSC基站",
+      "font_class": "winfo-icon-DSCjizhan",
+      "unicode": "e697",
+      "unicode_decimal": 59031
+    },
+    {
+      "icon_id": "8090799",
+      "name": "LTE基站验收00",
+      "font_class": "LTEjizhanyanshou",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    },
+    {
+      "icon_id": "8342269",
+      "name": "基站",
+      "font_class": "jizhan-nomal",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "9170008",
+      "name": "基站",
+      "font_class": "jizhan4",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "8744040",
+      "name": "基站",
+      "font_class": "jizhan1",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "8455317",
+      "name": "列表",
+      "font_class": "liebiao",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "8712477",
+      "name": "列表",
+      "font_class": "liebiao1",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "8413962",
+      "name": "卡片",
+      "font_class": "qiapian1",
+      "unicode": "e6a3",
+      "unicode_decimal": 59043
+    },
+    {
+      "icon_id": "6504121",
+      "name": "菜单",
+      "font_class": "menu-two",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1549399",
+      "name": "退出",
+      "font_class": "tuichu",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    },
+    {
+      "icon_id": "10380641",
+      "name": "个人中心 选中",
+      "font_class": "gerenzhongxinxuanzhong",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "2729513",
+      "name": "消息",
+      "font_class": "xiaoxi",
+      "unicode": "e6cb",
+      "unicode_decimal": 59083
+    },
+    {
+      "icon_id": "3595936",
+      "name": "告警",
+      "font_class": "gaojing",
+      "unicode": "e6f1",
+      "unicode_decimal": 59121
+    },
+    {
+      "icon_id": "3409207",
+      "name": "无线配置",
+      "font_class": "wifi",
+      "unicode": "e6de",
+      "unicode_decimal": 59102
+    },
+    {
+      "icon_id": "5159044",
+      "name": "基站服务",
+      "font_class": "jizhanfuwu",
+      "unicode": "e687",
+      "unicode_decimal": 59015
+    },
+    {
+      "icon_id": "10498425",
+      "name": "基站类型",
+      "font_class": "jizhanleixing",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "551962",
+      "name": "箭头",
+      "font_class": "arrow-right",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "2270138",
+      "name": "信号接收器",
+      "font_class": "xinhaojieshouqi",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "167191",
+      "name": "信号塔",
+      "font_class": "xinhaota3",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    }
+  ]
+}

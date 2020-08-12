@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>inventory</title>
+
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+	<!-- Theme style -->
+	<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+	<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+	<link rel="stylesheet" href="assets/css/index.css?2019827">
+
+</head>
+<style>
+	.box-widget [class*="col-grid-m"]>li {
+		width: 100%;
+	}
+
+	.widget-user .progress.sm {
+		margin-top: 7px;
+	}
+
+	.widget-user .iconfont {
+		position: absolute;
+		top: -24px;
+		left: 10px;
+		font-size: 34px;
+	}
+
+	.maplist .iconfont {
+		display: block;
+	}
+
+	.box-footer {
+		position: relative;
+	}
+
+	.bg-green-active-rest_1+.box-footer .option,
+	.bg-green-active-rest_2+.box-footer .option,
+	.bg-green-active-rest_3+.box-footer .option {
+		background: rgb(0, 0, 0);
+		width: 100%;
+		height: 232px;
+		position: absolute;
+		z-index: 99;
+		left: 0px;
+		top: 0px;
+		opacity: .2;
+	}
+
+	#box-body {
+		max-height: 622px;
+		overflow-y: auto;
+		overflow-x: hidden;
+		padding: 0px
+	}
+
+	.box-body.active {
+		padding: 0px 15px;
+	}
+
+	.widget-user .widget-user-header {
+		border-top-right-radius: 14px;
+		border-top-left-radius: 14px;
+	}
+
+	.widget-user .widget-user-header+.box-footer {
+		padding-top: 5px;
+		border-bottom-right-radius: 14px;
+		border-bottom-left-radius: 14px;
+		border: 0px solid #00a3ce;
+		border-top: 0px;
+		border: 1px solid #c3c3c3;
+	}
+
+	.box.box-widget.widget-user .row {
+		margin: 0px;
+		margin-bottom: 5px;
+		padding-bottom: 5px;
+		border-bottom: 1px ridge rgba(0, 0, 0, 0.125);
+		border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+	}
+
+	.box-body .col-xs-4 {
+		padding-right: 7px;
+		padding-left: 7px;
+	}
+
+	.box.box-widget.widget-user {
+		background: none;
+	}
+
+	.col-grid-m-6font h5 {
+		margin: 7px;
+		color: #3b3b3b;
+		text-align: center;
+	}
+
+	.widget-user .widget-user-header font {
+		color: #fff;
+		font-size: 13px;
+	}
+
+	.col-search-s .col-md-6 {
+		padding: 0px;
+		padding-right: 5px
+	}
+
+	.col-search-s .col-md-6.re {
+		padding: 0px;
+		padding-left: 5px
+	}
+
+	.border p {
+		text-align: center;
+		margin: 2px;
+		color: #3b3b3b
+	}
+
+	.box-widget [class*="col-grid-m"]>li.res {
+		min-height: 18px;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	.box-widget [class*="col-grid-m"]>li.border {
+		padding-bottom: 18px;
+		margin-bottom: 12px;
+		width: 100% !important;
+		border-bottom: 1px ridge rgba(0, 0, 0, 0.125);
+		border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+	}
+
+	.bg-green-active.bg-green-active-rest_1,
+	.bg-green-active-rest_1 {
+		background-color: #dd4b39 !important;
+	}
+
+	.bg-green-active.bg-green-active-rest_2,
+	.bg-green-active-rest_2 {
+		background-color: #b94646 !important;
+	}
+
+	.bg-green-active.bg-green-active-rest_3,
+	.bg-green-active-rest_3 {
+		background-color: #cc9910 !important;
+	}
+
+	.widget-user .bg-green-active-rest_1.widget-user-header+.box-footer {
+		border-color: #adadad !important;
+		opacity: .5;
+	}
+
+	.widget-user .bg-green-active-rest_2.widget-user-header+.box-footer {
+		border-color: #b94646 !important;
+	}
+
+	.widget-user .bg-green-active-rest_3.widget-user-header+.box-footer {
+		border-color: #cc9910 !important;
+	}
+
+	.label-text-vm {
+		text-align: left;
+	}
+
+	.modal.active {
+		display: block;
+	}
+
+	.slave button {
+		float: left;
+		margin-left: 2%;
+		width: 96%;
+		margin-bottom: 10px;
+	}
+
+	.col-xs-3 {
+		padding-right: 0px;
+	}
+
+	.widget-user .widget-user-username {
+		margin-bottom: 16px;
+	}
+
+	.bg-aqua-active.bg-aqua-active-rest_1,
+	.bg-aqua-active-rest_1 {
+		background-color: #dd4b39 !important;
+	}
+</style>
+
+<body>
+	<!-- 主要内容显示 -->
+	<section class=" container-fluid" id="HeliosComment">
+		<!-- Personal center -->
+		<div class="row">
+			<div class="col-xs-12">
+				<!--  PERFORMANCE -->
+				<div class="box">
+					<div id="box-body" class="box-body active">
+						<div class="row" style="margin: 0px;">
+
+							<div class="col-xs-3">
+								<div class="box box-widget widget-user">
+									<div class="widget-user-header bg-aqua-active bg-aqua-active-rest_0">
+										<h3 title="Whelios" class="widget-user-username">MODEM A</h3>
+										<span>MAC：DDD-123</span>
+										<span class="icon iconfont icon-gaojing start_0"></span>
+									</div>
+									<div class="box-footer">
+										<div class="option" style="display: none;">&nbsp;</div>
+										<div class="row">
+											<div class="col-sm-6 border-right">
+												<div class="description-block">
+													<h5 class="description-header">Slave Name</h5>
+													<span class="description-text">HNU01.01</span>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="description-block">
+													<h5 class="description-header">Slave priority</h5>
+													<span class="description-text">6</span>
+												</div>
+											</div>
+										</div>
+										<ul class="col-grid-m-6font col-search-s pr0 all-li-pb10">
+											<li>
+												<label class="label-text-vm">IP </label>
+												<div class="div-textarea ">10.104.50.3</div>
+											</li>
+											<li>
+												<label class="label-text-vm">SN </label>
+												<div class="div-textarea ">SN 1233444</div>
+											</li>
+											<li>
+												<label class="label-text-vm">Thru 1 </label>
+												<div class="div-textarea ">60%</div>
+											</li>
+											<li>
+												<label class="label-text-vm"> Thrd 1 </label>
+												<div class="div-textarea ">20%</div>
+											</li>
+											<li>
+												<div class="slave">
+													<button type="button" class="btn btn-block btn-primary">Details</button>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="col-xs-3">
+								<div class="box box-widget widget-user">
+									<div class="widget-user-header bg-aqua-active bg-aqua-active-rest_0">
+										<h3 title="Whelios" class="widget-user-username">MODEM B</h3>
+										<span>MAC：DDD-123</span>
+										<span class="icon iconfont icon-gaojing start_0"></span>
+									</div>
+									<div class="box-footer">
+										<div class="option" style="display: none;">&nbsp;</div>
+										<div class="row">
+											<div class="col-sm-6 border-right">
+												<div class="description-block">
+													<h5 class="description-header">Slave Name</h5>
+													<span class="description-text">HNU01.01</span>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="description-block">
+													<h5 class="description-header">Slave priority</h5>
+													<span class="description-text">6</span>
+												</div>
+											</div>
+										</div>
+										<ul class="col-grid-m-6font col-search-s pr0 all-li-pb10">
+											<li>
+												<label class="label-text-vm">IP </label>
+												<div class="div-textarea ">10.104.50.3</div>
+											</li>
+											<li>
+												<label class="label-text-vm">SN </label>
+												<div class="div-textarea ">SN 1233444</div>
+											</li>
+											<li>
+												<label class="label-text-vm">Thru 1 </label>
+												<div class="div-textarea ">60%</div>
+											</li>
+											<li>
+												<label class="label-text-vm"> Thrd 1 </label>
+												<div class="div-textarea ">20%</div>
+											</li>
+											<li>
+												<div class="slave">
+													<button type="button" class="btn btn-block btn-primary">Details</button>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-3">
+								<div class="box box-widget widget-user">
+									<div class="widget-user-header bg-aqua-active bg-aqua-active-rest_0">
+										<h3 title="Whelios" class="widget-user-username">MODEM B</h3>
+										<span>MAC：DDD-123</span>
+										<span class="icon iconfont icon-gaojing start_0"></span>
+									</div>
+									<div class="box-footer">
+										<div class="option" style="display: none;">&nbsp;</div>
+										<div class="row">
+											<div class="col-sm-6 border-right">
+												<div class="description-block">
+													<h5 class="description-header">Slave Name</h5>
+													<span class="description-text">HNU01.01</span>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="description-block">
+													<h5 class="description-header">Slave priority</h5>
+													<span class="description-text">6</span>
+												</div>
+											</div>
+										</div>
+										<ul class="col-grid-m-6font col-search-s pr0 all-li-pb10">
+											<li>
+												<label class="label-text-vm">IP </label>
+												<div class="div-textarea ">10.104.50.3</div>
+											</li>
+											<li>
+												<label class="label-text-vm">SN </label>
+												<div class="div-textarea ">SN 1233444</div>
+											</li>
+											<li>
+												<label class="label-text-vm">Thru 1 </label>
+												<div class="div-textarea ">60%</div>
+											</li>
+											<li>
+												<label class="label-text-vm"> Thrd 1 </label>
+												<div class="div-textarea ">20%</div>
+											</li>
+											<li>
+												<div class="slave">
+													<button type="button" class="btn btn-block btn-primary">Details</button>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-3">
+								<div class="box box-widget widget-user">
+									<div class="widget-user-header bg-aqua-active bg-aqua-active-rest_1">
+										<h3 title="Whelios" class="widget-user-username">MODEM B</h3>
+										<span>MAC：DDD-123</span>
+										<span class="icon iconfont icon-gaojing start_0"></span>
+									</div>
+									<div class="box-footer">
+										<div class="option" style="display: none;">&nbsp;</div>
+										<div class="row">
+											<div class="col-sm-6 border-right">
+												<div class="description-block">
+													<h5 class="description-header">Slave Name</h5>
+													<span class="description-text">HNU01.01</span>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="description-block">
+													<h5 class="description-header">Slave priority</h5>
+													<span class="description-text">6</span>
+												</div>
+											</div>
+										</div>
+										<ul class="col-grid-m-6font col-search-s pr0 all-li-pb10">
+											<li>
+												<label class="label-text-vm">IP </label>
+												<div class="div-textarea ">10.104.50.3</div>
+											</li>
+											<li>
+												<label class="label-text-vm">SN </label>
+												<div class="div-textarea ">SN 1233444</div>
+											</li>
+											<li>
+												<label class="label-text-vm">Thru 1 </label>
+												<div class="div-textarea ">60%</div>
+											</li>
+											<li>
+												<label class="label-text-vm"> Thrd 1 </label>
+												<div class="div-textarea ">20%</div>
+											</li>
+											<li>
+												<div class="slave">
+													<button type="button" class="btn btn-block btn-primary">Details</button>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+
+					<!--   ModemD_RF start -->
+					<div class="row" style="margin-top:10px;">
+						<div class="col-xs-12">
+							<div class="box">
+								<div class="box-header with-border">
+									<h3 class="box-title text-green">Modem_Type: MODEM A</h3>
+								</div>
+								<div class="box-body table-responsive no-padding">
+									<table class="table table-bordered table-hover dataTable">
+										<tbody>
+											<tr>
+												<th style="width: 150px;">&nbsp;</th>
+												<th>freq</th>
+												<th>rssi </th>
+												<th>pathloss</th>
+												<th>rsrp</th>
+												<th>frequl</th>
+												<th>snr</th>
+												<th>distance</th>
+												<th>txpower</th>
+												<th>thrdl</th>
+												<th>thrul</th>
+												<th>err</th>
+												<th>msc</th>
+												<th>rb</th>
+												<th>cqi</th>
+												<th>errtotal</th>
+												<th>snrmax</th>
+												<th>snrmin</th>
+												<th>totaltb size</th>
+											</tr>
+											<tr>
+												<td rowspan="2">port1</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+											</tr>
+											<tr>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+											</tr>
+											<tr>
+												<td rowspan="2">port2</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+											</tr>
+											<tr>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+												<td>数据...</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+
+						</div>
+
+
+					</div>
+					<!--   ModemD_RF end -->
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script type="text/javascript" src="assets/js/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/vue.js"></script>
+	<script type="text/javascript" src="assets/js/index.js"></script>
+	<script type="text/javascript" src="assets/js/comment.js"></script>
+	<script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+
+	<script>
+		let data = {
+			form: {
+				value: ""
+			},
+		};
+		var Helios = new Vue({
+			el: "#HeliosComment",
+			data: data,
+			//事件
+			methods: {
+				b1() {
+					toast.$notify({
+						title: '成功',
+						message: '数据请求成功',
+						type: 'success',
+						duration: 1000
+					});
+				},
+				//快捷操作
+				Coordinates_isshow() {
+					if (this.$data.coordshow) {
+						this.$data.coordshow = false;
+					} else {
+						this.$data.coordshow = true;
+					}
+				},
+			}
+		});
+	</script>
+</body>
+
+</html>

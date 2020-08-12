@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+	</head>
+	<body>
+		<style>
+			.box .box-footer {
+		    border-top: 0px;
+		}
+		
+		.el-checkbox {
+		    margin: 3px 14px;
+		}
+		
+		.label {
+		    font-size: 100%;
+		}
+		
+		.el-dialog {
+		    width: 30%;
+		}
+		
+		td span small {
+		    cursor: pointer;
+		}
+		.box-body{
+				padding: 0px;
+		}
+		.col-xs-12{
+			margin-bottom: 30px;
+		}
+</style>
+		<div id="configuration">
+
+			<div id="content" class="wrapper">
+
+				<!-- system -->
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="nav-tabs-custom">
+
+							<div class="box">
+
+								<div class="col-xs-6">
+									<div class="box-header with-border">
+										<h3 class="box-title">IP配置</h3>
+									</div>
+									<div class="box-footer">
+										<div class="col-xs-8">
+											<el-form ref="form" :model="form" label-width="160px" size="small">
+
+												<el-form-item label="IP地址">
+													<el-input v-model="form.name"></el-input>
+												</el-form-item>
+
+												<el-form-item label="子网掩码">
+													<el-input v-model="form.name"></el-input>
+												</el-form-item>
+												<el-form-item label="默认网关">
+													<el-input v-model="form.name"></el-input>
+												</el-form-item>
+
+
+												<el-form-item label="DNS">
+													<el-radio-group v-model="form.name">
+														<el-radio label="主DNS"></el-radio>·
+														<el-radio label="从DNS"></el-radio>
+													</el-radio-group>
+												</el-form-item>
+												<el-form-item>
+													<el-button type="primary" @click="onSubmit">确定</el-button>
+													<el-button>取消</el-button>
+												</el-form-item>
+											</el-form>
+										</div>
+
+									</div>
+
+
+								</div>
+
+								<div class="col-xs-6">
+
+									<div class="box-header with-border">
+										<h3 class="box-title">DHCP Server 配置</h3>
+									</div>
+									<div class="box-footer">
+										<div class="col-xs-8">
+											<el-form ref="form" :model="form" label-width="160px" size="small">
+
+												<el-form-item label="IP地址池">
+													<el-radio-group v-model="form.name">
+														<el-radio label="起始IP"></el-radio>·
+														<el-radio label="终止IP"></el-radio>
+													</el-radio-group>
+												</el-form-item>
+
+
+												<el-form-item label="子网掩码">
+													<el-input v-model="form.name"></el-input>
+												</el-form-item>
+
+												<el-form-item label="默认网关">
+													<el-input v-model="form.name"></el-input>
+												</el-form-item>
+
+												<el-form-item label="DNS">
+													<el-radio-group v-model="form.name">
+														<el-radio label="主DNS"></el-radio>·
+														<el-radio label="从DNS"></el-radio>
+													</el-radio-group>
+												</el-form-item>
+
+												<el-form-item>
+													<el-button type="primary" @click="onSubmit">确定</el-button>
+													<el-button>取消</el-button>
+												</el-form-item>
+											</el-form>
+
+
+										</div>
+
+									</div>
+
+
+								</div>
+
+
+
+							</div>
+
+							<div class="box">
+
+								<div class="col-xs-12">
+
+									<div class="box-header with-border">
+										<h3 class="box-title">ip_version </h3>
+									</div>
+									<div class="box-footer">
+										<div class="col-xs-4">
+											<el-form ref="form" :model="form" label-width="160px" size="small">
+
+												<el-form-item label="IPv6 Address">
+													<el-input v-model="form.name"></el-input>
+												</el-form-item>
+
+												<el-form-item label="Subnet Mask">
+													<el-input v-model="form.name"></el-input>
+												</el-form-item>
+
+												<el-form-item label="Default Gateway">
+													<el-input v-model="form.name"></el-input>
+												</el-form-item>
+
+												<el-form-item>
+													<el-button type="primary" @click="onSubmit">确定</el-button>
+													<el-button>取消</el-button>
+												</el-form-item>
+											</el-form>
+
+
+										</div>
+
+									</div>
+
+
+								</div>
+
+							</div>
+
+
+
+						</div>
+
+
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<script>
+			let helios;
+			let data = {
+				form: {
+					name1: "",
+					tag: "",
+					name: '',
+					resource: 'Master模式',
+				}
+			}
+			helios = new Vue({
+				el: "#configuration",
+				data: data,
+
+				methods: {
+
+					onSubmit() {
+
+					}
+				},
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hsulist</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/global.css?2019827" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+    <link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+
+    <link rel="stylesheet" href="assets/css/index.css?2019827">
+
+</head>
+<style>
+    [class*="col-grid-s"]>li {
+        width: 410px;
+    }
+
+    .box .box-footer {
+        border-top: 0px;
+    }
+
+    .el-checkbox {
+        margin: 10px 30px;
+    }
+
+    .label {
+        font-size: 100%;
+    }
+
+    .el-dialog {
+        width: 30%;
+    }
+
+    td span small {
+        cursor: pointer;
+    }
+</style>
+
+<body class="skin-black sidebar-open sidebar-mini">
+
+    <div class="wrapper">
+        <!-- 页头 -->
+        <div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+            <el-main-header :loguser="logUserName" :logUser="logUserName"></el-main-header>
+
+        </div>
+        <!-- 页头end -->
+
+        <!-- 侧边栏导航 -->
+        <div id="comp-sidebar">
+            <el-main-sidebar></el-main-sidebar>
+        </div>
+        <!-- 侧边栏导航 end -->
+
+        <!-- 内容区域 -->
+        <div class="content-wrapper" id="content-wrapper">
+            <!-- 内容头部面包屑 -->
+            <section style="display: none">
+                <ol class="breadcrumb">
+                    <li>
+                        <a id="head1" href="#"></a>
+                    </li>
+                    <li id="head2" class="active"></li>
+                </ol>
+            </section>
+            <!-- 主要内容显示 -->
+            <section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+
+
+
+
+                <!--   configuration tab -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-header with-border"><h3 class="box-title">Personal center</h3></div>
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width: 100px;">Number</th>
+                                            <th style="width: 150px;">Name</th>
+                                            <th style="width: 100px;">IP Address</th>
+                                            <th style="width: 200px;">State</th>
+                                            <th>Tput HBS[Mbps]</th>
+                                            <th>Tput HSU[Mbps]</th>
+                                            <th>Peak Tput DL[Mbps]</th>
+                                            <th>Peak</th>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">0001</a></td>
+                                            <td>数据整理...</td>
+                                            <td>数据整理...</td>
+                                            <td>
+                                                <span> <small class="label  bg-yellow">Active</small> Registered</span>
+                                            </td>
+                                            <td>数据整理...</td>
+                                            <td>数据整理...</td>
+                                            <td>数据整理...</td>
+                                            <td>数据整理...</td>
+                                           
+                                        </tr>
+                                        <tr>
+                                                <td><a href="#">0001</a></td>
+                                                <td>数据整理...</td>
+                                                <td>数据整理...</td>
+                                                <td>
+                                                    <span> <small class="label  bg-yellow">Active</small> Registered</span>
+                                                </td>
+                                                <td>数据整理...</td>
+                                                <td>数据整理...</td>
+                                                <td>数据整理...</td>
+                                                <td>数据整理...</td>
+                                              
+                                            </tr>
+                                            <tr>
+                                                    <td><a href="#">0001</a></td>
+                                                    <td>数据整理...</td>
+                                                    <td>数据整理...</td>
+                                                    <td>
+                                                        <span> <small class="label  bg-yellow">Active</small> Registered</span>
+                                                    </td>
+                                                    <td>数据整理...</td>
+                                                    <td>数据整理...</td>
+                                                    <td>数据整理...</td>
+                                                    <td>数据整理...</td>
+                                                   
+                                                </tr>
+                                                <tr>
+                                                        <td><a href="#">0001</a></td>
+                                                        <td>数据整理...</td>
+                                                        <td>数据整理...</td>
+                                                        <td>
+                                                            <span> <small class="label  bg-yellow">Active</small> Registered</span>
+                                                        </td>
+                                                        <td>数据整理...</td>
+                                                        <td>数据整理...</td>
+                                                        <td>数据整理...</td>
+                                                        <td>数据整理...</td>
+                                                       
+                                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <!--   configuration tab  end-->
+            </section>
+        </div>
+        <!-- 内容区域 -->
+
+    </div>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/vue.js"></script>
+    <script type="text/javascript" src="assets/js/index.js"></script>
+    <script type="text/javascript" src="assets/js/comment.js"></script>
+    <script type="text/javascript" src="assets/js/adminlte.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+
+    <script>
+        let data = {
+            coordshow: false,
+            thar: "",
+            configure: false, //编辑弹出
+            radio: "1",
+            value3: "",
+            cur: 0,
+            ipshow_tab: "1",
+            checkList: ['5.740', '5.755']
+        };
+        var Helios = new Vue({
+            el: "#MainContext",
+            data: data,
+            beforeCreate() {
+                /*console.log("创建前：");
+                console.log(this.$data); */
+            },
+            created() {
+                //  console.log("创建完成：");
+                // console.log(this.$data);
+
+            },
+            beforeMount() {
+                /* console.log("挂载前：");
+                console.log(this.$data); */
+
+            },
+            mounted() {
+                /* console.log("时时监控数据变化,并随之更新");*/
+                console.log(this.$data);
+                $("body").resize();
+
+            },
+
+            updated() {
+                // console.log("==更新成功==");
+                console.log(this.$data);
+            },
+            //事件
+            methods: {
+                b1() {
+                    toast.$notify({
+                        title: '成功',
+                        message: '数据请求成功',
+                        type: 'success',
+                        duration: 1000
+                    });
+                },
+                Btnoperation(x) {
+                    this.$data.configure = true;
+                    this.$data.thar = x;
+                }
+
+            },
+
+
+        });
+    </script>
+
+
+</body>
+
+
+</html>

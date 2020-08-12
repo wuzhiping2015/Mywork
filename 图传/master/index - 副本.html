@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Helios </title>
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/global.css?2019827" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css?2019827" />
+		<!-- Theme style -->
+		<link rel="stylesheet" href="assets/css/AdminLTE.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/skins/skin-black.min.css?2019827" />
+		<link rel="stylesheet" href="assets/css/index.css?2019827">
+	</head>
+	<style>
+		.box-widget [class*="col-grid-m"]>li {
+			width: 100%;
+		}
+
+    .widget-user .progress.sm {
+        margin-top: 7px;
+    }
+    .widget-user .iconfont {
+        position: absolute;
+        top: -24px;
+        left: 10px;
+        font-size: 34px;
+    }
+    .maplist .iconfont {
+        display: block;
+    }
+    .el-dialog {
+        width: 30%;
+    }
+
+    .box-footer {
+        position: relative;
+    }
+
+    .bg-aqua-active-rest_1+.box-footer .option,
+    .bg-aqua-active-rest_2+.box-footer .option,
+    .bg-aqua-active-rest_3+.box-footer .option {
+        background: rgb(0, 0, 0);
+        width: 100%;
+        height: 232px;
+        position: absolute;
+        z-index: 99;
+        left: 0px;
+        top: 0px;
+        opacity: .2;
+    }
+
+    #box-body {
+        max-height: 622px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 0px
+    }
+
+    .box-body.active {
+        padding: 0px 15px;
+    }
+
+    .widget-user .widget-user-header {
+        border-top-right-radius: 14px;
+        border-top-left-radius: 14px;
+    }
+
+    .widget-user .widget-user-header+.box-footer {
+        padding-top: 5px;
+        border-bottom-right-radius: 14px;
+        border-bottom-left-radius: 14px;
+        border: 0px solid #00a3ce;
+        border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+        border-top: 0px;
+    }
+
+    .box.box-widget.widget-user .row {
+        margin: 0px;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        border-bottom: 1px ridge rgba(0, 0, 0, 0.125);
+        border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+    }
+
+    .box-body .col-xs-4 {
+        padding-right: 7px;
+        padding-left: 7px;
+    }
+
+    .box.box-widget.widget-user {
+        background: none;
+    }
+
+    .col-grid-m-6font h5 {
+        margin: 0px;
+        color: #3b3b3b;
+    }
+
+    .widget-user .widget-user-header font {
+        color: #fff;
+        font-size: 13px;
+    }
+
+    .col-search-s .col-md-6 {
+        padding: 0px;
+        padding-right: 5px
+    }
+
+    .col-search-s .col-md-6.re {
+        padding: 0px;
+        padding-left: 5px
+    }
+
+    .border p {
+        text-align: center;
+        margin: 2px;
+        color: #3b3b3b
+    }
+
+    .box-widget [class*="col-grid-m"]>li.res {
+        min-height: 18px;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .box-widget [class*="col-grid-m"]>li.border {
+        padding-bottom: 18px;
+        margin-bottom: 12px;
+        width: 100% !important;
+        border-bottom: 1px ridge rgba(0, 0, 0, 0.125);
+        border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+    }
+
+    .bg-aqua-active.bg-aqua-active-rest_1,
+    .bg-aqua-active-rest_1 {
+        background-color:#dd4b39 !important;
+    }
+
+    .bg-aqua-active.bg-aqua-active-rest_2,
+    .bg-aqua-active-rest_2 {
+        background-color: #b94646 !important;
+    }
+
+    .bg-aqua-active.bg-aqua-active-rest_3,
+    .bg-aqua-active-rest_3 {
+        background-color: #cc9910 !important;
+    }
+
+    .widget-user .bg-aqua-active-rest_1.widget-user-header+.box-footer {
+        border-color: #adadad !important;
+        opacity: .5;
+    }
+
+    .widget-user .bg-aqua-active-rest_2.widget-user-header+.box-footer {
+        border-color: #b94646 !important;
+    }
+
+    .widget-user .bg-aqua-active-rest_3.widget-user-header+.box-footer {
+        border-color: #cc9910 !important;
+    }
+
+    .label-text-vm {
+        text-align: left;
+    }
+
+    .modal.active {
+        display: block;
+    }
+	.slave .col3{
+		float: left;
+		margin-left:2%;
+		width: 48%;
+		margin-bottom: 10px;
+	}
+</style>
+
+	<body class="skin-black sidebar-open sidebar-mini">
+		<div class="wrapper">
+			<!-- 页头 -->
+			<div id="comp-header" class="main-header" style="position: relative; z-index: 99;">
+				<el-main-header :loguser="logUserName" :logUser="logUserName"></el-main-header>
+			</div>
+			<!-- 页头end -->
+
+			<!-- 侧边栏导航 -->
+			<div id="comp-sidebar">
+				<el-main-sidebar></el-main-sidebar>
+			</div>
+			<!-- 侧边栏导航 end -->
+
+			<!-- 内容区域 -->
+			<div class="content-wrapper" id="content-wrapper">
+
+
+
+
+				<!-- 内容头部面包屑 -->
+				<section class="" style="display: none">
+					<ol class="breadcrumb">
+						<li>
+							<a id="head1" href="#"></a>
+						</li>
+						<li id="head2" class="active"></li>
+					</ol>
+				</section>
+				<!-- 主要内容显示 -->
+				<section class="content container-fluid" id="MainContext" style="padding:15px; min-width: 1200px;">
+
+					<!-- 激活 -->
+					<div class="modal" :class="{active:acti==1}"></div>
+					<div class="modal" :class="{active:acti==1}">
+						<div class="modal-dialog window-popup registration-login-form-popup">
+							<div class="modal-content">
+								<!--  <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close"> X </a> -->
+
+								<div class="error-page" style="background: rgb(255, 255, 255); margin-bottom: 20px;">
+									<h2 class="headline text-yellow">HBS</h2>
+									<div class="error-content">
+										<h3><i class="fa fa-warning text-yellow"></i>
+											The main window for HBS is not configured
+										</h3>
+										<p>
+											<button type="button" @click="locationActivation" class="btn btn-block btn-warning" style="width: 90%; margin: 0px auto;">Activation
+												an HBS</button>
+											Welcome to HBS Activation wizard Click on the
+										</p>
+										<div class="input-group"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 激活 -->
+
+					<div class="row">
+						<!-- events log -->
+						<div class="col-xs-9">
+							<div class="box box-info" style="background: none; box-shadow: none; margin-bottom:0px;">
+								<div class="box-header with-border" style="background: #fff;    margin-bottom: 10px;">
+									<h3 class="box-title">设备列表
+										<font style="color: #fd397a !important;font-size:14px;">
+											( {{hsulength}})
+										</font>
+									</h3>
+									<div class="viswCard">
+										<span class="iconfont icon-qiapian1" @click="cartab=1" :class="{active:cartab==1}" title="Card View">111</span>
+										<span class="iconfont icon-liebiao1" @click="cartab=2" :class="{active:cartab==2}" title="List View">222</span>
+									</div>
+
+								</div>
+								<div class="box-body" :class="{active:cartab==1}" id="box-body">
+									<div class="row" v-show="cartab==1" style="margin: 0px;">
+										<!-- 数据循环魔板 -->
+										<div class="col-xs-4" v-for="(item,index) in HSU">
+											<div class="box box-widget widget-user">
+												<div class="widget-user-header bg-aqua-active" :class="'bg-aqua-active-rest_'+item.start">
+													<h3 class="widget-user-username" title="Whelios">IP：{{item.IP}}</h3>
+													<span>MAC：{{item.MAC}}</span>
+													<!--    <h5 class="widget-user-desc"> {{item.name}}</h5> -->
+													<font>{{item.start | hsustart}} </font>
+													<span class="icon iconfont icon-gaojing" :class="'start_'+item.start" ref="setColor"></span>
+												</div>
+												<div class="box-footer">
+													<div class="option" v-show="item.start>0">&nbsp;</div>
+													<div class="row">
+														<div class="col-sm-6 border-right">
+															<div class="description-block">
+																<h5 class="description-header">Loc</h5>
+																<span class="description-text">{{item.Loc}}</span>
+															</div>
+														</div>
+														<div class="col-sm-6">
+															<div class="description-block">
+																<h5 class="description-header">Level</h5>
+																<span class="description-text">{{item.Level}}</span>
+															</div>
+														</div>
+													</div>
+													<ul class="col-grid-m-6font col-search-s pr0 all-li-pb10">
+														<!-- 	<li class="res">
+															<div class="col-md-12 tc ">
+																<h5 class="description-header">RRS[dBm]</h5>
+															</div>
+														</li>
+ 
+														<li class="border">
+															<div class="col-md-6">
+																<p>HBS {{item.HSU}}</p>
+																<div class="progress">
+																	<div class="progress-bar progress-bar-aqua  bg-green" v-bind:style="{width:item.HSU+'%'}">
+																	</div>
+																</div>
+															</div>
+															<div class="col-md-6 re">
+																<p>HSU {{item.HBS}}</p>
+																<div class="progress">
+																	<div class="progress-bar progress-bar-aqua  bg-green" v-bind:style="{width:item.HBS+'%'}">
+																	</div>
+																</div>
+															</div>
+														</li> -->
+														<li class="res">
+															<div class="col-md-12 tc ">
+																<h5 class="description-header">Throughput[Mbps]</h5>
+															</div>
+														</li>
+
+														<li><label class="label-text-vm">Downlink {{item.Downlink}}%</label>
+															<div class="div-textarea ">
+																<div class="progress">
+																	<div class="progress-bar progress-bar-aqua  bg-aqua-active " v-bind:style="{width:item.Downlink+'%'}">
+																	</div>
+																</div>
+															</div>
+														</li>
+														<li><label class="label-text-vm"> Uplink {{item.Uplink}}%</label>
+															<div class="div-textarea ">
+																<div class="progress">
+																	<div class="progress-bar progress-bar-aqua  bg-aqua-active " v-bind:style="{width:item.Uplink+'%'}">
+																	</div>
+																</div>
+															</div>
+														</li>
+														<li>
+															<div class="slave">
+																<div class="col3">
+																	<button type="button" class="btn btn-block btn-primary" @click="openmodem(1)">Moden A</button>
+																</div>
+																<div class="col3">
+																	<button type="button" class="btn btn-block btn-primary" @click="openmodem(1)">Moden B</button>
+																</div>
+																<div class="col3">
+																	<button type="button" class="btn btn-block btn-primary" @click="openmodem(1)">Moden C</button>
+																</div>
+																<div class="col3">
+																	<button type="button" class="btn btn-block btn-primary" @click="openmodem(1)">Moden D</button>
+																</div>
+															</div>
+														</li>
+													</ul>
+												</div>
+											</div>
+
+										</div>
+										<!-- 数据循环魔板 -->
+
+									</div>
+
+									<!-- 列表 -->
+									<div v-show="cartab==2" style="display: none;">
+
+										<div class="box">
+
+											<div class="box-body table-responsive no-padding">
+												<table class="table table-hover">
+													<tbody>
+														<tr>
+															<th style="width:80px;">Number</th>
+															<th style="width: 80px;">Name</th>
+															<th style="width: 80px;">Level</th>
+															<th style="width: 80px;">IP Address</th>
+
+															<th>RRS HBS[Mbps]</th>
+															<th>RRS HSU[Mbps]</th>
+															<th>Downlink[Mbps]</th>
+															<th>Uplink[Mbps]</th>
+															<th style="width: 150px;">State</th>
+														</tr>
+														<tr v-for="(item,index) in HSU">
+															<td><a href="javascript:void(0);">{{index+1 | databig}}</a></td>
+															<td>{{item.name}}</td>
+															<td>{{item.Level}}</td>
+															<td>{{item.IP}}</td>
+
+															<td>{{item.HBS}}</td>
+															<td>{{item.HSU}}</td>
+															<td>{{item.Downlink}}</td>
+															<td>{{item.Uplink}}</td>
+															<td> <span> <small class="label  bg-aqua-active" :class="'bg-aqua-active-rest_'+item.start">
+																		{{item.start | hsustart}} </small>
+																</span>
+															</td>
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+									</div>
+									<!-- 列表 -->
+								</div>
+
+								<!-- 未激活 -->
+								<div class="error-page" style="background: #fff; margin-bottom: 20px">
+									<h2 class="headline text-yellow">HBS</h2>
+									<div class="error-content">
+										<h3>
+											<i class="fa fa-warning text-yellow"></i>
+											The main window for HBS is not configured
+										</h3>
+										<p>
+											<button type="button" @click="locationActivation" class="btn btn-block btn-warning" style="width: 90%;margin: 0px auto;">Activation
+												an HBS</button>
+											Welcome to HBS Activation wizard Click on the
+										</p>
+
+										<div class="input-group">
+										</div>
+									</div>
+								</div>
+								<!-- 未激活 end -->
+							</div>
+
+
+
+						</div>
+						<!-- events log  end-->
+
+
+						<!-- 右侧HBS 信息 -->
+						<div class="col-xs-3" style="padding-left: 0px;">
+							<!-- 扇区信息  -->
+							<div class="box">
+								<!-- /.box-header -->
+								<div class="box-body">
+									<ul class="col-grid-m-9font col-search-s pr0 all-li-pb10">
+										<li>
+											<div class="label-text-vm" style="position: relative; top: 33px;">
+
+												<span class="icon iconfont iconcaijishebeixinxichaxun" style="font-size: 84px;margin-left:13px;"></span>
+
+											</div>
+
+											<div class="div-textarea text-light-blue">
+												<p>sector id：ABC123456</p>
+
+												<p>站点编号：</p>
+												设备名称：
+											</div>
+										</li>
+
+										<li><label class="label-text-vm">设备经度</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+										<li><label class="label-text-vm">设备纬度</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+
+										<li><label class="label-text-vm">设备地址</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+										<li><label class="label-text-vm">管理者名称</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+
+										<li><label class="label-text-vm">管理者电话</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+										<li><label class="label-text-vm">建站时间</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+										<li><label class="label-text-vm">设备温度</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+
+
+										<li><label class="label-text-vm">设备启用时间</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+
+										<li><label class="label-text-vm">设备启用时间</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+
+										<li><label class="label-text-vm">GPS同步状态</label>
+											<div class="div-textarea text-light-blue">
+												<span class="icon iconfont iconkaiqi"></span>
+											</div>
+										</li>
+
+
+										<li class="border">
+											<label class="label-text-vm">Throuput吞吐量</label>
+											<div class="div-text-demo" style="padding-left: 95px">
+												<div class="col-md-4" style="padding-left: 0px">
+													<p class="tl text-light-blue">DL:40.0%</p>
+													<!-- <div class="progress">
+														<div class="progress-bar progress-bar-aqua  bg-green" style="width: 40%;"></div>
+													</div> -->
+												</div>
+												<div class="col-md-4 re" style="padding-left: 0px">
+													<p class="tl text-light-blue">UL:90.0%</p>
+													<!-- <div class="progress">
+														<div class="progress-bar progress-bar-aqua  bg-green" style="width: 90%;"></div>
+													</div> -->
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<!-- lab sectro   end-->
+
+							</div>
+							<!-- 扇区信息 end  -->
+
+
+
+							<!--  HBS -->
+							<div class="box">
+								<div class="box-header with-border">
+									<h3 class="box-title">Modem</h3>
+									<div class="box-tools pull-right" style="top: 9px;">
+										<span class="iconfont icon-jizhan-nomal"></span>
+
+									</div>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body">
+									<ul class="col-grid-s-9font   all-li-pb10">
+										<li><label class="label-text-vm">Modem ID</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+										<li><label class="label-text-vm">Modem SN</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+										<li><label class="label-text-vm">Modem型号</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+										<li><label class="label-text-vm">antenna type</label>
+											<div class="div-textarea text-light-blue">
+												MIMO & SISO
+											</div>
+										</li>
+
+										<li><label class="label-text-vm">band</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+
+										<li><label class="label-text-vm">frequency</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+
+										<li><label class="label-text-vm">当前工作带宽</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+
+										<li><label class="label-text-vm">network</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+
+										<li><label class="label-text-vm">Modem管理状态</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+
+										<li><label class="label-text-vm">rss info</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+										<li><label class="label-text-vm">rss info</label>
+											<div class="div-textarea text-light-blue">
+												数据...
+											</div>
+										</li>
+										<li class="border">
+											<label class="label-text-vm">Throuput吞吐量</label>
+											<div class="div-text-demo" style="padding-left: 95px">
+												<div class="col-md-4" style="padding-left: 0px">
+													<p class="tl text-light-blue">DL:40.0%</p>
+													<!-- <div class="progress">
+														<div class="progress-bar progress-bar-aqua  bg-green" style="width: 40%;"></div>
+													</div> -->
+												</div>
+												<div class="col-md-4 re" style="padding-left: 0px">
+													<p class="tl text-light-blue">UL:90.0%</p>
+													<!-- <div class="progress">
+														<div class="progress-bar progress-bar-aqua  bg-green" style="width: 90%;"></div>
+													</div> -->
+												</div>
+											</div>
+										</li>
+										<li><label class="label-text-vm">Tx Rate</label>
+											<div class="div-textarea text-light-blue">
+												88[Mbps]
+											</div>
+										</li>
+										<li><label class="label-text-vm">Rx Rate</label>
+											<div class="div-textarea text-light-blue">
+												88[Mbps]
+											</div>
+										</li>
+									</ul>
+								</div>
+								<!--  HBS end -->
+
+							</div>
+							<!-- 右侧HBS 信息 end-->
+
+
+							<!-- //OPEN SLAVE -->
+							<el-dialog :visible.sync="openslave" width="22%">
+								<div class="box box-widget widget-user-2">
+									<!-- Add the bg color to the header using any of the bg-* classes -->
+									<div class="widget-user-header bg-aqua-active">
+										<div class="widget-user-image">
+											<span class="icon iconfont iconshebei  img-circle"></span>
+										</div>
+										<!-- /.widget-user-image -->
+										<h3 class="widget-user-username">Modem型号</h3>
+										<h5 class="widget-user-desc">正在做业务</h5>
+									</div>
+
+
+									<div class="box-footer no-padding">
+										<ul class="nav nav-stacked">
+											<li><a href="#">上行速率 <span class="pull-right badge bg-blue">31 (Mbps)</span></a></li>
+											<li><a href="#">下行速率 <span class="pull-right badge bg-aqua">31 (Mbps)</span></a></li>
+											<li><a href="#">无线电信号强度<span class="pull-right badge bg-green">31 (Mbps)</span></a></li>
+											<li><a href="#">ATPC控制模式 <span class="pull-right badge bg-red">31 (Mbps)</span></a></li>
+										</ul>
+									</div>
+
+									<div class="box-footer">
+
+
+
+										<ul class="col-grid-m-6font col-search-s pr0 all-li-pb10">
+
+											<li class="res">
+												<div class="col-md-12 tc ">
+													<h5 class="description-header">RRS[dBm]</h5>
+												</div>
+											</li>
+											<li class="border">
+												<div class="col-md-6">
+													<p>HBS 10</p>
+													<div class="progress">
+														<div class="progress-bar progress-bar-aqua  bg-green" style="width: 10%;"></div>
+													</div>
+												</div>
+												<div class="col-md-6 re">
+													<p>HSU 30</p>
+													<div class="progress">
+														<div class="progress-bar progress-bar-aqua  bg-green" style="width: 30%;"></div>
+													</div>
+												</div>
+											</li>
+
+											<li class="res">
+												<div class="col-md-12 tc ">
+													<h5 class="description-header">Throughput[Mbps]</h5>
+												</div>
+											</li>
+											<li><label class="label-text-vm">Downlink 60%</label>
+												<div class="div-textarea ">
+													<div class="progress">
+														<div class="progress-bar progress-bar-aqua  bg-aqua-active " style="width: 60%;"></div>
+													</div>
+												</div>
+											</li>
+											<li><label class="label-text-vm"> Uplink 20%</label>
+												<div class="div-textarea ">
+													<div class="progress">
+														<div class="progress-bar progress-bar-aqua  bg-aqua-active " style="width: 20%;"></div>
+													</div>
+												</div>
+											</li>
+
+										</ul>
+
+										<!-- /.row -->
+									</div>
+								</div>
+
+							</el-dialog>
+
+
+						</div>
+
+
+				</section>
+
+
+
+
+			</div>
+			<!-- 内容区域 -->
+
+			<!-- 底部 -->
+			<!--   <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 2.4.0
+            </div>
+            <strong>Copyright © 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+            reserved.
+        </footer> -->
+			<!-- 底部 -->
+		</div>
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/vue.js"></script>
+		<script type="text/javascript" src="assets/js/index.js"></script>
+		<script type="text/javascript" src="assets/js/comment.js"></script>
+		<script type="text/javascript" src="assets/js/adminlte.js"></script>
+
+
+		<script>
+			var showload = sessionStorage.getItem("$showload");
+			console.log(showload);
+
+			let data = {
+				acti: showload,
+				d: "",
+				active: "active",
+				cartab: 1,
+				s: true,
+				radio: '1',
+				value1: 1,
+				Switch: false,
+				starts: 1,
+				value2: true,
+				vv: false,
+				value3: '',
+				configure: false,
+				hsulength: 0,
+
+
+				openslave: false,
+
+				HSU: [{
+						"IP": "10.104.50.3",
+						"MAC": "DDD-123",
+						"Loc": "HNU01.01",
+						"Level": "B",
+						"HBS": 30,
+						"HSU": 10,
+						"Downlink": 60,
+						"Uplink": 20,
+						"start": 0
+					},
+					{
+						"IP": "88.104.50.3",
+						"MAC": "DDD-123",
+						"Loc": "baidu.01",
+						"Level": "C",
+						"HBS": 10,
+						"HSU": 90,
+						"Downlink": 20,
+						"Uplink": 90,
+						"start": 0
+					}, {
+						"IP": "10.104.50.3",
+						"MAC": "DDD-123",
+						"Loc": "HNU01.01",
+						"Level": "B",
+						"HBS": 30,
+						"HSU": 10,
+						"Downlink": 60,
+						"Uplink": 20,
+						"start": 1
+					}
+				]
+
+			};
+			var Helios = new Vue({
+				el: "#MainContext",
+				data: data,
+
+				beforeMount() {
+					this.$data.hsulength = this.$data.HSU.length;
+
+				},
+				mounted() {
+					/* console.log("时时监控数据变化,并随之更新");*/
+					$("body").resize();
+					/*  if (this.$data.starts == 1) {
+					     this.$data.starts += 1;
+					     this.$refs.setInterColor.style.color = "#00c0ef ";
+					    
+					     setInterval(() => {
+					         this.$refs.setInterColor.style.color = "#ff0000";
+					         this.$data.starts -= 1;
+					     }, 1000);
+					 } else {
+					 } */
+
+					if (this.$refs.setInterColor != undefined) {
+						setInterval(() => {
+							if (this.$data.starts == 1) {
+								this.$refs.setInterColor.style.color = "#ff0000";
+								this.$data.starts -= 1;
+							} else {
+								this.$refs.setInterColor.style.color = "#00c0ef ";
+								this.$data.starts += 1;
+							}
+						}, 1000);
+					} else {
+						console.log(2222);
+					}
+
+				},
+				//事件
+				methods: {
+					b1() {
+						toast.$notify({
+							title: '成功',
+							message: '数据请求成功',
+							type: 'success',
+							duration: 1000
+						});
+					},
+					close() {
+						this.$data.s = false;
+						console.log(this.$data.s);
+					},
+					//open slave
+					openmodem() {
+						Helios.openslave = true;
+						//console.log(arguments[0]);
+					},
+					//激活HBS
+					locationActivation() {
+						window.location.href = "Activation.html";
+					},
+					location1() {
+						window.location.href = "hsulist.html";
+					}
+				},
+				filters: {
+					hsustart(e) {
+						if (1 == e) {
+							return "(离线)"
+						} else if (2 == e) {
+							return "(非建链)"
+						} else if (3 == e) {
+							return "(The business is limited)"
+						} else {
+							return "工作中"
+						}
+					},
+					databig(e) {
+						if (e < 10) {
+							return "0" + e;
+						} else {
+							return e;
+						}
+					}
+				},
+
+
+
+			});
+		</script>
+
+
+	</body>
+
+
+</html>
